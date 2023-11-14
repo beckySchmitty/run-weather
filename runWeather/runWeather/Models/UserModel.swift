@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class User: ObservableObject {
     @Published var zipCode: String
     @Published var locationKey: String
