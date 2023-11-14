@@ -7,7 +7,6 @@
 
 import Foundation
 //API Docs: https://developer.accuweather.com/accuweather-locations-api/apis
-
 let baseURL = "https://dataservice.accuweather.com/locations/v1/postalcodes/us/"
 
 class LocationStore: ObservableObject {

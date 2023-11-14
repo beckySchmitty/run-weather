@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    let user = User()
+    @StateObject var user = User()
+    @StateObject var locationStore = LocationStore()
+    
     
     var body: some View {
         ZStack {
             TabView {
                 Group {
-                    HourlyWeatherView()
+                    HourlyWeatherView(user: user)
                 }
                 .tabItem {
                     Label("Hourly", systemImage: "clock")
@@ -27,9 +29,7 @@ struct ContentView: View {
                 }
             }
         }
+        .environmentObject(locationStore)
     }
 }
 
-#Preview {
-    ContentView()
-}

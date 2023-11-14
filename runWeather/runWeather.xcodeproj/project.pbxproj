@@ -36,12 +36,15 @@
 		2CBEBC732B03BFFA007B7391 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC722B03BFFA007B7391 /* ProfileView.swift */; };
 		2CBEBC742B03BFFA007B7391 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC722B03BFFA007B7391 /* ProfileView.swift */; };
 		2CBEBC752B03BFFA007B7391 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC722B03BFFA007B7391 /* ProfileView.swift */; };
-		2CBEBC772B03C038007B7391 /* ZipCodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC762B03C038007B7391 /* ZipCodeInputView.swift */; };
-		2CBEBC782B03C038007B7391 /* ZipCodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC762B03C038007B7391 /* ZipCodeInputView.swift */; };
-		2CBEBC792B03C038007B7391 /* ZipCodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC762B03C038007B7391 /* ZipCodeInputView.swift */; };
 		2CBEBC7B2B03C08D007B7391 /* HourlyWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC7A2B03C08D007B7391 /* HourlyWeatherView.swift */; };
 		2CBEBC7C2B03C08D007B7391 /* HourlyWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC7A2B03C08D007B7391 /* HourlyWeatherView.swift */; };
 		2CBEBC7D2B03C08D007B7391 /* HourlyWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC7A2B03C08D007B7391 /* HourlyWeatherView.swift */; };
+		2CBEBC8E2B03E439007B7391 /* NoWeatherDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC8D2B03E439007B7391 /* NoWeatherDataView.swift */; };
+		2CBEBC8F2B03E439007B7391 /* NoWeatherDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC8D2B03E439007B7391 /* NoWeatherDataView.swift */; };
+		2CBEBC902B03E439007B7391 /* NoWeatherDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC8D2B03E439007B7391 /* NoWeatherDataView.swift */; };
+		2CBEBC922B03E473007B7391 /* HourDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC912B03E473007B7391 /* HourDetailView.swift */; };
+		2CBEBC932B03E473007B7391 /* HourDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC912B03E473007B7391 /* HourDetailView.swift */; };
+		2CBEBC942B03E473007B7391 /* HourDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC912B03E473007B7391 /* HourDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,8 +83,9 @@
 		2CBEBC6A2B03BF6F007B7391 /* HourlyWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherModel.swift; sourceTree = "<group>"; };
 		2CBEBC6E2B03BF90007B7391 /* HourlyWeatherStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherStore.swift; sourceTree = "<group>"; };
 		2CBEBC722B03BFFA007B7391 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		2CBEBC762B03C038007B7391 /* ZipCodeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipCodeInputView.swift; sourceTree = "<group>"; };
 		2CBEBC7A2B03C08D007B7391 /* HourlyWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherView.swift; sourceTree = "<group>"; };
+		2CBEBC8D2B03E439007B7391 /* NoWeatherDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoWeatherDataView.swift; sourceTree = "<group>"; };
+		2CBEBC912B03E473007B7391 /* HourDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,11 +186,9 @@
 		2CBEBC582B03BE26007B7391 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2CBEBC2B2B03BA98007B7391 /* runWeatherApp.swift */,
-				2CBEBC2D2B03BA98007B7391 /* ContentView.swift */,
-				2CBEBC7A2B03C08D007B7391 /* HourlyWeatherView.swift */,
-				2CBEBC762B03C038007B7391 /* ZipCodeInputView.swift */,
-				2CBEBC722B03BFFA007B7391 /* ProfileView.swift */,
+				2CBEBC7E2B03D4BE007B7391 /* Main */,
+				2CBEBC7F2B03D4D4007B7391 /* HourlyTab */,
+				2CBEBC802B03D4E0007B7391 /* ProfileTab */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -197,6 +199,33 @@
 				2CBEBC622B03BF0E007B7391 /* apiKey.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		2CBEBC7E2B03D4BE007B7391 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				2CBEBC2B2B03BA98007B7391 /* runWeatherApp.swift */,
+				2CBEBC2D2B03BA98007B7391 /* ContentView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		2CBEBC7F2B03D4D4007B7391 /* HourlyTab */ = {
+			isa = PBXGroup;
+			children = (
+				2CBEBC7A2B03C08D007B7391 /* HourlyWeatherView.swift */,
+				2CBEBC8D2B03E439007B7391 /* NoWeatherDataView.swift */,
+				2CBEBC912B03E473007B7391 /* HourDetailView.swift */,
+			);
+			path = HourlyTab;
+			sourceTree = "<group>";
+		};
+		2CBEBC802B03D4E0007B7391 /* ProfileTab */ = {
+			isa = PBXGroup;
+			children = (
+				2CBEBC722B03BFFA007B7391 /* ProfileView.swift */,
+			);
+			path = ProfileTab;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,12 +361,13 @@
 			files = (
 				2CBEBC5F2B03BED8007B7391 /* LocationStore.swift in Sources */,
 				2CBEBC732B03BFFA007B7391 /* ProfileView.swift in Sources */,
+				2CBEBC8E2B03E439007B7391 /* NoWeatherDataView.swift in Sources */,
 				2CBEBC632B03BF0E007B7391 /* apiKey.swift in Sources */,
 				2CBEBC2E2B03BA98007B7391 /* ContentView.swift in Sources */,
 				2CBEBC6F2B03BF90007B7391 /* HourlyWeatherStore.swift in Sources */,
+				2CBEBC922B03E473007B7391 /* HourDetailView.swift in Sources */,
 				2CBEBC5B2B03BEB1007B7391 /* LocationModel.swift in Sources */,
 				2CBEBC7B2B03C08D007B7391 /* HourlyWeatherView.swift in Sources */,
-				2CBEBC772B03C038007B7391 /* ZipCodeInputView.swift in Sources */,
 				2CBEBC672B03BF3D007B7391 /* UserModel.swift in Sources */,
 				2CBEBC6B2B03BF6F007B7391 /* HourlyWeatherModel.swift in Sources */,
 				2CBEBC2C2B03BA98007B7391 /* runWeatherApp.swift in Sources */,
@@ -353,11 +383,12 @@
 				2CBEBC7C2B03C08D007B7391 /* HourlyWeatherView.swift in Sources */,
 				2CBEBC6C2B03BF6F007B7391 /* HourlyWeatherModel.swift in Sources */,
 				2CBEBC3D2B03BA99007B7391 /* runWeatherTests.swift in Sources */,
-				2CBEBC782B03C038007B7391 /* ZipCodeInputView.swift in Sources */,
 				2CBEBC702B03BF90007B7391 /* HourlyWeatherStore.swift in Sources */,
 				2CBEBC642B03BF0E007B7391 /* apiKey.swift in Sources */,
 				2CBEBC682B03BF3D007B7391 /* UserModel.swift in Sources */,
 				2CBEBC602B03BED8007B7391 /* LocationStore.swift in Sources */,
+				2CBEBC932B03E473007B7391 /* HourDetailView.swift in Sources */,
+				2CBEBC8F2B03E439007B7391 /* NoWeatherDataView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,12 +398,13 @@
 			files = (
 				2CBEBC612B03BED8007B7391 /* LocationStore.swift in Sources */,
 				2CBEBC752B03BFFA007B7391 /* ProfileView.swift in Sources */,
+				2CBEBC902B03E439007B7391 /* NoWeatherDataView.swift in Sources */,
 				2CBEBC652B03BF0E007B7391 /* apiKey.swift in Sources */,
 				2CBEBC472B03BA99007B7391 /* runWeatherUITests.swift in Sources */,
 				2CBEBC712B03BF90007B7391 /* HourlyWeatherStore.swift in Sources */,
+				2CBEBC942B03E473007B7391 /* HourDetailView.swift in Sources */,
 				2CBEBC5D2B03BEB1007B7391 /* LocationModel.swift in Sources */,
 				2CBEBC7D2B03C08D007B7391 /* HourlyWeatherView.swift in Sources */,
-				2CBEBC792B03C038007B7391 /* ZipCodeInputView.swift in Sources */,
 				2CBEBC692B03BF3D007B7391 /* UserModel.swift in Sources */,
 				2CBEBC6D2B03BF6F007B7391 /* HourlyWeatherModel.swift in Sources */,
 				2CBEBC492B03BA99007B7391 /* runWeatherUITestsLaunchTests.swift in Sources */,
