@@ -14,6 +14,7 @@
 		2CBEBC3D2B03BA99007B7391 /* runWeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC3C2B03BA99007B7391 /* runWeatherTests.swift */; };
 		2CBEBC472B03BA99007B7391 /* runWeatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC462B03BA99007B7391 /* runWeatherUITests.swift */; };
 		2CBEBC492B03BA99007B7391 /* runWeatherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC482B03BA99007B7391 /* runWeatherUITestsLaunchTests.swift */; };
+		2CBEBC562B03BC0D007B7391 /* ACCUWEATHER-info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CBEBC552B03BC0D007B7391 /* ACCUWEATHER-info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		2CBEBC422B03BA99007B7391 /* runWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = runWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBEBC462B03BA99007B7391 /* runWeatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = runWeatherUITests.swift; sourceTree = "<group>"; };
 		2CBEBC482B03BA99007B7391 /* runWeatherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = runWeatherUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2CBEBC552B03BC0D007B7391 /* ACCUWEATHER-info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ACCUWEATHER-info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 		2CBEBC1F2B03BA98007B7391 = {
 			isa = PBXGroup;
 			children = (
+				2CBEBC552B03BC0D007B7391 /* ACCUWEATHER-info.plist */,
 				2CBEBC2A2B03BA98007B7391 /* runWeather */,
 				2CBEBC3B2B03BA99007B7391 /* runWeatherTests */,
 				2CBEBC452B03BA99007B7391 /* runWeatherUITests */,
@@ -231,6 +234,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CBEBC562B03BC0D007B7391 /* ACCUWEATHER-info.plist in Resources */,
 				2CBEBC332B03BA99007B7391 /* Preview Assets.xcassets in Resources */,
 				2CBEBC302B03BA99007B7391 /* Assets.xcassets in Resources */,
 			);
