@@ -19,14 +19,6 @@ struct NoWeatherDataView: View {
 				.frame(width: 100, height: 100)
 			Text("Update your profile to see the weather forecast")
 				.font(.title)
-			Button("Load Test Data") {
-				hourlyWeatherStore.loadTestData()
-				user.locationKey = "not empty"
-			}
-			.padding()
-			.background(Color.blue)
-			.foregroundColor(.white)
-			.cornerRadius(10)
 		}
 	}
 }
