@@ -8,42 +8,67 @@
 import SwiftUI
 
 struct HourlyWeatherView: View {
-    @StateObject var hourlyWeatherStore = HourlyWeatherStore()
-    @ObservedObject var user: User
+	@StateObject var hourlyWeatherStore = HourlyWeatherStore()
+	@ObservedObject var user: User
+	@State private var onlyShowSunny = false
 
-    var body: some View {
-        NavigationStack {
-            if user.locationKey.isEmpty {
-                NoWeatherDataView()
-            } else {
-                List(hourlyWeatherStore.hourlyWeather, id: \.epochDateTime) { weather in
-                    NavigationLink(destination: HourDetailView(weather: weather)) {
-                        HStack {
-                            Image(systemName: weather.iconPhrase.contains("Sunny") ? "sun.max.fill" : "cloud.fill")
-                                .foregroundColor(weather.iconPhrase.contains("Sunny") ? .yellow : .gray)
-                            VStack(alignment: .leading) {
-                                Text(weather.iconPhrase)
-                                Text("\(String.formatAsInteger(weather.temperature)) \(weather.temperatureUnit)")
-                            }
-                        }
-                    }
-                }
-                .navigationTitle("Hourly Weather")
-                .toolbar {
-                    Button("Refresh") {
-                        hourlyWeatherStore.loadWeatherData(locationKey: user.locationKey)
-                    }
-                }
-            }
-        }
-        .onChange(of: user.locationKey) { oldValue, newValue in
-            if oldValue != newValue && !newValue.isEmpty {
-                Task {
-                    await MainActor.run {
-                        hourlyWeatherStore.loadWeatherData(locationKey: newValue)
-                    }
-                }
-            }
-        }
-    }
+	var filteredWeather: [HourlyWeather] {
+		onlyShowSunny ? hourlyWeatherStore.hourlyWeather.filter { $0.iconPhrase.lowercased().contains("sunny") }
+		: hourlyWeatherStore.hourlyWeather
+	}
+
+	var body: some View {
+		NavigationStack {
+			if user.locationKey.isEmpty {
+				NoWeatherDataView(hourlyWeatherStore: hourlyWeatherStore, user: user)
+			} else {
+				List {
+					ForEach(hourlyWeatherStore.hourlyWeather.filter { weather in
+						!onlyShowSunny || weather.iconPhrase.lowercased().contains("sunny")
+					}, id: \.epochDateTime) { weather in
+						NavigationLink(destination: HourDetailView(weather: weather)) {
+							HStack {
+								Image(systemName: weather.iconPhrase.lowercased().contains("sunny") ? "sun.max.fill" : "cloud.fill")
+										.foregroundColor(weather.iconPhrase.lowercased().contains("sunny") ? .yellow : .gray)
+								Text("\(String.formatAsInteger(weather.temperature)) \(weather.temperatureUnit)")
+								VStack(alignment: .leading) {
+									Text(weather.iconPhrase)
+									Text(weather.dateTime)
+								}
+							}
+						}
+					}
+				}
+				.navigationTitle("Hourly Weather")
+				.toolbar {
+					ToolbarItem(placement: .navigationBarLeading) {
+						Button(action: {
+							hourlyWeatherStore.loadWeatherData(locationKey: user.locationKey)
+						}) {
+							Image(systemName: "arrow.clockwise")
+								.imageScale(.medium)
+						}
+					}
+					ToolbarItem(placement: .navigationBarTrailing) {
+						Toggle(isOn: $onlyShowSunny) {
+							Image(systemName: "sun.max.fill")
+								.imageScale(.large)
+								.frame(width: 44, height: 44)
+						}
+						.labelsHidden()
+						.tint(.blue)
+					}
+				}
+			}
+		}
+		.onChange(of: user.locationKey) { oldValue, newValue in
+			if oldValue != newValue && !newValue.isEmpty {
+				Task {
+					await MainActor.run {
+						hourlyWeatherStore.loadWeatherData(locationKey: newValue)
+					}
+				}
+			}
+		}
+	}
 }
