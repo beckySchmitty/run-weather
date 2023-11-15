@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct HourlyWeatherView: View {
-	@StateObject var hourlyWeatherStore = HourlyWeatherStore()
+	@EnvironmentObject var hourlyWeatherStore: HourlyWeatherStore
+	@EnvironmentObject var appSettings: AppSettings
 	@ObservedObject var user: User
 	@State private var onlyShowSunny = false
 
@@ -29,7 +30,7 @@ struct HourlyWeatherView: View {
 						NavigationLink(destination: HourDetailView(weather: weather)) {
 							HStack {
 								Image(systemName: weather.iconPhrase.lowercased().contains("sunny") ? "sun.max.fill" : "cloud.fill")
-										.foregroundColor(weather.iconPhrase.lowercased().contains("sunny") ? .yellow : .gray)
+									.foregroundColor(weather.iconPhrase.lowercased().contains("sunny") ? .yellow : .gray)
 								Text("\(String.formatAsInteger(weather.temperature)) \(weather.temperatureUnit)")
 								VStack(alignment: .leading) {
 									Text(weather.iconPhrase)
@@ -62,11 +63,9 @@ struct HourlyWeatherView: View {
 			}
 		}
 		.onChange(of: user.locationKey) { oldValue, newValue in
-			if oldValue != newValue && !newValue.isEmpty {
+			if !appSettings.isTestDataEnabled && oldValue != newValue && !newValue.isEmpty {
 				Task {
-					await MainActor.run {
-						hourlyWeatherStore.loadWeatherData(locationKey: newValue)
-					}
+					await hourlyWeatherStore.loadWeatherData(locationKey: newValue)
 				}
 			}
 		}

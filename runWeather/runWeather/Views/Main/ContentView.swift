@@ -8,24 +8,24 @@ import SwiftUI
 struct ContentView: View {
 	@StateObject var user = User()
 	@StateObject var locationStore = LocationStore()
+	@StateObject var hourlyWeatherStore = HourlyWeatherStore()
+	@StateObject var appSettings = AppSettings()
 
 	var body: some View {
 		ZStack {
 			TabView {
-				Group {
-					HourlyWeatherView(user: user)
-				}
-				.tabItem {
-					Label("Hourly", systemImage: "clock")
-				}
-				Group {
-					ProfileView(user: user)
-				}
-				.tabItem {
-					Label("Profile", systemImage: "person.fill")
-				}
+				HourlyWeatherView(user: user)
+					.tabItem {
+						Label("Hourly", systemImage: "clock")
+					}
+				ProfileView(user: user)
+					.tabItem {
+						Label("Profile", systemImage: "person.fill")
+					}
 			}
 		}
 		.environmentObject(locationStore)
+		.environmentObject(hourlyWeatherStore)
+		.environmentObject(appSettings)
 	}
 }
