@@ -45,6 +45,7 @@
 		2CBEBC922B03E473007B7391 /* HourDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC912B03E473007B7391 /* HourDetailView.swift */; };
 		2CBEBC932B03E473007B7391 /* HourDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC912B03E473007B7391 /* HourDetailView.swift */; };
 		2CBEBC942B03E473007B7391 /* HourDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC912B03E473007B7391 /* HourDetailView.swift */; };
+		2CC42B9B2B04768C00BE4E68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CC42B9A2B04768C00BE4E68 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		2CBEBC7A2B03C08D007B7391 /* HourlyWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherView.swift; sourceTree = "<group>"; };
 		2CBEBC8D2B03E439007B7391 /* NoWeatherDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoWeatherDataView.swift; sourceTree = "<group>"; };
 		2CBEBC912B03E473007B7391 /* HourDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourDetailView.swift; sourceTree = "<group>"; };
+		2CC42B9A2B04768C00BE4E68 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 		2CBEBC1F2B03BA98007B7391 = {
 			isa = PBXGroup;
 			children = (
+				2CC42B9A2B04768C00BE4E68 /* LaunchScreen.storyboard */,
 				2CBEBC552B03BC0D007B7391 /* ACCUWEATHER-info.plist */,
 				2CBEBC2A2B03BA98007B7391 /* runWeather */,
 				2CBEBC3B2B03BA99007B7391 /* runWeatherTests */,
@@ -337,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CBEBC562B03BC0D007B7391 /* ACCUWEATHER-info.plist in Resources */,
+				2CC42B9B2B04768C00BE4E68 /* LaunchScreen.storyboard in Resources */,
 				2CBEBC332B03BA99007B7391 /* Preview Assets.xcassets in Resources */,
 				2CBEBC302B03BA99007B7391 /* Assets.xcassets in Resources */,
 			);
