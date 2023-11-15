@@ -1,17 +1,14 @@
 //
-//  ContentView.swift
+//  ContentView.swif
 //  runWeather
 //
 //  Created by Becky Schmitthenner on 11/14/23.
-//
-
 import SwiftUI
 
 struct ContentView: View {
     @StateObject var user = User()
     @StateObject var locationStore = LocationStore()
-    
-    
+
     var body: some View {
         ZStack {
             TabView {
@@ -32,4 +29,3 @@ struct ContentView: View {
         .environmentObject(locationStore)
     }
 }
-

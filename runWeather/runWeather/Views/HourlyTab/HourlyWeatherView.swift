@@ -1,5 +1,5 @@
 //
-//  HourlyWeatherView.swift
+//  HourlyWeatherView.swif
 //  runWeather
 //
 //  Created by Becky Schmitthenner on 11/14/23.
@@ -10,7 +10,7 @@ import SwiftUI
 struct HourlyWeatherView: View {
     @StateObject var hourlyWeatherStore = HourlyWeatherStore()
     @ObservedObject var user: User
-    
+
     var body: some View {
         NavigationStack {
             if user.locationKey.isEmpty {
@@ -19,7 +19,6 @@ struct HourlyWeatherView: View {
                 List(hourlyWeatherStore.hourlyWeather, id: \.epochDateTime) { weather in
                     NavigationLink(destination: HourDetailView(weather: weather)) {
                         HStack {
-                            //                            TODO: Expand icon logic
                             Image(systemName: weather.iconPhrase.contains("Sunny") ? "sun.max.fill" : "cloud.fill")
                                 .foregroundColor(weather.iconPhrase.contains("Sunny") ? .yellow : .gray)
                             VStack(alignment: .leading) {

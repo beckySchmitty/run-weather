@@ -1,5 +1,5 @@
 //
-//  HourDetailView.swift
+//  HourDetailView.swif
 //  runWeather
 //
 //  Created by Becky Schmitthenner on 11/14/23.
@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HourDetailView: View {
     let weather: HourlyWeather
-    
+
     var body: some View {
         VStack {
             Text("Date Time: \(weather.dateTime)")
@@ -27,4 +27,3 @@ struct HourDetailView: View {
         .padding()
     }
 }
-
