@@ -1,5 +1,5 @@
 //
-//  NoWeatherDataView.swif
+//  NoWeatherDataView.swift
 //  runWeather
 //
 //  Created by Becky Schmitthenner on 11/14/23.
