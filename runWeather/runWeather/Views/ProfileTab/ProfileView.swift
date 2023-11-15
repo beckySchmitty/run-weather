@@ -13,7 +13,7 @@ struct ProfileView: View {
     @State private var inputZipCode: String = ""
     @State private var showAlert = false
     @State private var alertMessage = ""
-    
+
     var body: some View {
         VStack {
             Spacer()
@@ -38,19 +38,19 @@ struct ProfileView: View {
             Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }
     }
-    
+
     private func asyncSubmit() {
         Task {
             await findAndSetLocation(zipCode: inputZipCode)
         }
     }
-    
+
     private func findAndSetLocation(zipCode: String) async {
         if validateAndAssignZipCode() {
             await fetchLocationKeyAndUpdateUser()
         }
     }
-    
+
     private func validateAndAssignZipCode() -> Bool {
         let trimmedZipCode = inputZipCode.trimmingCharacters(in: .whitespaces)
         if trimmedZipCode.count == 5 && trimmedZipCode.allSatisfy(\.isNumber) {
@@ -64,7 +64,7 @@ struct ProfileView: View {
             return false
         }
     }
-    
+
     private func fetchLocationKeyAndUpdateUser() async {
         Task {
             do {

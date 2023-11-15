@@ -1,5 +1,5 @@
 //
-//  runWeatherUITestsLaunchTests.swift
+//  runWeatherUITestsLaunchTests.swif
 //  runWeatherUITests
 //
 //  Created by Becky Schmitthenner on 11/14/23.
@@ -7,7 +7,7 @@
 
 import XCTest
 
-final class runWeatherUITestsLaunchTests: XCTestCase {
+final class RunWeatherUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

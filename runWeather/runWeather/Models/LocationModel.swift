@@ -24,7 +24,7 @@ struct LocationResponse: Decodable {
     let parentCity: ParentCity
     let supplementalAdminAreas: [SupplementalAdminArea]
     let dataSets: [String]
-    
+
     enum CodingKeys: String, CodingKey {
         case version = "Version"
         case key = "Key"
@@ -49,7 +49,7 @@ struct Region: Decodable {
     let id: String
     let localizedName: String
     let englishName: String
-    
+
     enum CodingKeys: String, CodingKey {
         case id = "ID"
         case localizedName = "LocalizedName"
@@ -61,7 +61,7 @@ struct Country: Decodable {
     let id: String
     let localizedName: String
     let englishName: String
-    
+
     enum CodingKeys: String, CodingKey {
         case id = "ID"
         case localizedName = "LocalizedName"
@@ -77,7 +77,7 @@ struct AdministrativeArea: Decodable {
     let localizedType: String
     let englishType: String
     let countryID: String
-    
+
     enum CodingKeys: String, CodingKey {
         case id = "ID"
         case localizedName = "LocalizedName"
@@ -95,7 +95,7 @@ struct TimeZoneInfo: Decodable {
     let gmtOffset: Double
     let isDaylightSaving: Bool
     let nextOffsetChange: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case code = "Code"
         case name = "Name"
@@ -109,24 +109,24 @@ struct GeoPosition: Decodable {
     let latitude: Double?
     let longitude: Double?
     let elevation: Elevation?
-    
-    struct Elevation: Decodable {
-        let metric: Measurement
-        let imperial: Measurement
-        
-        struct Measurement: Decodable {
-            let value: Double
-            let unit: String
-            let unitType: Int
-        }
-    }
+}
+
+struct Elevation: Decodable {
+    let metric: ElevationMeasurement
+    let imperial: ElevationMeasurement
+}
+
+struct ElevationMeasurement: Decodable {
+    let value: Double
+    let unit: String
+    let unitType: Int
 }
 
 struct ParentCity: Decodable {
     let key: String
     let localizedName: String
     let englishName: String
-    
+
     enum CodingKeys: String, CodingKey {
         case key = "Key"
         case localizedName = "LocalizedName"
@@ -138,7 +138,7 @@ struct SupplementalAdminArea: Decodable {
     let level: Int
     let localizedName: String
     let englishName: String
-    
+
     enum CodingKeys: String, CodingKey {
         case level = "Level"
         case localizedName = "LocalizedName"
