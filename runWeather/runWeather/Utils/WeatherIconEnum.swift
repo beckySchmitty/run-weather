@@ -112,8 +112,6 @@ enum WeatherIcon: Int {
 			return "cloud.moon.fill"
 		case .partlyCloudy:
 			return "cloud.moon.fill"
-		default:
-			return "questionmark.circle.fill"
 		}
 	}
 }

@@ -17,10 +17,8 @@ func convertToMonthDayYear(_ dateString: String) -> String? {
 		print("Invalid date string")
 		return nil
 	}
-	
 	let outputFormatter = DateFormatter()
 	outputFormatter.dateFormat = "MMMM, dd - yyyy"
-	
 	return outputFormatter.string(from: date)
 }
 

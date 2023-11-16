@@ -24,7 +24,7 @@ struct LocationResponse: Decodable {
 	let parentCity: ParentCity
 	let supplementalAdminAreas: [SupplementalAdminArea]
 	let dataSets: [String]
-	
+
 	enum CodingKeys: String, CodingKey {
 		case version = "Version"
 		case key = "Key"

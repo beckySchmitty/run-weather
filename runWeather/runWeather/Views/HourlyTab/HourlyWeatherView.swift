@@ -22,7 +22,9 @@ struct HourlyWeatherView: View {
 	var body: some View {
 		NavigationStack {
 			if user.locationKey.isEmpty {
-				NoWeatherDataView(hourlyWeatherStore: hourlyWeatherStore, user: user)
+//				NoWeatherDataView(hourlyWeatherStore: hourlyWeatherStore, user: user)
+				NoWeatherDataView()
+
 			} else {
 				List(filteredWeather, id: \.epochDateTime) { weather in
 					HourlyWeatherRow(weather: weather)
