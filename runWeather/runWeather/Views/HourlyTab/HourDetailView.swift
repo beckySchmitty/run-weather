@@ -4,26 +4,43 @@
 //
 //  Created by Becky Schmitthenner on 11/14/23.
 //
-
 import SwiftUI
 
 struct HourDetailView: View {
 	let weather: HourlyWeather
 	
 	var body: some View {
-		VStack {
-			Text("Date Time: \(weather.dateTime)")
-			Text("Epoch Date Time: \(weather.epochDateTime)")
-			Text("Weather Icon: \(weather.weatherIcon)")
-			Text("Icon Phrase: \(weather.iconPhrase)")
-			Text("Has Precipitation: \(weather.hasPrecipitation ? "Yes" : "No")")
-			Text("Is Daylight: \(weather.isDaylight ? "Yes" : "No")")
-			Text("Temperature: \(weather.temperature) \(weather.temperatureUnit)")
-			Text("Precipitation Probability: \(weather.precipitationProbability)%")
-			//            Text("Mobile Link: \(weather.mobileLink)")
-			//            Text("Link: \(weather.link)")
+		ScrollView {
+			VStack {
+				Spacer()
+				
+				VStack(alignment: .leading, spacing: 20) {
+					Text(weather.iconPhrase.uppercased())
+						.font(.title)
+						.fontWeight(.bold)
+						.foregroundColor(.white)
+					
+					Text("\(Int(weather.temperature.rounded()))°")
+						.font(.system(size: 80, weight: .thin))
+						.foregroundColor(.white)
+					
+					HourDetailCardView(title: "Date Time", value: "\(convertToMonthDayYear(weather.dateTime) ?? "N/A"), \(convertToHourWithTimeZone(weather.dateTime) ?? "N/A")")
+					HourDetailCardView(title: "Temperature", value: "\(Int(weather.temperature.rounded())) \(weather.temperatureUnit)")
+					HourDetailCardView(title: "Precipitation Probability", value: "\(weather.precipitationProbability)%")
+					
+					Spacer() 
+				}
+				.padding()
+				.frame(maxWidth: .infinity, alignment: .leading)
+				.background(Color.blue)
+				.cornerRadius(20)
+				.padding(.horizontal)
+				
+				Spacer()
+			}
+			.background(Color.white)
 		}
 		.navigationTitle("Hourly Detail")
-		.padding()
+		.navigationBarTitleDisplayMode(.inline)
 	}
 }

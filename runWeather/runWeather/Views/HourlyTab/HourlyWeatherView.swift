@@ -12,6 +12,7 @@ struct HourlyWeatherView: View {
 	@EnvironmentObject var appSettings: AppSettings
 	@ObservedObject var user: User
 	@State private var onlyShowSunny = false
+	@State private var isAnimating = false
 
 	var filteredWeather: [HourlyWeather] {
 		onlyShowSunny ? hourlyWeatherStore.hourlyWeather.filter { $0.iconPhrase.lowercased().contains("sunny") }
@@ -23,47 +24,50 @@ struct HourlyWeatherView: View {
 			if user.locationKey.isEmpty {
 				NoWeatherDataView(hourlyWeatherStore: hourlyWeatherStore, user: user)
 			} else {
-				List {
-					ForEach(hourlyWeatherStore.hourlyWeather.filter { weather in
-						!onlyShowSunny || weather.iconPhrase.lowercased().contains("sunny")
-					}, id: \.epochDateTime) { weather in
-						NavigationLink(destination: HourDetailView(weather: weather)) {
-							HStack {
-								Image(systemName: weather.iconPhrase.lowercased().contains("sunny") ? "sun.max.fill" : "cloud.fill")
-									.foregroundColor(weather.iconPhrase.lowercased().contains("sunny") ? .yellow : .gray)
-								Text("\(String.formatAsInteger(weather.temperature)) \(weather.temperatureUnit)")
-								VStack(alignment: .leading) {
-									Text(weather.iconPhrase)
-									Text(weather.dateTime)
-								}
-							}
-						}
-					}
+				List(filteredWeather, id: \.epochDateTime) { weather in
+					HourlyWeatherRow(weather: weather)
 				}
 				.navigationTitle("Hourly Weather")
 				.toolbar {
 					ToolbarItem(placement: .navigationBarLeading) {
 						Button(action: {
-							hourlyWeatherStore.loadWeatherData(locationKey: user.locationKey)
+							isAnimating = true
+
+							withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: false)) {
+								// Explicitly trigger the animation
+								self.isAnimating = true
+							}
+
+							Task {
+								await hourlyWeatherStore.loadWeatherData(locationKey: user.locationKey)
+								withAnimation {
+									self.isAnimating = false
+								}
+							}
 						}) {
 							Image(systemName: "arrow.clockwise")
 								.imageScale(.medium)
+								.scaleEffect(isAnimating ? 3 : 1)
+								.rotationEffect(.degrees(isAnimating ? 360 : 0))
 						}
+						.buttonStyle(.plain)
 					}
 					ToolbarItem(placement: .navigationBarTrailing) {
-						Toggle(isOn: $onlyShowSunny) {
-							Image(systemName: "sun.max.fill")
-								.imageScale(.large)
-								.frame(width: 44, height: 44)
+						HStack {
+							Spacer()
+							Toggle(isOn: $onlyShowSunny) {
+								Image(systemName: "sun.max.fill")
+							}
+							.labelsHidden()
+							.tint(.blue)
 						}
-						.labelsHidden()
-						.tint(.blue)
+						.padding(.trailing, 10)
 					}
 				}
 			}
 		}
-		.onChange(of: user.locationKey) { oldValue, newValue in
-			if !appSettings.isTestDataEnabled && oldValue != newValue && !newValue.isEmpty {
+		.onChange(of: user.locationKey) { _, newValue in
+			if !appSettings.isTestDataEnabled && !newValue.isEmpty {
 				Task {
 					await hourlyWeatherStore.loadWeatherData(locationKey: newValue)
 				}

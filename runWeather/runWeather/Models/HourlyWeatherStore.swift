@@ -9,8 +9,8 @@ import Foundation
 @MainActor
 class HourlyWeatherStore: ObservableObject {
 	@Published var hourlyWeather = [HourlyWeather]()
-
-	func loadWeatherData(locationKey: String) {
+	
+	func loadWeatherData(locationKey: String) async {
 		Task {
 			do {
 				self.hourlyWeather = try await fetchHourlyWeather(locationKey: locationKey)
@@ -20,7 +20,7 @@ class HourlyWeatherStore: ObservableObject {
 			}
 		}
 	}
-	func loadTestData() {
+	func loadTestData() async {
 		TestDataLoader.loadWeatherTestData(into: self)
 	}
 }
@@ -30,12 +30,12 @@ func fetchHourlyWeather(locationKey: String) async throws -> [HourlyWeather] {
 	guard let url = URL(string: urlString) else {
 		throw URLError(.badURL)
 	}
-
+	
 	let (data, response) = try await URLSession.shared.data(from: url)
 	guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
 		throw URLError(.badServerResponse)
 	}
-
+	
 	let weatherDataArray = try JSONDecoder().decode([HourlyWeatherData].self, from: data)
 	return weatherDataArray.map { HourlyWeather(from: $0) }
 }
