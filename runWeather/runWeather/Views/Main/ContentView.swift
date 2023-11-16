@@ -10,7 +10,7 @@ struct ContentView: View {
 	@StateObject var locationStore = LocationStore()
 	@StateObject var hourlyWeatherStore = HourlyWeatherStore()
 	@StateObject var appSettings = AppSettings()
-
+	
 	var body: some View {
 		ZStack {
 			TabView {

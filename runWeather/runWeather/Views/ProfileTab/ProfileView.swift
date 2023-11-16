@@ -15,7 +15,7 @@ struct ProfileView: View {
 	@State private var inputZipCode: String = ""
 	@State private var showAlert = false
 	@State private var alertMessage = ""
-
+	
 	var body: some View {
 		VStack {
 			// Profile image and details
@@ -49,7 +49,7 @@ struct ProfileView: View {
 			GeometryReader { geometry in
 				HStack {
 					Spacer()
-
+					
 					TextField("Zip Code", text: $inputZipCode)
 						.padding(EdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20))
 						.background(Color.white)
@@ -79,7 +79,7 @@ struct ProfileView: View {
 			.listStyle(PlainListStyle())
 			.frame(maxWidth: .infinity, maxHeight: 300)
 			Spacer()
-
+			
 			Toggle("Enable Test Data", isOn: $appSettings.isTestDataEnabled)
 				.onChange(of: appSettings.isTestDataEnabled) { newValue in
 					if newValue {
@@ -94,7 +94,6 @@ struct ProfileView: View {
 					}
 				}
 				.padding()
-
 		}
 		.onAppear {
 			inputZipCode = user.zipCode
@@ -103,21 +102,21 @@ struct ProfileView: View {
 			Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
 		}
 		.frame(maxHeight: .infinity)
-
+		
 	}
-
+	
 	private func asyncSubmit() {
 		Task {
 			await findAndSetLocation(zipCode: inputZipCode)
 		}
 	}
-
+	
 	private func findAndSetLocation(zipCode: String) async {
 		if validateAndAssignZipCode() {
 			await fetchLocationKeyAndUpdateUser()
 		}
 	}
-
+	
 	private func validateAndAssignZipCode() -> Bool {
 		let trimmedZipCode = inputZipCode.trimmingCharacters(in: .whitespaces)
 		if trimmedZipCode.count == 5 && trimmedZipCode.allSatisfy(\.isNumber) {
@@ -131,7 +130,7 @@ struct ProfileView: View {
 			return false
 		}
 	}
-
+	
 	private func fetchLocationKeyAndUpdateUser() async {
 		do {
 			if let locationKey = try await locationStore.fetchLocationKey(for: user.zipCode) {
