@@ -38,7 +38,6 @@ struct HourDetailView: View {
 
 				Spacer()
 			}
-			.background(Color.white)
 		}
 		.navigationTitle("Hourly Detail")
 		.navigationBarTitleDisplayMode(.inline)
