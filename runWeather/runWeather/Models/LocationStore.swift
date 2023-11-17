@@ -10,28 +10,30 @@ import Foundation
 let baseURL = "https://dataservice.accuweather.com/locations/v1/postalcodes/us/"
 
 class LocationStore: ObservableObject {
-	func fetchLocationKey(for zipCode: String) async throws -> String? {
+	func fetchLocationKey(for zipCode: String) async throws -> String {
 		let urlString = "\(baseURL)search?apikey=\(apiKey)&q=\(zipCode)"
 		guard let url = URL(string: urlString) else {
-			print("Invalid URL")
-			return nil
+			throw LocationError.invalidURL
 		}
 
 		let (data, response) = try await URLSession.shared.data(from: url)
 
-		guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-			print("Invalid response from server: Response: \(response)")
-			return nil
+		guard let httpResponse = response as? HTTPURLResponse else {
+			throw LocationError.other(URLError(.badServerResponse))
+		}
+
+		guard httpResponse.statusCode == 200 else {
+			throw LocationError.serverError(statusCode: httpResponse.statusCode)
 		}
 
 		do {
 			let locations = try JSONDecoder().decode([LocationResponse].self, from: data)
-			return locations.first?.key
+			guard let key = locations.first?.key else {
+				throw LocationError.decodingError(underlyingError: DecodingError.dataCorrupted(.init(codingPath: [], debugDescription: "Key not found in response")))
+			}
+			return key
 		} catch {
-			// Print out the error and the raw JSON for debugging
-			print("Error decoding JSON:", error)
-			print("Received JSON String:", String(data: data, encoding: .utf8) ?? "Invalid JSON")
-			throw error
+			throw LocationError.decodingError(underlyingError: error)
 		}
 	}
 }

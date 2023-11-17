@@ -12,6 +12,7 @@ struct ProfileView: View {
 	@EnvironmentObject var locationStore: LocationStore
 	@EnvironmentObject var hourlyWeatherStore: HourlyWeatherStore
 	@EnvironmentObject var appSettings: AppSettings
+	@Environment(\.colorScheme) var colorScheme
 	@State private var inputZipCode: String = ""
 	@State private var showAlert = false
 	@State private var alertMessage = ""
@@ -31,10 +32,11 @@ struct ProfileView: View {
 						.cornerRadius(10)
 						.overlay(
 							RoundedRectangle(cornerRadius: 10)
-								.stroke(Color.gray, lineWidth: 1)
+								.stroke(Color("backgroundBlue"), lineWidth: 2)
 						)
 						.shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 3)
 						.keyboardType(.numberPad)
+						.foregroundColor(.black)
 						.multilineTextAlignment(.center)
 						.frame(width: geometry.size.width / 2)
 
@@ -49,16 +51,20 @@ struct ProfileView: View {
 				VStack {
 					Text("row")
 					Text("row")
-					Toggle("Dark Mode", isOn: Binding(
-						get: { user.isDarkModeEnabled },
-						set: { user.updateDarkModePreference(to: $0) }
-					))
-					.padding()
+					Toggle("Dark Mode", isOn: $user.isDarkModeEnabled)
+						.padding()
 					Toggle("Enable Test Data", isOn: $appSettings.isTestDataEnabled)
 						.padding()
 				}
 			}
 		}
+		.onAppear {
+			if UserDefaults.standard.object(forKey: "isDarkModeEnabled") == nil {
+				user.isDarkModeEnabled = colorScheme == .dark
+			}
+		}
+		.background(user.isDarkModeEnabled ? Color.black : Color("backgroundBlue"))
+		.edgesIgnoringSafeArea(.all)
 		.onAppear {
 			inputZipCode = user.zipCode
 			checkTestDataSetting()
@@ -88,7 +94,7 @@ struct ProfileView: View {
 			inputZipCode = ""
 			return true
 		} else {
-			alertMessage = "Invalid Zip Code"
+			alertMessage = "Invalid Zip Code. Please try again."
 			showAlert = true
 			inputZipCode = ""
 			return false
@@ -97,17 +103,23 @@ struct ProfileView: View {
 
 	private func fetchLocationKeyAndUpdateUser() async {
 		do {
-			if let locationKey = try await locationStore.fetchLocationKey(for: user.zipCode) {
-				user.locationKey = locationKey
-			} else {
-				alertMessage = "Failed to fetch location key"
-				showAlert = true
-			}
+			let locationKey = try await locationStore.fetchLocationKey(for: user.zipCode)
+			user.locationKey = locationKey
+		} catch LocationError.invalidURL {
+			alertMessage = "There was an error processing your request. Please try again or contact support."
+			showAlert = true
+		} catch LocationError.serverError(let statusCode) {
+			alertMessage = "Please try again later. The server responded with status code: \(statusCode)."
+			showAlert = true
+		} catch LocationError.decodingError(let underlyingError) {
+			alertMessage = "There was a problem decoding the data: \(underlyingError.localizedDescription). Please contact support."
+			showAlert = true
 		} catch {
-			alertMessage = "Error fetching location key: \(error.localizedDescription)"
+			alertMessage = "An unknown error occurred: \(error.localizedDescription). Please try again."
 			showAlert = true
 		}
 	}
+
 
 	private func loadTestData() {
 		if appSettings.isTestDataEnabled {

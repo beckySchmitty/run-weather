@@ -10,6 +10,7 @@ struct ContentView: View {
 	@StateObject var locationStore = LocationStore()
 	@StateObject var hourlyWeatherStore = HourlyWeatherStore()
 	@StateObject var appSettings = AppSettings()
+	@Environment(\.colorScheme) var colorScheme
 
 	var body: some View {
 		ZStack {
@@ -23,6 +24,7 @@ struct ContentView: View {
 						Label("Profile", systemImage: "person.fill")
 					}
 			}
+			.accentColor(colorScheme == .dark ? .white : Color("tabBlue"))
 		}
 		.environmentObject(locationStore)
 		.environmentObject(hourlyWeatherStore)
