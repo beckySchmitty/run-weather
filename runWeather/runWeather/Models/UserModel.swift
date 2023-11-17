@@ -22,7 +22,7 @@ class User: ObservableObject {
 
 
 	func updateDarkModePreference(to newValue: Bool) {
-		 isDarkModeEnabled = newValue
-		 UserDefaults.standard.set(newValue, forKey: "isDarkModeEnabled")
- }
+		isDarkModeEnabled = newValue
+		UserDefaults.standard.set(newValue, forKey: "isDarkModeEnabled")
+	}
 }
