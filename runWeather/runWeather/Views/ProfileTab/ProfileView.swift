@@ -1,9 +1,9 @@
-////
-////  ProfileView.swift
-////  runWeather
-////
-////  Created by Becky Schmitthenner on 11/14/23.
-////
+////////
+////////  ProfileView.swift
+////////  runWeather
+////////
+////////  Created by Becky Schmitthenner on 11/14/23.
+////////
 
 import SwiftUI
 
@@ -15,24 +15,17 @@ struct ProfileView: View {
 	@State private var inputZipCode: String = ""
 	@State private var showAlert = false
 	@State private var alertMessage = ""
-	
+
 	var body: some View {
 		VStack {
-			// Profile image and details
 			ZStack {
-				RoundedCorners(bottomLeft: 30, bottomRight: 30)
-					.fill(Color.blue)
-					.edgesIgnoringSafeArea(.top)
-					.frame(height: 200)
-				VStack(alignment: .center) {
-					// Profile image
-					Image(appSettings.isTestDataEnabled ? "profile_tKelce" : "person")
+				HStack {
+					Image(appSettings.isTestDataEnabled ? "profile_tKelce" : "profile")
 						.resizable()
 						.aspectRatio(contentMode: .fill)
 						.frame(width: 100, height: 100)
 						.clipShape(Circle())
 						.overlay(Circle().stroke(Color.white, lineWidth: 4))
-					// User and other details
 					Text(appSettings.isTestDataEnabled ? "Travis Kelce" : "User")
 						.font(.title)
 						.foregroundColor(.white)
@@ -44,12 +37,13 @@ struct ProfileView: View {
 						.foregroundColor(.white)
 				}
 			}
+
 			// Zip Code TextField
 			Spacer()
 			GeometryReader { geometry in
 				HStack {
 					Spacer()
-					
+
 					TextField("Zip Code", text: $inputZipCode)
 						.padding(EdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20))
 						.background(Color.white)
@@ -62,6 +56,7 @@ struct ProfileView: View {
 						.keyboardType(.numberPad)
 						.multilineTextAlignment(.center)
 						.frame(width: geometry.size.width / 2)
+
 					Spacer()
 				}
 			}
@@ -69,54 +64,44 @@ struct ProfileView: View {
 			.onSubmit {
 				asyncSubmit()
 			}
+
 			Spacer()
 			List {
-				ProfileRow(icon: "gear", title: "Settings")
-				ProfileRow(icon: "key", title: "Location Key")
-				ProfileRow(icon: "bell.fill", title: "Notifications")
-				ProfileRow(icon: "envelope.fill", title: "Messages")
+				Text("row")
+				Text("row")
 			}
 			.listStyle(PlainListStyle())
 			.frame(maxWidth: .infinity, maxHeight: 300)
+
 			Spacer()
-			
+
 			Toggle("Enable Test Data", isOn: $appSettings.isTestDataEnabled)
-				.onChange(of: appSettings.isTestDataEnabled) { newValue in
-					if newValue {
-						loadTestData()
-					} else {
-						// Optionally reload real data if test data is turned off
-						if !user.locationKey.isEmpty {
-							Task {
-								await hourlyWeatherStore.loadWeatherData(locationKey: user.locationKey)
-							}
-						}
-					}
-				}
 				.padding()
+
+			Spacer()
 		}
 		.onAppear {
 			inputZipCode = user.zipCode
+			checkTestDataSetting()
 		}
 		.alert(isPresented: $showAlert) {
 			Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
 		}
 		.frame(maxHeight: .infinity)
-		
 	}
-	
+
 	private func asyncSubmit() {
 		Task {
 			await findAndSetLocation(zipCode: inputZipCode)
 		}
 	}
-	
+
 	private func findAndSetLocation(zipCode: String) async {
 		if validateAndAssignZipCode() {
 			await fetchLocationKeyAndUpdateUser()
 		}
 	}
-	
+
 	private func validateAndAssignZipCode() -> Bool {
 		let trimmedZipCode = inputZipCode.trimmingCharacters(in: .whitespaces)
 		if trimmedZipCode.count == 5 && trimmedZipCode.allSatisfy(\.isNumber) {
@@ -130,7 +115,7 @@ struct ProfileView: View {
 			return false
 		}
 	}
-	
+
 	private func fetchLocationKeyAndUpdateUser() async {
 		do {
 			if let locationKey = try await locationStore.fetchLocationKey(for: user.zipCode) {
@@ -144,12 +129,21 @@ struct ProfileView: View {
 			showAlert = true
 		}
 	}
+
 	private func loadTestData() {
 		if appSettings.isTestDataEnabled {
 			TestDataLoader.setTestUserDetails(user: user)
 			TestDataLoader.loadWeatherTestData(into: hourlyWeatherStore)
-		} else {
-			// placeholder
+		}
+	}
+
+	private func checkTestDataSetting() {
+		if appSettings.isTestDataEnabled {
+			loadTestData()
+		} else if !user.locationKey.isEmpty {
+			Task {
+				await hourlyWeatherStore.loadWeatherData(locationKey: user.locationKey)
+			}
 		}
 	}
 }

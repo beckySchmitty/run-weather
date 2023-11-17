@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HourlyWeatherRow: View {
 	let weather: HourlyWeather
-	
+
 	var body: some View {
 		NavigationLink(destination: HourDetailView(weather: weather)) {
 			HStack {

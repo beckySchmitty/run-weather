@@ -8,5 +8,5 @@
 import Foundation
 
 class AppSettings: ObservableObject {
-	@Published var isTestDataEnabled: Bool = false
+	@Published var isTestDataEnabled = false
 }
