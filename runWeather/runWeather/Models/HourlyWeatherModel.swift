@@ -18,7 +18,7 @@ struct HourlyWeatherData: Decodable {
 	let precipitationProbability: Int
 	let mobileLink: String
 	let link: String
-	
+
 	enum CodingKeys: String, CodingKey {
 		case dateTime = "DateTime"
 		case epochDateTime = "EpochDateTime"
@@ -31,7 +31,7 @@ struct HourlyWeatherData: Decodable {
 		case mobileLink = "MobileLink"
 		case link = "Link"
 	}
-	
+
 	var formattedDateTime: String {
 		return convertToHourWithTimeZone(self.dateTime) ?? "Invalid Time"
 	}
@@ -41,7 +41,7 @@ struct Temperature: Decodable {
 	let value: Double
 	let unit: String
 	let unitType: Int
-	
+
 	enum CodingKeys: String, CodingKey {
 		case value = "Value"
 		case unit = "Unit"
@@ -61,7 +61,7 @@ class HourlyWeather {
 	let precipitationProbability: Int
 	let mobileLink: String
 	let link: String
-	
+
 	init(from data: HourlyWeatherData) {
 		self.dateTime = data.dateTime
 		self.epochDateTime = data.epochDateTime
@@ -75,7 +75,7 @@ class HourlyWeather {
 		self.mobileLink = data.mobileLink
 		self.link = data.link
 	}
-	
+
 	var formattedDateTime: String {
 		return convertToHourWithTimeZone(self.dateTime) ?? "Invalid Time"
 	}

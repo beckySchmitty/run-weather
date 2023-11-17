@@ -12,7 +12,7 @@ func convertToMonthDayYear(_ dateString: String) -> String? {
 	let inputFormatter = DateFormatter()
 	inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssXXX"
 	inputFormatter.locale = Locale(identifier: "en_US_POSIX")
-	
+
 	guard let date = inputFormatter.date(from: dateString) else {
 		print("Invalid date string")
 		return nil
@@ -27,17 +27,17 @@ func convertToHourWithTimeZone(_ dateString: String) -> String? {
 	let inputFormatter = DateFormatter()
 	inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssXXX"
 	inputFormatter.locale = Locale(identifier: "en_US_POSIX")
-	
+
 	guard let date = inputFormatter.date(from: dateString) else {
 		print("Invalid date string")
 		return nil
 	}
-	
+
 	let outputFormatter = DateFormatter()
 	outputFormatter.dateFormat = "h a"
-	
+
 	// Note: This is a simplification. Time zone conversion can be more complex.
 	outputFormatter.timeZone = TimeZone(abbreviation: "EST")
-	
+
 	return outputFormatter.string(from: date) + " EST"
 }

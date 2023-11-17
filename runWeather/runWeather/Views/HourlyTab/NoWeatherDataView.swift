@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CircularEffect: GeometryEffect {
-	var position: CGFloat // position will go from 0 to 1 over the animation
+	var position: CGFloat
 
 	// This function will calculate the x and y offsets to simulate circular movement
 	func effectValue(size: CGSize) -> ProjectionTransform {
@@ -31,10 +31,8 @@ struct NoWeatherDataView: View {
 					.resizable()
 					.scaledToFit()
 					.frame(width: 100, height: 100)
-				// Apply the custom geometry effect here for circular movement
 					.modifier(CircularEffect(position: position))
 					.onReceive(timer) { _ in
-						// Update the position state to move the cloud in a circular path
 						withAnimation(.linear(duration: 0.02)) {
 							position = (position + 0.005).truncatingRemainder(dividingBy: 1)
 						}

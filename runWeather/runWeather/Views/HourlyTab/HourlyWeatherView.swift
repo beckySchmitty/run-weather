@@ -22,9 +22,7 @@ struct HourlyWeatherView: View {
 	var body: some View {
 		NavigationStack {
 			if user.locationKey.isEmpty {
-//				NoWeatherDataView(hourlyWeatherStore: hourlyWeatherStore, user: user)
 				NoWeatherDataView()
-
 			} else {
 				List(filteredWeather, id: \.epochDateTime) { weather in
 					HourlyWeatherRow(weather: weather)
@@ -46,12 +44,12 @@ struct HourlyWeatherView: View {
 									self.isAnimating = false
 								}
 							}
-						}) {
+						}, label: {
 							Image(systemName: "arrow.clockwise")
 								.imageScale(.medium)
 								.scaleEffect(isAnimating ? 3 : 1)
 								.rotationEffect(.degrees(isAnimating ? 360 : 0))
-						}
+						})
 						.buttonStyle(.plain)
 					}
 					ToolbarItem(placement: .navigationBarTrailing) {

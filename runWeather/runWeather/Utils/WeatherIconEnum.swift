@@ -49,11 +49,11 @@ enum WeatherIcon: Int {
 	case mostlyCloudyTStormsNight = 42
 	case mostlyCloudyFlurriesNight = 43
 	case mostlyCloudySnowNight = 44
-	
+
 	static func iconForWeather(_ iconNumber: Int) -> WeatherIcon {
 		return WeatherIcon(rawValue: iconNumber) ?? .cloudy
 	}
-	
+
 	var systemName: String {
 		switch self {
 		case .sunny:
