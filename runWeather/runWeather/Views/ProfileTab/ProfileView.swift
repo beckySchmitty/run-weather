@@ -19,31 +19,12 @@ struct ProfileView: View {
 	var body: some View {
 		VStack {
 			ZStack {
-				HStack {
-					Image(appSettings.isTestDataEnabled ? "profile_tKelce" : "profile")
-						.resizable()
-						.aspectRatio(contentMode: .fill)
-						.frame(width: 100, height: 100)
-						.clipShape(Circle())
-						.overlay(Circle().stroke(Color.white, lineWidth: 4))
-					Text(appSettings.isTestDataEnabled ? "Travis Kelce" : "User")
-						.font(.title)
-						.foregroundColor(.white)
-					Text("Zip Code: \(user.zipCode)")
-						.font(.subheadline)
-						.foregroundColor(.white)
-					Text("Location Key: \(user.locationKey)")
-						.font(.subheadline)
-						.foregroundColor(.white)
-				}
+				ProfileHeaderView(user: user)
 			}
-
-			// Zip Code TextField
 			Spacer()
 			GeometryReader { geometry in
 				HStack {
 					Spacer()
-
 					TextField("Zip Code", text: $inputZipCode)
 						.padding(EdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20))
 						.background(Color.white)
@@ -64,21 +45,19 @@ struct ProfileView: View {
 			.onSubmit {
 				asyncSubmit()
 			}
-
-			Spacer()
-			List {
-				Text("row")
-				Text("row")
+			ScrollView {
+				VStack {
+					Text("row")
+					Text("row")
+					Toggle("Dark Mode", isOn: Binding(
+						get: { user.isDarkModeEnabled },
+						set: { user.updateDarkModePreference(to: $0) }
+					))
+					.padding()
+					Toggle("Enable Test Data", isOn: $appSettings.isTestDataEnabled)
+						.padding()
+				}
 			}
-			.listStyle(PlainListStyle())
-			.frame(maxWidth: .infinity, maxHeight: 300)
-
-			Spacer()
-
-			Toggle("Enable Test Data", isOn: $appSettings.isTestDataEnabled)
-				.padding()
-
-			Spacer()
 		}
 		.onAppear {
 			inputZipCode = user.zipCode
