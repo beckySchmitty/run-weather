@@ -21,10 +21,4 @@ struct WeatherListView: View {
 				}
 			}
 		}
-
-//	var body: some View {
-//		List(filteredWeather, id: \.epochDateTime) { weather in
-//			HourlyWeatherRow(weather: weather)
-//		}
-//	}
 }
