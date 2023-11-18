@@ -9,10 +9,10 @@ struct ContentView: View {
 	@StateObject var user = User()
 	@StateObject var locationStore = LocationStore()
 	@StateObject var hourlyWeatherStore = HourlyWeatherStore()
+
 	@Environment(\.colorScheme) var colorScheme
 
 	var body: some View {
-
 		ZStack {
 			TabView {
 				HourlyWeatherView(user: user)

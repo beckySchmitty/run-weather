@@ -18,6 +18,7 @@ class HourlyWeatherStore: ObservableObject {
 		} catch let error as URLError where error.code == .badURL {
 			errorMessage = WeatherError.badURL.localizedDescription
 		} catch let error as URLError where error.code == .badServerResponse {
+//			swiftlint:disable:next line_length
 			errorMessage = WeatherError.serverError(statusCode: (error as? HTTPURLResponse)?.statusCode ?? 500).localizedDescription
 		} catch let error as DecodingError {
 			errorMessage = WeatherError.decodingError(underlyingError: error).localizedDescription
@@ -39,6 +40,7 @@ func fetchHourlyWeather(locationKey: String) async throws -> [HourlyWeather] {
 
 	let (data, response) = try await URLSession.shared.data(from: url)
 	guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+		print("Response was not 200: \(response)")
 		throw WeatherError.serverError(statusCode: (response as? HTTPURLResponse)?.statusCode ?? 500)
 	}
 

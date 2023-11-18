@@ -11,57 +11,34 @@ struct ProfileView: View {
 	@ObservedObject var user: User
 	@EnvironmentObject var locationStore: LocationStore
 	@EnvironmentObject var hourlyWeatherStore: HourlyWeatherStore
-	@Environment(\.colorScheme) var colorScheme
 	@State private var inputZipCode: String = ""
 	@State private var showAlert = false
 	@State private var alertMessage = ""
 
+	@Environment(\.colorScheme) var colorScheme
+
 	var body: some View {
 		VStack {
 			Spacer()
-			VStack {
-				ProfileHeaderView(user: user)
-			}
-			GeometryReader { geometry in
-				HStack {
-					Spacer()
-					TextField("Zip Code", text: $inputZipCode)
-						.padding(EdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20))
-						.background(Color.white)
-						.cornerRadius(10)
-						.overlay(
-							RoundedRectangle(cornerRadius: 10)
-								.stroke(Color("backgroundBlue"), lineWidth: 2)
-						)
-						.shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 3)
-						.keyboardType(.numberPad)
-						.foregroundColor(.black)
-						.multilineTextAlignment(.center)
-						.frame(width: geometry.size.width / 2)
-
-					Spacer()
-				}
-			}
-			.frame(height: 50)
-			.onSubmit {
-				asyncSubmit()
-			}
+			ProfileHeaderView(user: user)
+			ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
 			ScrollView {
 				VStack {
-					Text("row")
-					Text("row")
+					ProfilePreferencesView()
 					Toggle("Dark Mode", isOn: $user.isDarkModeEnabled)
-						.onChange(of: user.isDarkModeEnabled) { oldValue, newValue in
-								UserDefaults.standard.set(newValue, forKey: "isDarkModeEnabled")
+						.onChange(of: user.isDarkModeEnabled) { _, newValue in
+							UserDefaults.standard.set(newValue, forKey: "isDarkModeEnabled")
 						}
 						.padding()
 					Toggle("Enable Test Data", isOn: $user.isTestDataEnabled)
 						.padding()
-						.onChange(of: user.isTestDataEnabled) { oldValue, newValue in
+						.onChange(of: user.isTestDataEnabled) { _, newValue in
 							if newValue {
-								loadTestData()
+								TestDataLoader.setTestData(user: user, store: hourlyWeatherStore)
+							} else if newValue == false {
+								TestDataLoader.emptyTestData(user: user, store: hourlyWeatherStore)
 							} else {
-								alertMessage = "Issue setting test data. Please try again."
+								alertMessage = "Issue with test data. Please try again."
 								showAlert = true
 							}
 						}
@@ -75,19 +52,23 @@ struct ProfileView: View {
 		.frame(maxHeight: .infinity)
 	}
 
-	private func asyncSubmit() {
-		Task {
-			await findAndSetLocation(zipCode: inputZipCode)
+	private func asyncSubmit() async {
+		// do not use async let; loadWeatherData needs location key set first TODO refactor logic
+		_ = await verifyZipAndGetLocation(zipCode: inputZipCode)
+		_ = await loadWeatherDataForUser()
+
+		if let errorMessage = hourlyWeatherStore.errorMessage ?? self.locationStore.errorMessage {
+			setAlert(with: errorMessage)
 		}
 	}
 
-	private func findAndSetLocation(zipCode: String) async {
-		if validateAndAssignZipCode() {
-			await fetchLocationKeyAndUpdateUser()
+	private func verifyZipAndGetLocation(zipCode: String) async {
+		if verifyAndSetZipCode() {
+			await getLocationKey()
 		}
 	}
 
-	private func validateAndAssignZipCode() -> Bool {
+	private func verifyAndSetZipCode() -> Bool {
 		let trimmedZipCode = inputZipCode.trimmingCharacters(in: .whitespaces)
 		if trimmedZipCode.count == 5 && trimmedZipCode.allSatisfy(\.isNumber) {
 			user.zipCode = trimmedZipCode
@@ -101,28 +82,40 @@ struct ProfileView: View {
 		}
 	}
 
-	private func fetchLocationKeyAndUpdateUser() async {
+	private func getLocationKey() async {
 		do {
 			let locationKey = try await locationStore.fetchLocationKey(for: user.zipCode)
 			user.locationKey = locationKey
-		} catch LocationError.invalidURL {
-			alertMessage = "There was an error processing your request. Please try again or contact support."
-			showAlert = true
-		} catch LocationError.serverError(let statusCode) {
-			alertMessage = "Please try again later. The server responded with status code: \(statusCode)."
-			showAlert = true
-		} catch LocationError.decodingError(let underlyingError) {
-			alertMessage = "There was a problem decoding the data: \(underlyingError.localizedDescription). Please contact support."
+		} catch let error as LocationError {
+			switch error {
+			case .invalidURL:
+				alertMessage = "There was an error processing your request. Please try again or contact support."
+			case .serverError(let statusCode):
+				alertMessage = "Please try again later. The server responded with status code: \(statusCode)."
+			case .decodingError(let underlyingError):
+				alertMessage = "There was a problem decoding the data: \(underlyingError.localizedDescription). Please contact support."
+			case .other:
+				alertMessage = "other"
+			}
 			showAlert = true
 		} catch {
-			alertMessage = "An unknown error occurred: \(error.localizedDescription). Please try again."
+			alertMessage = "An unknown error occurred: \(error.localizedDescription)"
 			showAlert = true
 		}
 	}
 
 
-	private func loadTestData() {
-			TestDataLoader.setTestUserDetails(user: user)
-			TestDataLoader.loadWeatherTestData(into: hourlyWeatherStore)
+	private func loadWeatherDataForUser() async {
+		await hourlyWeatherStore.loadWeatherData(locationKey: user.locationKey)
+		if hourlyWeatherStore.hasError, let errorMessage = hourlyWeatherStore.errorMessage {
+			alertMessage = errorMessage
+			showAlert = true
+		}
+	}
+
+	@MainActor
+	private func setAlert(with message: String) {
+		self.alertMessage = message
+		self.showAlert = true
 	}
 }

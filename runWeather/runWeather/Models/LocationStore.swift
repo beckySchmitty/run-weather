@@ -10,6 +10,9 @@ import Foundation
 let baseURL = "https://dataservice.accuweather.com/locations/v1/postalcodes/us/"
 
 class LocationStore: ObservableObject {
+	@Published var errorMessage: String?
+	@Published var hasError = false
+
 	func fetchLocationKey(for zipCode: String) async throws -> String {
 		let urlString = "\(baseURL)search?apikey=\(apiKey)&q=\(zipCode)"
 		guard let url = URL(string: urlString) else {
@@ -29,6 +32,7 @@ class LocationStore: ObservableObject {
 		do {
 			let locations = try JSONDecoder().decode([LocationResponse].self, from: data)
 			guard let key = locations.first?.key else {
+				//				swiftlint:disable:next line_length
 				throw LocationError.decodingError(underlyingError: DecodingError.dataCorrupted(.init(codingPath: [], debugDescription: "Key not found in response")))
 			}
 			return key

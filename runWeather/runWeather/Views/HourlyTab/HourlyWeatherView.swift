@@ -20,7 +20,7 @@ struct HourlyWeatherView: View {
 
 	var body: some View {
 		NavigationStack {
-			if user.isTestDataEnabled == false {
+			if user.isTestDataEnabled == false && user.locationKey.isEmpty {
 				NoWeatherDataView()
 			} else {
 				WeatherListView(filteredWeather: filteredWeather)
@@ -29,7 +29,6 @@ struct HourlyWeatherView: View {
 						ToolbarItem(placement: .navigationBarLeading) {
 							Button(action: {
 								isAnimating = true
-
 								withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: false)) {
 									// Explicitly trigger the animation
 									self.isAnimating = true

@@ -66,6 +66,12 @@
 		2CBEBC932B03E473007B7391 /* HourDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC912B03E473007B7391 /* HourDetailView.swift */; };
 		2CBEBC942B03E473007B7391 /* HourDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC912B03E473007B7391 /* HourDetailView.swift */; };
 		2CC42B9B2B04768C00BE4E68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CC42B9A2B04768C00BE4E68 /* LaunchScreen.storyboard */; };
+		2CEB76C42B0933E9004E3DF1 /* ZipeCodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB76C32B0933E9004E3DF1 /* ZipeCodeInputView.swift */; };
+		2CEB76C52B0933E9004E3DF1 /* ZipeCodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB76C32B0933E9004E3DF1 /* ZipeCodeInputView.swift */; };
+		2CEB76C62B0933E9004E3DF1 /* ZipeCodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB76C32B0933E9004E3DF1 /* ZipeCodeInputView.swift */; };
+		2CEB76C82B094730004E3DF1 /* ProfilePreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB76C72B094730004E3DF1 /* ProfilePreferencesView.swift */; };
+		2CEB76C92B094730004E3DF1 /* ProfilePreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB76C72B094730004E3DF1 /* ProfilePreferencesView.swift */; };
+		2CEB76CA2B094730004E3DF1 /* ProfilePreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB76C72B094730004E3DF1 /* ProfilePreferencesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +122,8 @@
 		2CBEBC8D2B03E439007B7391 /* NoWeatherDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoWeatherDataView.swift; sourceTree = "<group>"; };
 		2CBEBC912B03E473007B7391 /* HourDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourDetailView.swift; sourceTree = "<group>"; };
 		2CC42B9A2B04768C00BE4E68 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2CEB76C32B0933E9004E3DF1 /* ZipeCodeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipeCodeInputView.swift; sourceTree = "<group>"; };
+		2CEB76C72B094730004E3DF1 /* ProfilePreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePreferencesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +270,8 @@
 			isa = PBXGroup;
 			children = (
 				2CBEBC722B03BFFA007B7391 /* ProfileView.swift */,
+				2CEB76C72B094730004E3DF1 /* ProfilePreferencesView.swift */,
+				2CEB76C32B0933E9004E3DF1 /* ZipeCodeInputView.swift */,
 				2C9F32D42B07198800CE4C4E /* ProfileHeaderView.swift */,
 			);
 			path = ProfileTab;
@@ -440,10 +450,12 @@
 				2CBEBC5B2B03BEB1007B7391 /* LocationModel.swift in Sources */,
 				2C81EC562B06587800C6842D /* WeatherIconEnum.swift in Sources */,
 				2CBEBC7B2B03C08D007B7391 /* HourlyWeatherView.swift in Sources */,
+				2CEB76C42B0933E9004E3DF1 /* ZipeCodeInputView.swift in Sources */,
 				2C4B44DE2B055E3D001F409E /* HourlyWeatherRow.swift in Sources */,
 				2CBEBC672B03BF3D007B7391 /* UserModel.swift in Sources */,
 				2CBEBC6B2B03BF6F007B7391 /* HourlyWeatherModel.swift in Sources */,
 				2CBEBC2C2B03BA98007B7391 /* RunWeatherApp.swift in Sources */,
+				2CEB76C82B094730004E3DF1 /* ProfilePreferencesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,7 +478,9 @@
 				2CBEBC682B03BF3D007B7391 /* UserModel.swift in Sources */,
 				2CBEBC602B03BED8007B7391 /* LocationStore.swift in Sources */,
 				2CBEBC932B03E473007B7391 /* HourDetailView.swift in Sources */,
+				2CEB76C92B094730004E3DF1 /* ProfilePreferencesView.swift in Sources */,
 				2CBEBC8F2B03E439007B7391 /* NoWeatherDataView.swift in Sources */,
+				2CEB76C52B0933E9004E3DF1 /* ZipeCodeInputView.swift in Sources */,
 				2C81EC5B2B06655200C6842D /* HourDetailCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -476,6 +490,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CBEBC612B03BED8007B7391 /* LocationStore.swift in Sources */,
+				2CEB76CA2B094730004E3DF1 /* ProfilePreferencesView.swift in Sources */,
+				2CEB76C62B0933E9004E3DF1 /* ZipeCodeInputView.swift in Sources */,
 				2CBEBC752B03BFFA007B7391 /* ProfileView.swift in Sources */,
 				2C4B44E02B055E3D001F409E /* HourlyWeatherRow.swift in Sources */,
 				2CBEBC902B03E439007B7391 /* NoWeatherDataView.swift in Sources */,
