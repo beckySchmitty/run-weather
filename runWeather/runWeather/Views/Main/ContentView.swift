@@ -9,10 +9,10 @@ struct ContentView: View {
 	@StateObject var user = User()
 	@StateObject var locationStore = LocationStore()
 	@StateObject var hourlyWeatherStore = HourlyWeatherStore()
-	@StateObject var appSettings = AppSettings()
 	@Environment(\.colorScheme) var colorScheme
 
 	var body: some View {
+
 		ZStack {
 			TabView {
 				HourlyWeatherView(user: user)
@@ -28,6 +28,5 @@ struct ContentView: View {
 		}
 		.environmentObject(locationStore)
 		.environmentObject(hourlyWeatherStore)
-		.environmentObject(appSettings)
 	}
 }

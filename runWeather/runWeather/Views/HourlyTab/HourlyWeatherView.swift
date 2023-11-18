@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HourlyWeatherView: View {
 	@EnvironmentObject var hourlyWeatherStore: HourlyWeatherStore
-	@EnvironmentObject var appSettings: AppSettings
 	@ObservedObject var user: User
 	@State private var onlyShowSunny = false
 	@State private var isAnimating = false
@@ -21,7 +20,7 @@ struct HourlyWeatherView: View {
 
 	var body: some View {
 		NavigationStack {
-			if user.locationKey.isEmpty {
+			if user.isTestDataEnabled == false {
 				NoWeatherDataView()
 			} else {
 				WeatherListView(filteredWeather: filteredWeather)
@@ -68,13 +67,6 @@ struct HourlyWeatherView: View {
 			Button("OK", role: .cancel) { }
 		} message: {
 			Text(hourlyWeatherStore.errorMessage ?? "An unknown error occurred.")
-		}
-		.onChange(of: user.locationKey) { _, newValue in
-			if !appSettings.isTestDataEnabled && !newValue.isEmpty {
-				Task {
-					await hourlyWeatherStore.loadWeatherData(locationKey: newValue)
-				}
-			}
 		}
 	}
 }

@@ -15,7 +15,6 @@ struct CircularEffect: GeometryEffect {
 		let radius = min(size.width, size.height) / 4
 		let xValue = radius * cos(position * 2 * .pi)
 		let yValue = radius * sin(position * 2 * .pi)
-
 		return ProjectionTransform(CGAffineTransform(translationX: xValue, y: yValue))
 	}
 }
@@ -41,7 +40,7 @@ struct NoWeatherDataView: View {
 					.font(.title)
 			}
 			.frame(width: geometry.size.width, height: geometry.size.height)
-			.background(Color("backgroundBlue").edgesIgnoringSafeArea(.all))
+//			.background(Color("backgroundBlue").edgesIgnoringSafeArea(.all))
 		}
 	}
 }

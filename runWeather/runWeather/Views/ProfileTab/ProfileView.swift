@@ -11,7 +11,6 @@ struct ProfileView: View {
 	@ObservedObject var user: User
 	@EnvironmentObject var locationStore: LocationStore
 	@EnvironmentObject var hourlyWeatherStore: HourlyWeatherStore
-	@EnvironmentObject var appSettings: AppSettings
 	@Environment(\.colorScheme) var colorScheme
 	@State private var inputZipCode: String = ""
 	@State private var showAlert = false
@@ -19,10 +18,10 @@ struct ProfileView: View {
 
 	var body: some View {
 		VStack {
-			ZStack {
+			Spacer()
+			VStack {
 				ProfileHeaderView(user: user)
 			}
-			Spacer()
 			GeometryReader { geometry in
 				HStack {
 					Spacer()
@@ -52,23 +51,24 @@ struct ProfileView: View {
 					Text("row")
 					Text("row")
 					Toggle("Dark Mode", isOn: $user.isDarkModeEnabled)
+						.onChange(of: user.isDarkModeEnabled) { oldValue, newValue in
+								UserDefaults.standard.set(newValue, forKey: "isDarkModeEnabled")
+						}
 						.padding()
-					Toggle("Enable Test Data", isOn: $appSettings.isTestDataEnabled)
+					Toggle("Enable Test Data", isOn: $user.isTestDataEnabled)
 						.padding()
+						.onChange(of: user.isTestDataEnabled) { oldValue, newValue in
+							if newValue {
+								loadTestData()
+							} else {
+								alertMessage = "Issue setting test data. Please try again."
+								showAlert = true
+							}
+						}
 				}
 			}
 		}
-		.onAppear {
-			if UserDefaults.standard.object(forKey: "isDarkModeEnabled") == nil {
-				user.isDarkModeEnabled = colorScheme == .dark
-			}
-		}
-		.background(user.isDarkModeEnabled ? Color.black : Color("backgroundBlue"))
-		.edgesIgnoringSafeArea(.all)
-		.onAppear {
-			inputZipCode = user.zipCode
-			checkTestDataSetting()
-		}
+		.background(user.isDarkModeEnabled ? Color("backgroundBlue") : Color.gray)
 		.alert(isPresented: $showAlert) {
 			Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
 		}
@@ -122,19 +122,7 @@ struct ProfileView: View {
 
 
 	private func loadTestData() {
-		if appSettings.isTestDataEnabled {
 			TestDataLoader.setTestUserDetails(user: user)
 			TestDataLoader.loadWeatherTestData(into: hourlyWeatherStore)
-		}
-	}
-
-	private func checkTestDataSetting() {
-		if appSettings.isTestDataEnabled {
-			loadTestData()
-		} else if !user.locationKey.isEmpty {
-			Task {
-				await hourlyWeatherStore.loadWeatherData(locationKey: user.locationKey)
-			}
-		}
 	}
 }
