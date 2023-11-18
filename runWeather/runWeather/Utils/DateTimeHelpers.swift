@@ -29,7 +29,6 @@ func convertToHourWithTimeZone(_ dateString: String) -> String? {
 	inputFormatter.locale = Locale(identifier: "en_US_POSIX")
 
 	guard let date = inputFormatter.date(from: dateString) else {
-		print("Invalid date string")
 		return nil
 	}
 
