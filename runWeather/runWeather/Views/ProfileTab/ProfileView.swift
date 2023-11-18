@@ -52,14 +52,11 @@ struct ProfileView: View {
 		.frame(maxHeight: .infinity)
 	}
 
+//	set user and weather data
 	private func asyncSubmit() async {
-		// do not use async let; loadWeatherData needs location key set first TODO refactor logic
-		_ = await verifyZipAndGetLocation(zipCode: inputZipCode)
-		_ = await loadWeatherDataForUser()
-
-		if let errorMessage = hourlyWeatherStore.errorMessage ?? self.locationStore.errorMessage {
-			setAlert(with: errorMessage)
-		}
+		//			location key must be saved to call loadWeatherData so do not use async let
+		await verifyZipAndGetLocation(zipCode: inputZipCode)
+		await loadWeatherDataForUser()
 	}
 
 	private func verifyZipAndGetLocation(zipCode: String) async {
