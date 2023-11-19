@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct LocationResponse: Decodable {
+struct LocationModel: Decodable {
 	let version: Int
 	let key: String
 	let type: String

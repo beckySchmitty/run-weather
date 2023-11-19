@@ -9,8 +9,8 @@ struct ContentView: View {
 	@StateObject var user = User()
 	@StateObject var locationStore = LocationStore()
 	@StateObject var hourlyWeatherStore = HourlyWeatherStore()
-
-	@Environment(\.colorScheme) var colorScheme
+	@Environment(\.colorScheme)
+	var colorScheme: ColorScheme
 
 	var body: some View {
 		ZStack {

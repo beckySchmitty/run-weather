@@ -15,7 +15,3 @@ struct ProfilePreferencesView: View {
 		Text("Row")
 	}
 }
-
-#Preview {
-	ProfilePreferencesView()
-}
