@@ -30,7 +30,7 @@ class LocationStore: ObservableObject {
 		}
 
 		do {
-			let locations = try JSONDecoder().decode([LocationResponse].self, from: data)
+			let locations = try JSONDecoder().decode([LocationModel].self, from: data)
 			guard let key = locations.first?.key else {
 				//				swiftlint:disable:next line_length
 				throw LocationError.decodingError(underlyingError: DecodingError.dataCorrupted(.init(codingPath: [], debugDescription: "Key not found in response")))

@@ -18,7 +18,7 @@ class HourlyWeatherStore: ObservableObject {
 		} catch let error as URLError where error.code == .badURL {
 			errorMessage = WeatherError.badURL.localizedDescription
 		} catch let error as URLError where error.code == .badServerResponse {
-//			swiftlint:disable:next line_length
+			//			swiftlint:disable:next line_length
 			errorMessage = WeatherError.serverError(statusCode: (error as? HTTPURLResponse)?.statusCode ?? 500).localizedDescription
 		} catch let error as DecodingError {
 			errorMessage = WeatherError.decodingError(underlyingError: error).localizedDescription

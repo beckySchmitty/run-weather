@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct ProfileView: View {
 	@ObservedObject var user: User
 	@EnvironmentObject var locationStore: LocationStore
@@ -14,34 +15,18 @@ struct ProfileView: View {
 	@State private var inputZipCode: String = ""
 	@State private var showAlert = false
 	@State private var alertMessage = ""
-
-	@Environment(\.colorScheme) var colorScheme
+	@Environment(\.colorScheme)
+	var systemColorScheme
 
 	var body: some View {
 		VStack {
-			Spacer()
 			ProfileHeaderView(user: user)
 			ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
 			ScrollView {
 				VStack {
 					ProfilePreferencesView()
-					Toggle("Dark Mode", isOn: $user.isDarkModeEnabled)
-						.onChange(of: user.isDarkModeEnabled) { _, newValue in
-							UserDefaults.standard.set(newValue, forKey: "isDarkModeEnabled")
-						}
-						.padding()
-					Toggle("Enable Test Data", isOn: $user.isTestDataEnabled)
-						.padding()
-						.onChange(of: user.isTestDataEnabled) { _, newValue in
-							if newValue {
-								TestDataLoader.setTestData(user: user, store: hourlyWeatherStore)
-							} else if newValue == false {
-								TestDataLoader.emptyTestData(user: user, store: hourlyWeatherStore)
-							} else {
-								alertMessage = "Issue with test data. Please try again."
-								showAlert = true
-							}
-						}
+					DarkModeToggleView(user: user, isDarkModeEnabled: $user.isDarkModeEnabled)
+					TestDataToggleView(user: user, isTestDataEnabled: $user.isTestDataEnabled)
 				}
 			}
 		}
@@ -49,19 +34,50 @@ struct ProfileView: View {
 		.alert(isPresented: $showAlert) {
 			Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
 		}
+		.onAppear {
+			updateDarkModePreference()
+		}
+		.onChange(of: systemColorScheme) { _, _ in
+			updateDarkModePreference()
+		}
 		.frame(maxHeight: .infinity)
 	}
 
-//	set user and weather data
+	private func updateDarkModePreference() {
+		guard !user.hasSetDarkMode else { return }
+		let isSystemDarkMode = systemColorScheme == .dark
+		user.isDarkModeEnabled = isSystemDarkMode
+	}
+}
+
+// Extension for Async Functions
+extension ProfileView {
+	//	set user and weather data
 	private func asyncSubmit() async {
 		//			location key must be saved to call loadWeatherData so do not use async let
-		await verifyZipAndGetLocation(zipCode: inputZipCode)
+		guard await verifyZipAndGetLocation(zipCode: inputZipCode) else {
+			return
+		}
 		await loadWeatherDataForUser()
 	}
 
-	private func verifyZipAndGetLocation(zipCode: String) async {
+	private func loadWeatherDataForUser() async {
+		await hourlyWeatherStore.loadWeatherData(locationKey: user.locationKey)
+		if hourlyWeatherStore.hasError, let errorMessage = hourlyWeatherStore.errorMessage {
+			alertMessage = errorMessage
+			showAlert = true
+		}
+	}
+}
+
+// Extension for Validation and Error Handling
+extension ProfileView {
+	private func verifyZipAndGetLocation(zipCode: String) async -> Bool {
 		if verifyAndSetZipCode() {
 			await getLocationKey()
+			return true
+		} else {
+			return false
 		}
 	}
 
@@ -97,15 +113,6 @@ struct ProfileView: View {
 			showAlert = true
 		} catch {
 			alertMessage = "An unknown error occurred: \(error.localizedDescription)"
-			showAlert = true
-		}
-	}
-
-
-	private func loadWeatherDataForUser() async {
-		await hourlyWeatherStore.loadWeatherData(locationKey: user.locationKey)
-		if hourlyWeatherStore.hasError, let errorMessage = hourlyWeatherStore.errorMessage {
-			alertMessage = errorMessage
 			showAlert = true
 		}
 	}

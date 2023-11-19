@@ -11,6 +11,7 @@ class User: ObservableObject {
 	@Published var zipCode: String
 	@Published var locationKey: String
 	@Published var localizedName: String
+	@Published var hasSetDarkMode = false
 	@Published var isDarkModeEnabled: Bool
 	@Published var isTestDataEnabled: Bool
 
@@ -22,8 +23,10 @@ class User: ObservableObject {
 		self.isTestDataEnabled = isTestDataEnabled
 	}
 
+	//	handles dark mode from iOS device and dark mode from this app
 	func updateDarkModePreference(to newValue: Bool) {
 		isDarkModeEnabled = newValue
+		hasSetDarkMode = true
 		UserDefaults.standard.set(newValue, forKey: "isDarkModeEnabled")
 	}
 }
