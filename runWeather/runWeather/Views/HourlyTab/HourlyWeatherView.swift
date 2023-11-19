@@ -62,6 +62,7 @@ struct HourlyWeatherView: View {
 					}
 			}
 		}
+		.background(user.isDarkModeEnabled ? Color("backgroundBlue") : Color.gray)
 		.alert(hourlyWeatherStore.errorMessage ?? "Error", isPresented: $hourlyWeatherStore.hasError) {
 			Button("OK", role: .cancel) { }
 		} message: {

@@ -19,7 +19,9 @@ struct HourDetailView: View {
 						.font(.title)
 						.fontWeight(.bold)
 						.foregroundColor(.white)
-
+					Image(systemName: WeatherIcon.iconForWeather(weather.weatherIcon).systemName)
+						.font(.system(size: 100)) 
+						.foregroundColor(WeatherIcon.iconForWeather(weather.weatherIcon).color()) 
 					Text("\(Int(weather.temperature.rounded()))°")
 						.font(.system(size: 80, weight: .thin))
 						.foregroundColor(.white)
