@@ -24,6 +24,6 @@ struct WeatherListView: View {
 				}
 			}
 		}
-		.background(user.isDarkModeEnabled ? Color("backgroundBlue") : Color.white)
+		.background(Color("backgroundBlue"))
 	}
 }

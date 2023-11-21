@@ -41,7 +41,6 @@
 		2CEB76C42B0933E9004E3DF1 /* ZipeCodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB76C32B0933E9004E3DF1 /* ZipeCodeInputView.swift */; };
 		2CEB76C82B094730004E3DF1 /* ProfilePreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB76C72B094730004E3DF1 /* ProfilePreferencesView.swift */; };
 		2CEB76CC2B0A61B1004E3DF1 /* TestDataToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB76CB2B0A61B1004E3DF1 /* TestDataToggleView.swift */; };
-		2CEB76D02B0A61C9004E3DF1 /* DarkModeToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB76CF2B0A61C9004E3DF1 /* DarkModeToggleView.swift */; };
 		2CEB76E12B0A784C004E3DF1 /* LocationModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB76DF2B0A784C004E3DF1 /* LocationModelTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -100,7 +99,6 @@
 		2CEB76C32B0933E9004E3DF1 /* ZipeCodeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipeCodeInputView.swift; sourceTree = "<group>"; };
 		2CEB76C72B094730004E3DF1 /* ProfilePreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePreferencesView.swift; sourceTree = "<group>"; };
 		2CEB76CB2B0A61B1004E3DF1 /* TestDataToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataToggleView.swift; sourceTree = "<group>"; };
-		2CEB76CF2B0A61C9004E3DF1 /* DarkModeToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeToggleView.swift; sourceTree = "<group>"; };
 		2CEB76DF2B0A784C004E3DF1 /* LocationModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -258,7 +256,6 @@
 				2CA854002B0CFC4B007983E3 /* TemperatureSelectView.swift */,
 				2CA854022B0D0018007983E3 /* PrecipitationSelectView.swift */,
 				2CEB76CB2B0A61B1004E3DF1 /* TestDataToggleView.swift */,
-				2CEB76CF2B0A61C9004E3DF1 /* DarkModeToggleView.swift */,
 				2CEB76C72B094730004E3DF1 /* ProfilePreferencesView.swift */,
 				2CEB76C32B0933E9004E3DF1 /* ZipeCodeInputView.swift */,
 				2C9F32D42B07198800CE4C4E /* ProfileHeaderView.swift */,
@@ -491,7 +488,6 @@
 				2C73BA9A2B07F72C00518D83 /* WeatherListView.swift in Sources */,
 				2CBEBC732B03BFFA007B7391 /* ProfileView.swift in Sources */,
 				2CBEBC8E2B03E439007B7391 /* NoWeatherDataView.swift in Sources */,
-				2CEB76D02B0A61C9004E3DF1 /* DarkModeToggleView.swift in Sources */,
 				2CBEBC632B03BF0E007B7391 /* apiKey.swift in Sources */,
 				2C4B44D82B051D21001F409E /* TestDataLoader.swift in Sources */,
 				2C84DE6A2B0A815E009E9242 /* HourDetailLinkView.swift in Sources */,

@@ -41,9 +41,7 @@ struct NoWeatherDataView: View {
 					.font(.title)
 			}
 			.frame(width: geometry.size.width, height: geometry.size.height)
-			.background(user.isDarkModeEnabled ? Color("backgroundBlue") : Color.red)
-
-			//			.background(Color("backgroundBlue").edgesIgnoringSafeArea(.all))
+			.background(Color("backgroundBlue"))
 		}
 	}
 }

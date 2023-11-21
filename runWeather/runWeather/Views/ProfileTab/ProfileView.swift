@@ -15,8 +15,6 @@ struct ProfileView: View {
 	@State private var inputZipCode: String = ""
 	@State private var showAlert = false
 	@State private var alertMessage = ""
-	@Environment(\.colorScheme)
-	var systemColorScheme
 
 	var body: some View {
 		VStack {
@@ -25,27 +23,15 @@ struct ProfileView: View {
 			ScrollView {
 				VStack {
 					ProfilePreferencesView()
-					DarkModeToggleView(user: user, isDarkModeEnabled: $user.isDarkModeEnabled)
 					TestDataToggleView(user: user, isTestDataEnabled: $user.isTestDataEnabled)
 				}
 			}
 		}
-		.background(user.isDarkModeEnabled ? Color("backgroundBlue") : Color.white)
+		.background(Color("backgroundBlue"))
 		.alert(isPresented: $showAlert) {
 			Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
 		}
-		.onAppear {
-			updateDarkModePreference()
-		}
-		.onChange(of: systemColorScheme) { _, _ in
-			updateDarkModePreference()
-		}
 		.frame(maxHeight: .infinity)
-	}
-	private func updateDarkModePreference() {
-		guard !user.hasSetDarkMode else { return }
-		let isSystemDarkMode = systemColorScheme == .dark
-		user.isDarkModeEnabled = isSystemDarkMode
 	}
 }
 
