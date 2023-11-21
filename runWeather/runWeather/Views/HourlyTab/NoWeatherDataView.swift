@@ -20,6 +20,7 @@ struct CircularEffect: GeometryEffect {
 }
 
 struct NoWeatherDataView: View {
+	@ObservedObject var user: User
 	@State private var position: CGFloat = 0
 	let timer = Timer.publish(every: 0.02, on: .main, in: .common).autoconnect()
 
@@ -40,7 +41,7 @@ struct NoWeatherDataView: View {
 					.font(.title)
 			}
 			.frame(width: geometry.size.width, height: geometry.size.height)
-			//			.background(Color("backgroundBlue").edgesIgnoringSafeArea(.all))
+			.background(Color("backgroundBlue"))
 		}
 	}
 }

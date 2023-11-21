@@ -27,7 +27,7 @@ enum TestDataLoader {
 		// swiftlint:enable line_length
 		// swiftlint:disable:next force_unwrapping
 			.data(using: .utf8)!
-
+		
 		do {
 			let weatherDataArray = try JSONDecoder().decode([HourlyWeatherData].self, from: testData)
 			store.hourlyWeather = weatherDataArray.map { HourlyWeather(from: $0) }
@@ -36,12 +36,10 @@ enum TestDataLoader {
 			print("Error decoding test data: \(error)")
 		}
 	}
-
 	static func emptyTestData(user: User, store: HourlyWeatherStore) {
 		emptyUserDetails(user: user)
 		store.hourlyWeather = []
 	}
-
 	static func setTestData(user: User, store: HourlyWeatherStore) {
 		setTestUserDetails(user: user)
 		loadWeatherTestData(into: store)

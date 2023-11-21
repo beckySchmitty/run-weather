@@ -19,8 +19,8 @@ struct HourDetailLinkView: View {
 					.foregroundColor(.white)
 			} else {
 				// Fallback to default URL
-//				swiftlint:disable:next force_unwrapping
-			Link(title, destination: URL(string: "https://www.accuweather.com/")!)
+				//				swiftlint:disable:next force_unwrapping
+				Link(title, destination: URL(string: "https://www.accuweather.com/")!)
 					.font(.title2)
 					.foregroundColor(.white)
 			}

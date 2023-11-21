@@ -10,15 +10,20 @@ import SwiftUI
 
 struct WeatherListView: View {
 	let filteredWeather: [HourlyWeather]
+	@ObservedObject var user: User
+
 
 	var body: some View {
-		if filteredWeather.isEmpty {
-			Text("No sun")
-				.frame(maxWidth: .infinity, maxHeight: .infinity)
-		} else {
-			List(filteredWeather, id: \.epochDateTime) { weather in
-				HourlyWeatherRow(weather: weather)
+		VStack {
+			if filteredWeather.isEmpty {
+				Text("No sun")
+					.frame(maxWidth: .infinity, maxHeight: .infinity)
+			} else {
+				List(filteredWeather, id: \.epochDateTime) { weather in
+					HourlyWeatherRow(weather: weather)
+				}
 			}
 		}
+		.background(Color("backgroundBlue"))
 	}
 }

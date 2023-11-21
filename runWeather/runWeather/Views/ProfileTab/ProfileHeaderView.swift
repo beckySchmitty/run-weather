@@ -19,21 +19,21 @@ struct ProfileHeaderView: View {
 					.aspectRatio(contentMode: .fill)
 					.frame(width: 100, height: 100)
 					.clipShape(Circle())
-					.overlay(Circle().stroke(Color.white, lineWidth: 4))
+					.overlay(Circle().stroke(Color("mainBlueText"), lineWidth: 4))
 			} else {
 				Circle()
-					.strokeBorder(Color.white, lineWidth: 4)
+					.strokeBorder(Color("mainBlueText"), lineWidth: 4)
 					.frame(width: 100, height: 100)
 			}
 			Text(user.isTestDataEnabled ? "Travis Kelce" : "User")
 				.font(.title)
-				.foregroundColor(.white)
+				.foregroundColor(Color("mainBlueText"))
 			Text("Zip Code: \(user.zipCode)")
 				.font(.subheadline)
-				.foregroundColor(.white)
+				.foregroundColor(Color("mainBlueText"))
 			Text("Location Key: \(user.locationKey)")
 				.font(.subheadline)
-				.foregroundColor(.white)
+				.foregroundColor(Color("mainBlueText"))
 		}
 	}
 }
