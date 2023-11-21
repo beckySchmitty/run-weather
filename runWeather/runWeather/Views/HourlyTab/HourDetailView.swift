@@ -20,13 +20,14 @@ struct HourDetailView: View {
 						.fontWeight(.bold)
 						.foregroundColor(.white)
 					Image(systemName: WeatherIcon.iconForWeather(weather.weatherIcon).systemName)
-						.font(.system(size: 100)) 
-						.foregroundColor(WeatherIcon.iconForWeather(weather.weatherIcon).color()) 
+					.font(.system(size: 100))
+						.foregroundColor(Color("weatherIcon"))
 					Text("\(Int(weather.temperature.rounded()))°")
 						.font(.system(size: 80, weight: .thin))
 						.foregroundColor(.white)
 					HourDetailCardView(title: "Hour", value: "\(convertToHourWithTimeZone(weather.dateTime) ?? "N/A")")
-					HourDetailCardView(title: "Date", value: "\(convertToMonthDayYear(weather.dateTime) ?? "N/A"), \(convertToHourWithTimeZone(weather.dateTime) ?? "N/A")")
+//					swiftlint:disable:next line_length
+				HourDetailCardView(title: "Date", value: "\(convertToMonthDayYear(weather.dateTime) ?? "N/A"), \(convertToHourWithTimeZone(weather.dateTime) ?? "N/A")")
 					HourDetailCardView(title: "Temperature", value: "\(Int(weather.temperature.rounded())) \(weather.temperatureUnit)")
 					HourDetailCardView(title: "Precipitation Probability", value: "\(weather.precipitationProbability)%")
 					HourDetailLinkView(title: "Full Details", linkDestination: "\(weather.mobileLink)")
@@ -37,7 +38,6 @@ struct HourDetailView: View {
 				.background(Color.blue)
 				.cornerRadius(20)
 				.padding(.horizontal)
-
 				Spacer()
 			}
 		}

@@ -30,7 +30,7 @@ struct ProfileView: View {
 				}
 			}
 		}
-		.background(user.isDarkModeEnabled ? Color("backgroundBlue") : Color.gray)
+		.background(user.isDarkModeEnabled ? Color("backgroundBlue") : Color.white)
 		.alert(isPresented: $showAlert) {
 			Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
 		}
@@ -42,7 +42,6 @@ struct ProfileView: View {
 		}
 		.frame(maxHeight: .infinity)
 	}
-
 	private func updateDarkModePreference() {
 		guard !user.hasSetDarkMode else { return }
 		let isSystemDarkMode = systemColorScheme == .dark
@@ -80,7 +79,7 @@ extension ProfileView {
 			return false
 		}
 	}
-
+	
 	private func verifyAndSetZipCode() -> Bool {
 		let trimmedZipCode = inputZipCode.trimmingCharacters(in: .whitespaces)
 		if trimmedZipCode.count == 5 && trimmedZipCode.allSatisfy(\.isNumber) {
@@ -94,7 +93,7 @@ extension ProfileView {
 			return false
 		}
 	}
-
+	
 	private func getLocationKey() async {
 		do {
 			let locationKey = try await locationStore.fetchLocationKey(for: user.zipCode)
@@ -116,7 +115,7 @@ extension ProfileView {
 			showAlert = true
 		}
 	}
-
+	
 	@MainActor
 	private func setAlert(with message: String) {
 		self.alertMessage = message

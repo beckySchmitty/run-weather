@@ -12,7 +12,7 @@ class LocationModelTests: XCTestCase {
 	func testLocationModelInitialization() {
 		// Ensure the JSON file is added to the test target
 		guard let url = Bundle(for: type(of: self)).url(forResource: "LocationTestData", withExtension: "json"),
-					let data = try? Data(contentsOf: url) else {
+				let data = try? Data(contentsOf: url) else {
 			XCTFail("Failed to load LocationTestData.json from test bundle")
 			return
 		}

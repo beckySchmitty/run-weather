@@ -21,9 +21,9 @@ struct HourlyWeatherView: View {
 	var body: some View {
 		NavigationStack {
 			if user.isTestDataEnabled == false && user.locationKey.isEmpty {
-				NoWeatherDataView()
+				NoWeatherDataView(user: user)
 			} else {
-				WeatherListView(filteredWeather: filteredWeather)
+				WeatherListView(filteredWeather: filteredWeather, user: user)
 					.navigationTitle("Hourly Weather")
 					.toolbar {
 						ToolbarItem(placement: .navigationBarLeading) {
@@ -62,7 +62,6 @@ struct HourlyWeatherView: View {
 					}
 			}
 		}
-		.background(user.isDarkModeEnabled ? Color("backgroundBlue") : Color.gray)
 		.alert(hourlyWeatherStore.errorMessage ?? "Error", isPresented: $hourlyWeatherStore.hasError) {
 			Button("OK", role: .cancel) { }
 		} message: {

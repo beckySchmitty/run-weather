@@ -9,9 +9,13 @@ import SwiftUI
 
 struct ProfilePreferencesView: View {
 	var body: some View {
-		Text("Preferences")
-			.font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-		Text("Row")
-		Text("Row")
+		Spacer()
+		ScrollView {
+			Text("Preferences")
+				.font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+			Text("Customize preferred conditions for your outdoor lifestyle")
+			TemperatureSelectView()
+			PrecipitationSelectView()
+		}
 	}
 }

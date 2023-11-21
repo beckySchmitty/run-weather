@@ -114,36 +114,35 @@ enum WeatherIcon: Int {
 			return "cloud.moon.fill"
 		}
 	}
-
 	func color() -> Color {
-			switch self {
-			case .sunny, .mostlySunny, .partlySunny, .hazySunshine:
-					return .yellow
-			case .intermittentClouds, .mostlyCloudy, .cloudy, .dreary, .mostlyCloudyNight:
-					return .gray
-			case .fog:
-					return .gray.opacity(0.5)
-			case .showers, .mostlyCloudyShowers, .partlySunnyShowers:
-					return .blue
-			case .tStorms, .mostlyCloudyTStorms, .partlySunnyTStorms:
-					return .purple
-			case .rain:
-					return .blue.opacity(0.7)
-			case .flurries, .snow, .mostlyCloudyFlurries, .partlySunnyFlurries, .mostlyCloudySnow:
-					return .white
-			case .ice, .sleet, .freezingRain, .rainAndSnow:
-					return .blue.opacity(0.5)
-			case .hot:
-					return .red
-			case .cold:
-					return .blue
-			case .windy:
-					return .gray.opacity(0.3)
-			case .clear, .mostlyClear, .partlyCloudy:
-					return .yellow.opacity(0.5)
-//				swiftlint:disable:next line_length
-			case .intermittentCloudsNight, .hazyMoonlight, .partlyCloudyShowersNight, .mostlyCloudyShowersNight, .partlyCloudyTStormsNight, .mostlyCloudyTStormsNight, .mostlyCloudyFlurriesNight, .mostlyCloudySnowNight:
-					return .white.opacity(0.5)
-			}
+		switch self {
+		case .sunny, .mostlySunny, .partlySunny, .hazySunshine:
+			return .yellow
+		case .intermittentClouds, .mostlyCloudy, .cloudy, .dreary, .mostlyCloudyNight:
+			return .gray
+		case .fog:
+			return .gray.opacity(0.5)
+		case .showers, .mostlyCloudyShowers, .partlySunnyShowers:
+			return .blue
+		case .tStorms, .mostlyCloudyTStorms, .partlySunnyTStorms:
+			return .purple
+		case .rain:
+			return .blue.opacity(0.7)
+		case .flurries, .snow, .mostlyCloudyFlurries, .partlySunnyFlurries, .mostlyCloudySnow:
+			return .gray
+		case .ice, .sleet, .freezingRain, .rainAndSnow:
+			return .blue.opacity(0.5)
+		case .hot:
+			return .red
+		case .cold:
+			return .blue
+		case .windy:
+			return .gray.opacity(0.3)
+		case .clear, .mostlyClear, .partlyCloudy:
+			return .yellow.opacity(0.7)
+			//				swiftlint:disable:next line_length
+		case .intermittentCloudsNight, .hazyMoonlight, .partlyCloudyShowersNight, .mostlyCloudyShowersNight, .partlyCloudyTStormsNight, .mostlyCloudyTStormsNight, .mostlyCloudyFlurriesNight, .mostlyCloudySnowNight:
+			return .gray.opacity(0.5)
+		}
 	}
 }
