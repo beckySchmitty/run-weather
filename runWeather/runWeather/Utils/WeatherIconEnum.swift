@@ -114,6 +114,8 @@ enum WeatherIcon: Int {
 			return "cloud.moon.fill"
 		}
 	}
+// disabling because API returns this many options so the complexity is justified
+//	swiftlint:disable:next cyclomatic_complexity
 	func color() -> Color {
 		switch self {
 		case .sunny, .mostlySunny, .partlySunny, .hazySunshine:

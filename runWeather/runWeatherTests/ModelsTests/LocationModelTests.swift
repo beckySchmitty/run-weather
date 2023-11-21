@@ -12,7 +12,7 @@ class LocationModelTests: XCTestCase {
 	func testLocationModelInitialization() {
 		// Ensure the JSON file is added to the test target
 		guard let url = Bundle(for: type(of: self)).url(forResource: "LocationTestData", withExtension: "json"),
-				let data = try? Data(contentsOf: url) else {
+					let data = try? Data(contentsOf: url) else {
 			XCTFail("Failed to load LocationTestData.json from test bundle")
 			return
 		}
@@ -29,7 +29,6 @@ class LocationModelTests: XCTestCase {
 			XCTAssertEqual(location.version, 1)
 			XCTAssertEqual(location.key, "18404_PC")
 			XCTAssertEqual(location.type, "PostalCode")
-			// ... continue with assertions for the rest of the properties
 		} catch {
 			XCTFail("Decoding LocationModel failed with error: \(error)")
 		}
@@ -37,13 +36,16 @@ class LocationModelTests: XCTestCase {
 
 
 	func testRegionDecoding() {
-		let json = """
+		let json =
+ """
  {
  "ID": "NA",
  "LocalizedName": "North America",
  "EnglishName": "North America"
  }
- """.data(using: .utf8)!
+ """
+		//		swiftlint:disable:next force_unwrapping
+			.data(using: .utf8)!
 
 		do {
 			let region = try JSONDecoder().decode(Region.self, from: json)
@@ -56,14 +58,15 @@ class LocationModelTests: XCTestCase {
 	}
 
 	func testCountryDecoding() {
-		//		swigt
 		let json = """
  {
  "ID": "US",
  "LocalizedName": "United States",
  "EnglishName": "United States"
  }
- """.data(using: .utf8)!
+ """
+		//		swiftlint:disable:next force_unwrapping
+			.data(using: .utf8)!
 
 		do {
 			let country = try JSONDecoder().decode(Country.self, from: json)
