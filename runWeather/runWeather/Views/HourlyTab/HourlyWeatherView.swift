@@ -52,7 +52,8 @@ struct HourlyWeatherView: View {
 							HStack {
 								Spacer()
 								Toggle(isOn: $onlyShowSunny) {
-									Image(systemName: "sun.max.fill")
+									Image(systemName: "sparkles")
+										.imageScale(.large)
 								}
 								.labelsHidden()
 								.tint(.blue)

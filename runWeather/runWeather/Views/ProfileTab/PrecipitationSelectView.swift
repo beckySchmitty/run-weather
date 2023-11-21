@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PrecipitationSelectView: View {
-	@State private var selectedPrecipitation = "< 20%"
+	@Binding var selectedPrecipitation: String
 	let precipitationLevels = ["0 %", "< 20%", "< 40%", "< 60%", "< 80%"]
 
 	var body: some View {

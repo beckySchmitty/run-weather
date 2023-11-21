@@ -22,10 +22,11 @@ struct ProfileView: View {
 			ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
 			ScrollView {
 				VStack {
-					ProfilePreferencesView()
-					TestDataToggleView(user: user, isTestDataEnabled: $user.isTestDataEnabled)
+					ProfilePreferencesView(user: user)
 				}
 			}
+			Spacer()
+			TestDataToggleView(user: user, isTestDataEnabled: $user.isTestDataEnabled)
 		}
 		.background(Color("backgroundBlue"))
 		.alert(isPresented: $showAlert) {
@@ -65,7 +66,7 @@ extension ProfileView {
 			return false
 		}
 	}
-	
+
 	private func verifyAndSetZipCode() -> Bool {
 		let trimmedZipCode = inputZipCode.trimmingCharacters(in: .whitespaces)
 		if trimmedZipCode.count == 5 && trimmedZipCode.allSatisfy(\.isNumber) {
@@ -79,7 +80,7 @@ extension ProfileView {
 			return false
 		}
 	}
-	
+
 	private func getLocationKey() async {
 		do {
 			let locationKey = try await locationStore.fetchLocationKey(for: user.zipCode)
@@ -91,6 +92,7 @@ extension ProfileView {
 			case .serverError(let statusCode):
 				alertMessage = "Please try again later. The server responded with status code: \(statusCode)."
 			case .decodingError(let underlyingError):
+				//		swiftlint:disable:next line_length
 				alertMessage = "There was a problem decoding the data: \(underlyingError.localizedDescription). Please contact support."
 			case .other:
 				alertMessage = "other"
@@ -101,7 +103,7 @@ extension ProfileView {
 			showAlert = true
 		}
 	}
-	
+
 	@MainActor
 	private func setAlert(with message: String) {
 		self.alertMessage = message
