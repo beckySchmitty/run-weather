@@ -51,3 +51,8 @@ func fetchHourlyWeather(locationKey: String) async throws -> [HourlyWeather] {
 		throw WeatherError.decodingError(underlyingError: error)
 	}
 }
+
+
+protocol HourlyWeatherStoreProtocol {
+		var hourlyWeather: [HourlyWeather] { get set }
+}
