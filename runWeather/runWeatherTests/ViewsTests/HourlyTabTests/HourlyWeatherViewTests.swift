@@ -47,10 +47,10 @@ class HourlyWeatherViewTests: XCTestCase {
 
 class MockHourlyWeatherStore: ObservableObject, HourlyWeatherStoreProtocol {
 		var hourlyWeather: [HourlyWeather] = []
-
 		 init() {
 				let weatherData = [
-						HourlyWeatherData(dateTime: "2023-11-21T21:00:00-05:00", epochDateTime: 1700618400, weatherIcon: 38, iconPhrase: "Mostly cloudy", hasPrecipitation: false, isDaylight: false, temperature: Temperature(value: 48.0, unit: "F", unitType: 18), precipitationProbability: 32, mobileLink: "http://www.accuweather.com/en/us/westerville-oh/43081/hourly-weather-forecast/18404_pc?day=1&hbhhour=21&lang=en-us", link: "http://www.accuweather.com/en/us/westerville-oh/43081/hourly-weather-forecast/18404_pc?day=1&hbhhour=21&lang=en-us"),
+					// swiftlint:disable:next line_length
+						HourlyWeatherData(dateTime: "2023-11-21T21:00:00-05:00", epochDateTime: 1700618400, weatherIcon: 38, iconPhrase: "Mostly cloudy", hasPrecipitation: false, isDaylight: false, temperature: Temperature(value: 48.0, unit: "F", unitType: 18), precipitationProbability: 32, mobileLink: "http://www.accuweather.com/en/us/westerville-oh/43081/hourly-weather-forecast/18404_pc?day=1&hbhhour=21&lang=en-us", link: "http://www.accuweather.com/en/us/westerville-oh/43081/hourly-weather-forecast/18404_pc?day=1&hbhhour=21&lang=en-us")
 						// TODO: add more
 				]
 				self.hourlyWeather = weatherData.map(HourlyWeather.init)

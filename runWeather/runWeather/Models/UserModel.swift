@@ -25,7 +25,7 @@ class User: ObservableObject {
 	private static func loadPreferences() -> Preferences {
 		//		swiftlint:disable:next line_length
 		guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return Preferences() }
-		let fileUrl = documentDirectoryUrl.appendingPathComponent("UserPreferences.json")
+		let fileUrl = documentDirectoryUrl.appendingPathComponent("UserModelPreferences.json")
 
 		do {
 			let data = try Data(contentsOf: fileUrl)

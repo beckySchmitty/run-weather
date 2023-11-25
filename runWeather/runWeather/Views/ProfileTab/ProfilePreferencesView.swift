@@ -31,7 +31,7 @@ struct ProfilePreferencesView: View {
 	private func savePreferences() {
 //		swiftlint:disable:next line_length
 	guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-		let fileUrl = documentDirectoryUrl.appendingPathComponent("UserPreferences.json")
+		let fileUrl = documentDirectoryUrl.appendingPathComponent("UserModelPreferences.json")
 
 		do {
 			let fileManager = FileManager.default
@@ -42,6 +42,7 @@ struct ProfilePreferencesView: View {
 
 			let jsonData = try JSONEncoder().encode(user.preferences)
 			try jsonData.write(to: fileUrl, options: .atomicWrite)
+			print("***: \(String(data: jsonData, encoding: .utf8)!)")
 			print("Preferences saved.")
 		} catch {
 			print("Error saving preferences: \(error)")
