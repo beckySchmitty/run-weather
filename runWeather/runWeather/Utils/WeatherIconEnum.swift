@@ -141,7 +141,7 @@ enum WeatherIcon: Int {
 		case .windy:
 			return .gray.opacity(0.3)
 		case .clear, .mostlyClear, .partlyCloudy:
-			return .yellow.opacity(0.7)
+			return .gray.opacity(0.7)
 			//				swiftlint:disable:next line_length
 		case .intermittentCloudsNight, .hazyMoonlight, .partlyCloudyShowersNight, .mostlyCloudyShowersNight, .partlyCloudyTStormsNight, .mostlyCloudyTStormsNight, .mostlyCloudyFlurriesNight, .mostlyCloudySnowNight:
 			return .gray.opacity(0.5)

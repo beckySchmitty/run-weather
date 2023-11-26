@@ -10,7 +10,7 @@ import SwiftUI
 struct HourlyWeatherView: View {
 	@EnvironmentObject var hourlyWeatherStore: HourlyWeatherStore
 	@ObservedObject var user: User
-	@State private var onlyShowSunny = false
+	@State var onlyShowSunny = false
 	@State private var isAnimating = false
 
 	var filteredWeather: [HourlyWeather] {

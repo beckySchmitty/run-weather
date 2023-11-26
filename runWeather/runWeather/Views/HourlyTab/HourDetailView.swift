@@ -35,7 +35,7 @@ struct HourDetailView: View {
 				}
 				.padding()
 				.frame(maxWidth: .infinity, alignment: .leading)
-				.background(Color.blue)
+				.background(Color.purple)
 				.cornerRadius(20)
 				.padding(.horizontal)
 				Spacer()

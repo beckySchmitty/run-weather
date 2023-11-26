@@ -31,7 +31,7 @@ struct ProfilePreferencesView: View {
 	private func savePreferences() {
 //		swiftlint:disable:next line_length
 	guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-		let fileUrl = documentDirectoryUrl.appendingPathComponent("UserPreferences.json")
+		let fileUrl = documentDirectoryUrl.appendingPathComponent("UserModelPreferences.json")
 
 		do {
 			let fileManager = FileManager.default
