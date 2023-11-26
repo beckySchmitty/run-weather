@@ -10,6 +10,7 @@ import XCTest
 
 @MainActor
 class UserModelTests: XCTestCase {
+	//	swiftlint:disable:next implicitly_unwrapped_optional
 	var user: User!
 
 	override func setUpWithError() throws {
@@ -33,6 +34,7 @@ class UserModelTests: XCTestCase {
 	}
 
 	func testInitializationWithCustomValues() {
+		//		swiftlint:disable:next line_length
 		let customUser = User(zipCode: "12345", locationKey: "CustomKey", localizedName: "CustomName", isTestDataEnabled: true)
 		XCTAssertEqual(customUser.zipCode, "12345")
 		XCTAssertEqual(customUser.locationKey, "CustomKey")

@@ -8,13 +8,13 @@
 import Foundation
 
 protocol NetworkSession {
-		func sessionData(from url: URL) async throws -> (Data, URLResponse)
+	func sessionData(from url: URL) async throws -> (Data, URLResponse)
 }
 
 extension URLSession: NetworkSession {
-		func sessionData(from url: URL) async throws -> (Data, URLResponse) {
-				return try await self.data(from: url)
-		}
+	func sessionData(from url: URL) async throws -> (Data, URLResponse) {
+		return try await self.data(from: url)
+	}
 }
 
 // API Docs: https://developer.accuweather.com/accuweather-locations-api/apis
@@ -23,13 +23,11 @@ let baseURL = "https://dataservice.accuweather.com/locations/v1/postalcodes/us/"
 class LocationStore: ObservableObject {
 	@Published var errorMessage: String?
 	@Published var hasError = false
-
-	// The session property for network calls
 	var session: NetworkSession
 
 	// Dependency injection in initializer
 	init(session: NetworkSession = URLSession.shared) {
-			self.session = session
+		self.session = session
 	}
 
 	func fetchLocationKey(for zipCode: String) async throws -> String {

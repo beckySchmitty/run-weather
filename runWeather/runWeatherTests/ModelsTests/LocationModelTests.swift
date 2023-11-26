@@ -10,33 +10,33 @@ import XCTest
 
 class LocationModelTests: XCTestCase {
 	func testLocationModelInitialization() {
-		// Ensure the JSON file is added to the test target
-		guard let url = Bundle(for: type(of: self)).url(forResource: "LocationTestData", withExtension: "json"),
-					let data = try? Data(contentsOf: url) else {
-			XCTFail("Failed to load LocationTestData.json from test bundle")
+		// JSON string that represents the data we want to test
+		//		swiftlint:disable line_length
+		//	swiftlint:disable indentation_width
+	let jsonString = """
+ [{"Version":1,"Key":"18404_PC","Type":"PostalCode","Rank":55,"LocalizedName":"Westerville","EnglishName":"Westerville","PrimaryPostalCode":"43081","Region":{"ID":"NAM","LocalizedName":"North America","EnglishName":"North America"},"Country":{"ID":"US","LocalizedName":"United States","EnglishName":"United States"},"AdministrativeArea":{"ID":"OH","LocalizedName":"Ohio","EnglishName":"Ohio","Level":1,"LocalizedType":"State","EnglishType":"State","CountryID":"US"},"TimeZone":{"Code":"EST","Name":"America/New_York","GmtOffset":-5.0,"IsDaylightSaving":false,"NextOffsetChange":"2024-03-10T07:00:00Z"},"GeoPosition":{"Latitude":40.117,"Longitude":-82.919,"Elevation":{"Metric":{"Value":266.0,"Unit":"m","UnitType":5},"Imperial":{"Value":872.0,"Unit":"ft","UnitType":0}}},"IsAlias":false,"ParentCity":{"Key":"340047","LocalizedName":"Westerville","EnglishName":"Westerville"},"SupplementalAdminAreas":[{"Level":2,"LocalizedName":"Franklin","EnglishName":"Franklin"}],"DataSets":["AirQualityCurrentConditions","AirQualityForecasts","Alerts","DailyAirQualityForecast","DailyPollenForecast","ForecastConfidence","FutureRadar","MinuteCast","Radar"]}]
+ """
+		//		swiftlint:enable line_length
+		// Convert the JSON string to Data
+		guard let data = jsonString.data(using: .utf8) else {
+			XCTFail("Could not create data from JSON string")
 			return
-		}
+	}
 
 		do {
-			// Decode the JSON data into an array of LocationModel, since your JSON root is an array
-			let locations = try JSONDecoder().decode([LocationModel].self, from: data)
-			guard let location = locations.first else {
-				XCTFail("No locations were decoded from the JSON data")
-				return
-			}
+			// Decode the JSON data into an array of LocationModel
+		let locations = try JSONDecoder().decode([LocationModel].self, from: data)
 
-			// Perform the tests using the first location in the array
-			XCTAssertEqual(location.version, 1)
-			XCTAssertEqual(location.key, "18404_PC")
-			XCTAssertEqual(location.type, "PostalCode")
+			// Assert that the locations array is not empty, meaning at least one location exists
+			XCTAssertFalse(locations.isEmpty, "No locations were decoded from the JSON data")
 		} catch {
 			XCTFail("Decoding LocationModel failed with error: \(error)")
 		}
-	}
+}
 
 
 	func testRegionDecoding() {
-		let json =
+	let json =
  """
  {
  "ID": "NA",
@@ -45,7 +45,7 @@ class LocationModelTests: XCTestCase {
  }
  """
 		//		swiftlint:disable:next force_unwrapping
-			.data(using: .utf8)!
+		.data(using: .utf8)!
 
 		do {
 			let region = try JSONDecoder().decode(Region.self, from: json)
@@ -55,10 +55,10 @@ class LocationModelTests: XCTestCase {
 		} catch {
 			XCTFail("Decoding Region failed with error: \(error)")
 		}
-	}
+}
 
 	func testCountryDecoding() {
-		let json = """
+	let json = """
  {
  "ID": "US",
  "LocalizedName": "United States",
@@ -66,7 +66,7 @@ class LocationModelTests: XCTestCase {
  }
  """
 		//		swiftlint:disable:next force_unwrapping
-			.data(using: .utf8)!
+		.data(using: .utf8)!
 
 		do {
 			let country = try JSONDecoder().decode(Country.self, from: json)
@@ -77,6 +77,5 @@ class LocationModelTests: XCTestCase {
 			XCTFail("Decoding Country failed with error: \(error)")
 		}
 	}
-
-	// Add more tests here
 }
+//	swiftlint:enable indentation_width

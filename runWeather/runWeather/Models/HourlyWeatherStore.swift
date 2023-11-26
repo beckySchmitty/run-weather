@@ -54,5 +54,5 @@ func fetchHourlyWeather(locationKey: String) async throws -> [HourlyWeather] {
 
 
 protocol HourlyWeatherStoreProtocol {
-		var hourlyWeather: [HourlyWeather] { get set }
+	var hourlyWeather: [HourlyWeather] { get set }
 }

@@ -42,7 +42,6 @@ struct ProfilePreferencesView: View {
 
 			let jsonData = try JSONEncoder().encode(user.preferences)
 			try jsonData.write(to: fileUrl, options: .atomicWrite)
-			print("***: \(String(data: jsonData, encoding: .utf8)!)")
 			print("Preferences saved.")
 		} catch {
 			print("Error saving preferences: \(error)")
