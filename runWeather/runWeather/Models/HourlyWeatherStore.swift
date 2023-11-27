@@ -28,7 +28,7 @@ class HourlyWeatherStore: ObservableObject {
 	}
 
 	func loadTestData() async {
-		TestDataLoader.loadWeatherTestData(into: self)
+		await TestDataLoader.loadWeatherTestData(into: self)
 	}
 }
 

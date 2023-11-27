@@ -37,6 +37,7 @@ struct NoWeatherDataView: View {
 							position = (position + 0.005).truncatingRemainder(dividingBy: 1)
 						}
 					}
+					.accessibilityIdentifier("cloudSunImage")
 				Text("Update your profile to see the weather forecast")
 					.font(.title)
 			}
