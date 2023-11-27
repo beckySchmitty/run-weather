@@ -10,20 +10,15 @@ import SwiftUI
 struct HourlyWeatherView: View {
 	@EnvironmentObject var hourlyWeatherStore: HourlyWeatherStore
 	@ObservedObject var user: User
-	@State var onlyShowSunny = false
+	@State var isFilteredByUserPref = false
 	@State private var isAnimating = false
-
-	var filteredWeather: [HourlyWeather] {
-		onlyShowSunny ? hourlyWeatherStore.hourlyWeather.filter { $0.iconPhrase.lowercased().contains("sunny") }
-		: hourlyWeatherStore.hourlyWeather
-	}
 
 	var body: some View {
 		NavigationStack {
 			if user.isTestDataEnabled == false && user.locationKey.isEmpty {
 				NoWeatherDataView(user: user)
 			} else {
-				WeatherListView(filteredWeather: filteredWeather, user: user)
+				FilteredWeatherView(user: user, isFilteredByUserPref: $isFilteredByUserPref)
 					.navigationTitle("Hourly Weather")
 					.toolbar {
 						ToolbarItem(placement: .navigationBarLeading) {
@@ -51,7 +46,7 @@ struct HourlyWeatherView: View {
 						ToolbarItem(placement: .navigationBarTrailing) {
 							HStack {
 								Spacer()
-								Toggle(isOn: $onlyShowSunny) {
+								Toggle(isOn: $isFilteredByUserPref) {
 									Image(systemName: "sparkles")
 										.imageScale(.large)
 								}
@@ -63,6 +58,7 @@ struct HourlyWeatherView: View {
 					}
 			}
 		}
+		.background(Color("backgroundBlue"))
 		.alert(hourlyWeatherStore.errorMessage ?? "Error", isPresented: $hourlyWeatherStore.hasError) {
 			Button("OK", role: .cancel) { }
 		} message: {

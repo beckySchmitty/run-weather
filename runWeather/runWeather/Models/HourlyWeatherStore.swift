@@ -30,25 +30,26 @@ class HourlyWeatherStore: ObservableObject {
 	func loadTestData() async {
 		await TestDataLoader.loadWeatherTestData(into: self)
 	}
-}
 
-func fetchHourlyWeather(locationKey: String) async throws -> [HourlyWeather] {
-	let urlString = "https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/\(locationKey)?apikey=\(apiKey)"
-	guard let url = URL(string: urlString) else {
-		throw WeatherError.badURL
-	}
 
-	let (data, response) = try await URLSession.shared.data(from: url)
-	guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-		print("Response was not 200: \(response)")
-		throw WeatherError.serverError(statusCode: (response as? HTTPURLResponse)?.statusCode ?? 500)
-	}
+	func fetchHourlyWeather(locationKey: String) async throws -> [HourlyWeather] {
+		let urlString = "https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/\(locationKey)?apikey=\(apiKey)"
+		guard let url = URL(string: urlString) else {
+			throw WeatherError.badURL
+		}
 
-	do {
-		let weatherDataArray = try JSONDecoder().decode([HourlyWeatherData].self, from: data)
-		return weatherDataArray.map { HourlyWeather(from: $0) }
-	} catch {
-		throw WeatherError.decodingError(underlyingError: error)
+		let (data, response) = try await URLSession.shared.data(from: url)
+		guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+			print("Response was not 200: \(response)")
+			throw WeatherError.serverError(statusCode: (response as? HTTPURLResponse)?.statusCode ?? 500)
+		}
+
+		do {
+			let weatherDataArray = try JSONDecoder().decode([HourlyWeatherData].self, from: data)
+			return weatherDataArray.map { HourlyWeather(from: $0) }
+		} catch {
+			throw WeatherError.decodingError(underlyingError: error)
+		}
 	}
 }
 
