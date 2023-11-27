@@ -10,7 +10,7 @@ import SwiftUI
 
 struct WeatherListView: View {
 	let filteredWeather: [HourlyWeather]
-	@ObservedObject var user: User
+	@ObservedObject var userStore: UserStore
 
 	var body: some View {
 		VStack {

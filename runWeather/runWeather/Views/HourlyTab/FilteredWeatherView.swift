@@ -9,19 +9,19 @@ import SwiftUI
 
 struct FilteredWeatherView: View {
 	@EnvironmentObject var hourlyWeatherStore: HourlyWeatherStore
-	@ObservedObject var user: User
+	@ObservedObject var userStore: UserStore
 	@Binding var isFilteredByUserPref: Bool
 
 	var filteredWeather: [HourlyWeather] {
 		//		swiftlint:disable line_length
 		if isFilteredByUserPref {
 			// Parse the temperature preference
-			guard let selectedTemp = Double(user.preferences.selectedTemperature.trimmingCharacters(in: CharacterSet(charactersIn: "°F"))) else {
+			guard let selectedTemp = Double(userStore.user.preferences.selectedTemperature.trimmingCharacters(in: CharacterSet(charactersIn: "°F"))) else {
 				print("Error parsing selected temperature preference. Using default value.")
 				return hourlyWeatherStore.hourlyWeather
 			}
 			// Parse the precipitation preference
-			guard let selectedPrecip = Int(user.preferences.selectedPrecipitation.trimmingCharacters(in: CharacterSet(charactersIn: "< %"))) else {
+			guard let selectedPrecip = Int(userStore.user.preferences.selectedPrecipitation.trimmingCharacters(in: CharacterSet(charactersIn: "< %"))) else {
 				print("Error parsing selected precipitation preference. Using default value.")
 				return hourlyWeatherStore.hourlyWeather
 			}
@@ -40,6 +40,6 @@ struct FilteredWeatherView: View {
 	}
 
 	var body: some View {
-		WeatherListView(filteredWeather: filteredWeather, user: user)
+		WeatherListView(filteredWeather: filteredWeather, userStore: userStore)
 	}
 }

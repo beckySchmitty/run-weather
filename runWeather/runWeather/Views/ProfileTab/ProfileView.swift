@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct ProfileView: View {
-	@ObservedObject var user: User
+	@ObservedObject var userStore: UserStore
 	@EnvironmentObject var locationStore: LocationStore
 	@EnvironmentObject var hourlyWeatherStore: HourlyWeatherStore
 	@State private var inputZipCode: String = ""
@@ -18,15 +18,15 @@ struct ProfileView: View {
 
 	var body: some View {
 		VStack {
-			ProfileHeaderView(user: user)
+			ProfileHeaderView(userStore: userStore)
 			ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
 			ScrollView {
 				VStack {
-					ProfilePreferencesView(user: user)
+					ProfilePreferencesView(userStore: userStore)
 				}
 			}
 			Spacer()
-			TestDataToggleView(user: user, isTestDataEnabled: $user.isTestDataEnabled)
+			TestDataToggleView(userStore: userStore, isTestDataEnabled: $userStore.isTestDataEnabled)
 		}
 		.background(Color("backgroundBlue"))
 		.alert(isPresented: $showAlert) {
@@ -48,7 +48,7 @@ extension ProfileView {
 	}
 
 	private func loadWeatherDataForUser() async {
-		await hourlyWeatherStore.loadWeatherData(locationKey: user.locationKey)
+		await hourlyWeatherStore.loadWeatherData(locationKey: userStore.locationKey)
 		if hourlyWeatherStore.hasError, let errorMessage = hourlyWeatherStore.errorMessage {
 			alertMessage = errorMessage
 			showAlert = true
@@ -70,7 +70,7 @@ extension ProfileView {
 	private func verifyAndSetZipCode() -> Bool {
 		let trimmedZipCode = inputZipCode.trimmingCharacters(in: .whitespaces)
 		if trimmedZipCode.count == 5 && trimmedZipCode.allSatisfy(\.isNumber) {
-			user.zipCode = trimmedZipCode
+			userStore.zipCode = trimmedZipCode
 			inputZipCode = ""
 			return true
 		} else {
@@ -83,8 +83,8 @@ extension ProfileView {
 
 	private func getLocationKey() async {
 		do {
-			let locationKey = try await locationStore.fetchLocationKey(for: user.zipCode)
-			user.locationKey = locationKey
+			let locationKey = try await locationStore.fetchLocationKey(for: userStore.zipCode)
+			userStore.locationKey = locationKey
 		} catch let error as LocationError {
 			switch error {
 			case .invalidURL:

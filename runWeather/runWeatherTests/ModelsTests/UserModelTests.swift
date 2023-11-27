@@ -9,72 +9,62 @@ import XCTest
 @testable import runWeather
 
 @MainActor
-class UserModelTests: XCTestCase {
-	//	swiftlint:disable:next implicitly_unwrapped_optional
-	var user: User!
+class UserStoreTests: XCTestCase {
+	var userStore: UserStore!
 
 	override func setUpWithError() throws {
 		super.setUp()
-		user = User()
+		let userModel = UserModel()
+		userStore = UserStore(user: userModel)
 	}
 
 	override func tearDownWithError() throws {
-		user = nil
+		userStore = nil
 		super.tearDown()
 	}
 
 	func testInitializationWithDefaultValues() {
-		XCTAssertEqual(user.zipCode, "")
-		XCTAssertEqual(user.locationKey, "")
-		XCTAssertEqual(user.localizedName, "")
-		XCTAssertFalse(user.isTestDataEnabled)
-		// Add more asserts for default preferences if needed
+		XCTAssertEqual(userStore.zipCode, "")
+		XCTAssertEqual(userStore.locationKey, "")
+		XCTAssertEqual(userStore.localizedName, "")
+		XCTAssertFalse(userStore.isTestDataEnabled)
 	}
 
 	func testInitializationWithCustomValues() {
-		//		swiftlint:disable:next line_length
-		let customUser = User(zipCode: "12345", locationKey: "CustomKey", localizedName: "CustomName", isTestDataEnabled: true)
-		XCTAssertEqual(customUser.zipCode, "12345")
-		XCTAssertEqual(customUser.locationKey, "CustomKey")
-		XCTAssertEqual(customUser.localizedName, "CustomName")
-		XCTAssertTrue(customUser.isTestDataEnabled)
+		let customUserModel = UserModel(
+			zipCode: "12345",
+			locationKey: "CustomKey",
+			localizedName: "CustomName",
+			isTestDataEnabled: true,
+			preferences: Preferences(selectedTemperature: "75", selectedPrecipitation: "10")
+		)
+		userStore = UserStore(user: customUserModel)
+		XCTAssertEqual(userStore.zipCode, "12345")
+		XCTAssertEqual(userStore.locationKey, "CustomKey")
+		XCTAssertEqual(userStore.localizedName, "CustomName")
+		XCTAssertTrue(userStore.isTestDataEnabled)
+		XCTAssertEqual(userStore.user.preferences.selectedTemperature, "75")
+		XCTAssertEqual(userStore.user.preferences.selectedPrecipitation, "10")
 	}
 
-	func testPropertyObservability() {
-		let expectation = XCTestExpectation(description: "Property change should be observed")
-
-		var didChange = false
-		let cancellable = user.$zipCode.sink { _ in
-			didChange = true
-			expectation.fulfill()
-		}
-
-		user.zipCode = "99999"
-		wait(for: [expectation], timeout: 1.0)
-		XCTAssertTrue(didChange)
-
-		cancellable.cancel()
-	}
-
-	func testTestDataEnabling() {
-		XCTAssertFalse(user.isTestDataEnabled)
-		user.isTestDataEnabled = true
-		XCTAssertTrue(user.isTestDataEnabled)
-		user.isTestDataEnabled = false
-		XCTAssertFalse(user.isTestDataEnabled)
-	}
-
-	func testUserPreferenceChange() {
-		// Change the preference
-		user.preferences.selectedTemperature = "90°F"
-		XCTAssertEqual(user.preferences.selectedTemperature, "90°F")
+	func testPreferenceChange() {
+		userStore.user.preferences.selectedTemperature = "90°F"
+		XCTAssertEqual(userStore.user.preferences.selectedTemperature, "90°F")
 	}
 
 	func testLocalizedNameChange() {
-		let initialName = user.localizedName
+		let initialName = userStore.localizedName
 		let newName = "New Localized Name"
-		user.localizedName = newName
-		XCTAssertNotEqual(user.localizedName, initialName)
-		XCTAssertEqual(user.localizedName, newName)
+		userStore.localizedName = newName
+		XCTAssertNotEqual(userStore.localizedName, initialName)
+		XCTAssertEqual(userStore.localizedName, newName)
+	}
+
+	func testTestDataEnabling() {
+		XCTAssertFalse(userStore.isTestDataEnabled)
+		userStore.isTestDataEnabled = true
+		XCTAssertTrue(userStore.isTestDataEnabled)
+		userStore.isTestDataEnabled = false
+		XCTAssertFalse(userStore.isTestDataEnabled)
 	}
 }

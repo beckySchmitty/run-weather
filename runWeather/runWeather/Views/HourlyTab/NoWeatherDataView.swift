@@ -20,7 +20,7 @@ struct CircularEffect: GeometryEffect {
 }
 
 struct NoWeatherDataView: View {
-	@ObservedObject var user: User
+	@ObservedObject var userStore: UserStore
 	@State private var position: CGFloat = 0
 	let timer = Timer.publish(every: 0.02, on: .main, in: .common).autoconnect()
 

@@ -9,14 +9,14 @@ import Foundation
 
 @MainActor
 enum TestDataLoader {
-	static func setTestUserDetails(user: User) {
-		user.zipCode = "43081"
-		user.locationKey = "18404_PC"
+	static func setTestUserDetails(userStore: UserStore) {
+		userStore.zipCode = "43081"
+		userStore.locationKey = "18404_PC"
 	}
 
-	static func emptyUserDetails(user: User) {
-		user.zipCode = ""
-		user.locationKey = ""
+	static func emptyUserDetails(userStore: UserStore) {
+		userStore.zipCode = ""
+		userStore.locationKey = ""
 	}
 
 	static func loadWeatherTestData(into store: HourlyWeatherStore) async {
@@ -40,12 +40,12 @@ enum TestDataLoader {
 			print("Error decoding test data: \(error)")
 		}
 	}
-	static func emptyTestData(user: User, store: HourlyWeatherStore) {
-		emptyUserDetails(user: user)
+	static func emptyTestData(userStore: UserStore, store: HourlyWeatherStore) {
+		emptyUserDetails(userStore: userStore)
 		store.hourlyWeather = []
 	}
-	static func setTestData(user: User, store: HourlyWeatherStore) async {
-		setTestUserDetails(user: user)
+	static func setTestData(userStore: UserStore, store: HourlyWeatherStore) async {
+		setTestUserDetails(userStore: userStore)
 		await loadWeatherTestData(into: store)
 	}
 }

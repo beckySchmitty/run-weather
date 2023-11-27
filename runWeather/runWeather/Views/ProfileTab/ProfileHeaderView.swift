@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ProfileHeaderView: View {
-	@ObservedObject var user: User
+	@ObservedObject var userStore: UserStore
 
 	@EnvironmentObject var locationStore: LocationStore
 	var body: some View {
 		HStack {
-			if user.isTestDataEnabled {
+			if userStore.isTestDataEnabled {
 				Image("profile_tKelce")
 					.resizable()
 					.aspectRatio(contentMode: .fill)
@@ -25,13 +25,13 @@ struct ProfileHeaderView: View {
 					.strokeBorder(Color("mainBlueText"), lineWidth: 4)
 					.frame(width: 100, height: 100)
 			}
-			Text(user.isTestDataEnabled ? "Travis Kelce" : "User")
+			Text(userStore.isTestDataEnabled ? "Travis Kelce" : "User")
 				.font(.title)
 				.foregroundColor(Color("mainBlueText"))
-			Text("Zip Code: \(user.zipCode)")
+			Text("Zip Code: \(userStore.zipCode)")
 				.font(.subheadline)
 				.foregroundColor(Color("mainBlueText"))
-			Text("Location Key: \(user.locationKey)")
+			Text("Location Key: \(userStore.locationKey)")
 				.font(.subheadline)
 				.foregroundColor(Color("mainBlueText"))
 		}

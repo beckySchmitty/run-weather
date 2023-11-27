@@ -14,19 +14,19 @@ class FilteredWeatherViewTests: XCTestCase {
 	//	swiftlint:disable line_length
 	//	swiftlint:disable indentation_width
 	var hourlyWeatherStore: HourlyWeatherStore!
-	var user: User!
+	var userStore: UserStore!
 	//	swiftlint:enable implicitly_unwrapped_optional
 
 	override func setUp() {
 		super.setUp()
 		hourlyWeatherStore = HourlyWeatherStore()
-		user = User()
+		userStore = UserStore()
 		hourlyWeatherStore.hourlyWeather = MockHourlyWeatherModel.createMockHourlyWeatherModel()
 	}
 
 	override func tearDown() {
 		hourlyWeatherStore = nil
-		user = nil
+		userStore = nil
 		super.tearDown()
 	}
 
@@ -37,14 +37,14 @@ class FilteredWeatherViewTests: XCTestCase {
 		// Act
 		let filteredWeather = FilteredWeatherView.getFilteredWeather(
 			from: hourlyWeatherStore.hourlyWeather,
-			user: user,
+			userPreferences: userStore.user.preferences,
 			isFiltered: isFilteredByUserPref
 		)
 
 		// Assert
 		let expectedFilteredWeather = hourlyWeatherStore.hourlyWeather.filter { weather in
-			guard let selectedTemp = Double(user.preferences.selectedTemperature.trimmingCharacters(in: CharacterSet(charactersIn: "°F"))),
-						let selectedPrecip = Int(user.preferences.selectedPrecipitation.trimmingCharacters(in: CharacterSet(charactersIn: "< %"))) else {
+			guard let selectedTemp = Double(userStore.user.preferences.selectedTemperature.trimmingCharacters(in: CharacterSet(charactersIn: "°F"))),
+						let selectedPrecip = Int(userStore.user.preferences.selectedPrecipitation.trimmingCharacters(in: CharacterSet(charactersIn: "< %"))) else {
 				return false
 			}
 			return weather.temperature >= selectedTemp && weather.precipitationProbability <= selectedPrecip
@@ -54,13 +54,16 @@ class FilteredWeatherViewTests: XCTestCase {
 }
 
 extension FilteredWeatherView {
-	static func getFilteredWeather(from hourlyWeather: [HourlyWeather], user: User, isFiltered: Bool) -> [HourlyWeather] {
+	static func getFilteredWeather(from hourlyWeather: [HourlyWeather], userPreferences: Preferences, isFiltered: Bool) -> [HourlyWeather] {
 		if isFiltered {
-			guard let selectedTemp = Double(user.preferences.selectedTemperature.trimmingCharacters(in: CharacterSet(charactersIn: "°F"))),
-						let selectedPrecip = Int(user.preferences.selectedPrecipitation.trimmingCharacters(in: CharacterSet(charactersIn: "< %"))) else {
+			// Parse the user's temperature preference
+			guard let selectedTemp = Double(userPreferences.selectedTemperature.trimmingCharacters(in: CharacterSet(charactersIn: "°F"))),
+						// Parse the user's precipitation preference
+						let selectedPrecip = Int(userPreferences.selectedPrecipitation.trimmingCharacters(in: CharacterSet(charactersIn: "< %"))) else {
 				return hourlyWeather
 			}
 
+			// Filter the weather data based on the user's preferences
 			return hourlyWeather.filter { weather in
 				weather.temperature >= selectedTemp && weather.precipitationProbability <= selectedPrecip
 			}
