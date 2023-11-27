@@ -19,18 +19,32 @@ struct HourDetailView: View {
 						.font(.title)
 						.fontWeight(.bold)
 						.foregroundColor(.white)
+						.accessibilityIdentifier("weatherIconPhrase")
+
 					Image(systemName: WeatherIcon.iconForWeather(weather.weatherIcon).systemName)
 						.font(.system(size: 100))
 						.foregroundColor(Color("weatherIcon"))
+						.accessibilityIdentifier("weatherImage")
+
 					Text("\(Int(weather.temperature.rounded()))°")
 						.font(.system(size: 80, weight: .thin))
 						.foregroundColor(.white)
+						.accessibilityIdentifier("temperatureDisplay")
+
 					HourDetailCardView(title: "Hour", value: "\(convertToHourWithTimeZone(weather.dateTime) ?? "N/A")")
-					//					swiftlint:disable:next line_length
+						.accessibilityIdentifier("hourDetailCardHour")
+					// swiftlint:disable:next line_length
 					HourDetailCardView(title: "Date", value: "\(convertToMonthDayYear(weather.dateTime) ?? "N/A"), \(convertToHourWithTimeZone(weather.dateTime) ?? "N/A")")
+						.accessibilityIdentifier("hourDetailCardDate")
+
 					HourDetailCardView(title: "Temperature", value: "\(Int(weather.temperature.rounded())) \(weather.temperatureUnit)")
+						.accessibilityIdentifier("hourDetailCardTemperature")
+
 					HourDetailCardView(title: "Precipitation Probability", value: "\(weather.precipitationProbability)%")
+						.accessibilityIdentifier("hourDetailCardPrecipitationProbability")
+
 					HourDetailLinkView(title: "Full Details", linkDestination: "\(weather.mobileLink)")
+						.accessibilityIdentifier("hourDetailLinkFullDetails")
 					Spacer()
 				}
 				.padding()

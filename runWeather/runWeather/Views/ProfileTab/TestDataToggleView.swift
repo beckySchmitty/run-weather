@@ -16,11 +16,15 @@ struct TestDataToggleView: View {
 		Toggle("Enable Test Data", isOn: $isTestDataEnabled)
 			.padding()
 			.onChange(of: isTestDataEnabled) { _, newValue in
+				print("###### Toggle changed: \(newValue ? "ON" : "OFF")")
 				if newValue {
-					TestDataLoader.setTestData(user: user, store: hourlyWeatherStore)
+					Task {
+						await TestDataLoader.setTestData(user: user, store: hourlyWeatherStore)
+					}
 				} else {
 					TestDataLoader.emptyTestData(user: user, store: hourlyWeatherStore)
 				}
 			}
+			.accessibilityIdentifier("testDataToggle")
 	}
 }

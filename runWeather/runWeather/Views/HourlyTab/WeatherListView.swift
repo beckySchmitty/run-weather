@@ -21,6 +21,7 @@ struct WeatherListView: View {
 			} else {
 				List(filteredWeather, id: \.epochDateTime) { weather in
 					HourlyWeatherRow(weather: weather)
+						.accessibilityIdentifier("HourlyWeatherRow-\(weather.dateTime)")
 				}
 			}
 		}
