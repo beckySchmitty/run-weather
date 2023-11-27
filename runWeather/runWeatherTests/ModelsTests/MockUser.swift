@@ -18,7 +18,7 @@ class MockUser: User {
 		self.locationKey = "MockLocationKey"
 		self.localizedName = "MockLocalizedName"
 		self.isTestDataEnabled = false
-		self.preferences = Preferences(selectedTemperature: "33°F", selectedPrecipitation: "< 40%")
+		self.preferences = Preferences(selectedTemperature: "40", selectedPrecipitation: "20")
 	}
 }
 
@@ -27,7 +27,7 @@ class UserTests: XCTestCase {
 	func testMockUserPreferences() {
 		let mockUser = MockUser()
 
-		XCTAssertEqual(mockUser.preferences.selectedTemperature, "33°F")
-		XCTAssertEqual(mockUser.preferences.selectedPrecipitation, "< 40%")
+		XCTAssertEqual(mockUser.preferences.selectedTemperature, "40")
+		XCTAssertEqual(mockUser.preferences.selectedPrecipitation, "20")
 	}
 }
