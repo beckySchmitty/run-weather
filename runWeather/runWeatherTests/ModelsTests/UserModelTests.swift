@@ -15,12 +15,10 @@ class UserModelTests: XCTestCase {
 
 	override func setUpWithError() throws {
 		super.setUp()
-		// Initialize the User object before each test
 		user = User()
 	}
 
 	override func tearDownWithError() throws {
-		// Clean up and nullify the User object after each test
 		user = nil
 		super.tearDown()
 	}
@@ -40,7 +38,6 @@ class UserModelTests: XCTestCase {
 		XCTAssertEqual(customUser.locationKey, "CustomKey")
 		XCTAssertEqual(customUser.localizedName, "CustomName")
 		XCTAssertTrue(customUser.isTestDataEnabled)
-		// Add more asserts for custom preferences if needed
 	}
 
 	func testPropertyObservability() {

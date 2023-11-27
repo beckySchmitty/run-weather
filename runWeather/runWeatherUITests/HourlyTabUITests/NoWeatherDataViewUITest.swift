@@ -39,14 +39,4 @@ final class NoWeatherDataViewUITest: XCTestCase {
 		// Verify the image has moved
 		XCTAssertNotEqual(initialFrame, newFrame, "The cloud image has not moved, animation might not be active.")
 	}
-
-
-	func testLaunchPerformance() throws {
-		if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-			// This measures how long it takes to launch your application.
-			measure(metrics: [XCTApplicationLaunchMetric()]) {
-				XCUIApplication().launch()
-			}
-		}
-	}
 }

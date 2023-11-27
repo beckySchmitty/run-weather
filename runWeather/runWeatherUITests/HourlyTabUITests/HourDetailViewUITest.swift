@@ -18,6 +18,9 @@ final class HourDetailViewUITest: XCTestCase {
 		app.tabBars["Tab Bar"].buttons["Profile"].tap()
 
 		let testDataToggle = app.switches["testDataToggle"]
+		let exists = NSPredicate(format: "exists == 1")
+		expectation(for: exists, evaluatedWith: testDataToggle, handler: nil)
+		waitForExpectations(timeout: 5)
 		testDataToggle.switches.firstMatch.tap()
 
 		app.tabBars["Tab Bar"].buttons["Hourly"].tap()
@@ -43,16 +46,7 @@ final class HourDetailViewUITest: XCTestCase {
 	}
 
 	func testTemperatureDisplayPresence() {
-		let temperatureDisplay = app.staticTexts["temperatureDisplay"]
+		let temperatureDisplay = app.staticTexts["hourDetailCardTemperature"]
 		XCTAssertTrue(temperatureDisplay.exists, "Temperature display is not present.")
-	}
-
-	func testLaunchPerformance() throws {
-		if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-			// This measures how long it takes to launch your application.
-			measure(metrics: [XCTApplicationLaunchMetric()]) {
-				XCUIApplication().launch()
-			}
-		}
 	}
 }
