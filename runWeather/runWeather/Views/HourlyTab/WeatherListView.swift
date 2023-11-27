@@ -11,7 +11,6 @@ import SwiftUI
 struct WeatherListView: View {
 	let filteredWeather: [HourlyWeather]
 	@ObservedObject var user: User
-	@State private var noFilteredList = false
 
 	var body: some View {
 		VStack {
