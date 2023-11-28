@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TestDataToggleView: View {
-	@ObservedObject var user: User
+	@ObservedObject var userStore: UserStore
 	@Binding var isTestDataEnabled: Bool
 	@EnvironmentObject var hourlyWeatherStore: HourlyWeatherStore
 
@@ -19,10 +19,10 @@ struct TestDataToggleView: View {
 				print("###### Toggle changed: \(newValue ? "ON" : "OFF")")
 				if newValue {
 					Task {
-						await TestDataLoader.setTestData(user: user, store: hourlyWeatherStore)
+						await TestDataLoader.setTestData(userStore: userStore, store: hourlyWeatherStore)
 					}
 				} else {
-					TestDataLoader.emptyTestData(user: user, store: hourlyWeatherStore)
+					TestDataLoader.emptyTestData(userStore: userStore, store: hourlyWeatherStore)
 				}
 			}
 			.accessibilityIdentifier("testDataToggle")

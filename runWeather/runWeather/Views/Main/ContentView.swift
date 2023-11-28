@@ -6,7 +6,7 @@
 import SwiftUI
 
 struct ContentView: View {
-	@StateObject var user = User()
+	@StateObject var userStore = UserStore()
 	@StateObject var locationStore = LocationStore()
 	@StateObject var hourlyWeatherStore = HourlyWeatherStore()
 	@Environment(\.colorScheme)
@@ -15,11 +15,11 @@ struct ContentView: View {
 	var body: some View {
 		ZStack {
 			TabView {
-				HourlyWeatherView(user: user)
+				HourlyWeatherView(userStore: userStore)
 					.tabItem {
 						Label("Hourly", systemImage: "clock")
 					}
-				ProfileView(user: user)
+				ProfileView(userStore: userStore)
 					.tabItem {
 						Label("Profile", systemImage: "person.fill")
 					}

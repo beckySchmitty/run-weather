@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ProfilePreferencesView: View {
-	@ObservedObject var user: User
+	@ObservedObject var userStore: UserStore
+	@State private var showErrorSheet = false
 	let temperatures = Array(stride(from: 10, through: 100, by: 1)).map { "\($0)°F" }
 	let precipitationLevels = ["0 %", "< 20%", "< 40%", "< 60%", "< 80%"]
 
@@ -18,33 +19,23 @@ struct ProfilePreferencesView: View {
 			Text("Preferences")
 				.font(.title)
 			Text("Customize preferred conditions for your outdoor lifestyle")
-			TemperatureSelectView(selectedTemperature: $user.preferences.selectedTemperature)
-			PrecipitationSelectView(selectedPrecipitation: $user.preferences.selectedPrecipitation)
+			TemperatureSelectView(selectedTemperature: $userStore.user.preferences.selectedTemperature)
+			PrecipitationSelectView(selectedPrecipitation: $userStore.user.preferences.selectedPrecipitation)
 			Button("Save Preferences") {
-				savePreferences()
+				userStore.savePreferences()
+				showErrorSheet = userStore.currentError is PreferencesError
 			}
 			.padding()
 			.buttonStyle(.bordered)
-		}
-	}
-
-	private func savePreferences() {
-//		swiftlint:disable:next line_length
-	guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-		let fileUrl = documentDirectoryUrl.appendingPathComponent("UserModelPreferences.json")
-
-		do {
-			let fileManager = FileManager.default
-			if !fileManager.fileExists(atPath: fileUrl.path) {
-				// If the file does not exist, create it
-				fileManager.createFile(atPath: fileUrl.path, contents: nil, attributes: nil)
+			.sheet(isPresented: $showErrorSheet) {
+				if let error = userStore.currentError as? PreferencesError {
+					ErrorSheetView(errorMessage: error.localizedDescription, isPresented: $showErrorSheet)
+						.presentationDetents([.medium]) // Use this to set the half-sheet size
+				} else {
+					// This else block could be removed if only showing preferences errors
+					ErrorSheetView(errorMessage: "An unknown error occurred", isPresented: $showErrorSheet)
+				}
 			}
-
-			let jsonData = try JSONEncoder().encode(user.preferences)
-			try jsonData.write(to: fileUrl, options: .atomicWrite)
-			print("Preferences saved.")
-		} catch {
-			print("Error saving preferences: \(error)")
 		}
 	}
 }

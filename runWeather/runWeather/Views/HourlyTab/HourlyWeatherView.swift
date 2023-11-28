@@ -9,16 +9,16 @@ import SwiftUI
 
 struct HourlyWeatherView: View {
 	@EnvironmentObject var hourlyWeatherStore: HourlyWeatherStore
-	@ObservedObject var user: User
+	@ObservedObject var userStore: UserStore
 	@State var isFilteredByUserPref = false
 	@State private var isAnimating = false
 
 	var body: some View {
 		NavigationStack {
-			if user.isTestDataEnabled == false && user.locationKey.isEmpty {
-				NoWeatherDataView(user: user)
+			if userStore.isTestDataEnabled == false && userStore.locationKey.isEmpty {
+				NoWeatherDataView(userStore: userStore)
 			} else {
-				FilteredWeatherView(user: user, isFilteredByUserPref: $isFilteredByUserPref)
+				FilteredWeatherView(userStore: userStore, isFilteredByUserPref: $isFilteredByUserPref)
 					.navigationTitle("Hourly Weather")
 					.toolbar {
 						ToolbarItem(placement: .navigationBarLeading) {
@@ -30,7 +30,7 @@ struct HourlyWeatherView: View {
 								}
 
 								Task {
-									await hourlyWeatherStore.loadWeatherData(locationKey: user.locationKey)
+									await hourlyWeatherStore.loadWeatherData(locationKey: userStore.locationKey)
 									withAnimation {
 										self.isAnimating = false
 									}

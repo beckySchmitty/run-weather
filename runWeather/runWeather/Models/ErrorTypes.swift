@@ -46,3 +46,18 @@ enum WeatherError: Error {
 		}
 	}
 }
+
+enum PreferencesError: Error {
+	case saveFailed(underlyingError: Error)
+
+	var localizedDescription: String {
+		switch self {
+		case .saveFailed(let underlyingError):
+			return "Failed to save preferences: \(underlyingError.localizedDescription)"
+		}
+	}
+}
+
+enum TestError: Error {
+	case forcedError
+}
