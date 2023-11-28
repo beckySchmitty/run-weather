@@ -8,6 +8,6 @@
 import Foundation
 
 struct Preferences: Codable {
-	var selectedTemperature: String = "32"
-	var selectedPrecipitation: String = "20"
+	var selectedTemperature: String = "32°F"
+	var selectedPrecipitation: String = "< 20%"
 }
