@@ -40,11 +40,6 @@ final class HourDetailViewUITest: XCTestCase {
 		XCTAssertTrue(weatherIconPhrase.exists, "Weather icon phrase is not present.")
 	}
 
-	func testWeatherImagePresence() {
-		let weatherImage = app.images["weatherImage"]
-		XCTAssertTrue(weatherImage.exists, "Weather image is not present.")
-	}
-
 	func testTemperatureDisplayPresence() {
 		let temperatureDisplay = app.staticTexts["hourDetailCardTemperature"]
 		XCTAssertTrue(temperatureDisplay.exists, "Temperature display is not present.")

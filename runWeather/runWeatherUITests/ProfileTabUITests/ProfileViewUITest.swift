@@ -28,6 +28,7 @@ final class ProfileViewUITest: XCTestCase {
 		XCTAssertTrue(zipCodeTextField.exists, "Zip code text field does not exist.")
 		zipCodeTextField.tap()
 		zipCodeTextField.typeText("12345")
+		sleep(3)
 		XCTAssertEqual(zipCodeTextField.value as? String, "12345", "Zip code text field is not editable.")
 	}
 

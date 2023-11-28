@@ -6,6 +6,8 @@
 //
 import Foundation
 
+// swiftlint:disable line_length
+
 @MainActor
 class UserStore: ObservableObject {
 	@Published var user: UserModel
@@ -25,7 +27,6 @@ class UserStore: ObservableObject {
 	}
 
 	func loadPreferences() -> Preferences {
-		// Adjust the path as needed for your app structure
 		let fileUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("UserModelPreferences.json")
 
 		do {
@@ -68,3 +69,4 @@ class UserStore: ObservableObject {
 		}
 	}
 }
+// swiftlint:enable line_length

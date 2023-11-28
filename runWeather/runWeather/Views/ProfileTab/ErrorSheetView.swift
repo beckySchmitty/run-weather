@@ -23,6 +23,7 @@ struct ErrorSheetView: View {
 
 			Button(action: {
 				isPresented = false
+				//				swiftlint:disable:next multiple_closures_with_trailing_closure
 			}) {
 				Text("Dismiss")
 					.bold()

@@ -20,7 +20,7 @@
 		2C81EC562B06587800C6842D /* WeatherIconEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C81EC552B06587800C6842D /* WeatherIconEnum.swift */; };
 		2C81EC5A2B06655200C6842D /* HourDetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C81EC592B06655200C6842D /* HourDetailCardView.swift */; };
 		2C84DE6A2B0A815E009E9242 /* HourDetailLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C84DE692B0A815E009E9242 /* HourDetailLinkView.swift */; };
-		2C9D6DF42B12225900DA47DE /* UserModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D6DF32B12225900DA47DE /* UserModelTests.swift */; };
+		2C9D6DF42B12225900DA47DE /* UserStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D6DF32B12225900DA47DE /* UserStoreTests.swift */; };
 		2C9D6DF62B12334100DA47DE /* MockHourlyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D6DF52B12334100DA47DE /* MockHourlyWeather.swift */; };
 		2C9D6DF82B1233EB00DA47DE /* HourlyWeatherModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D6DF72B1233EB00DA47DE /* HourlyWeatherModelTests.swift */; };
 		2C9F32D52B07198800CE4C4E /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F32D42B07198800CE4C4E /* ProfileHeaderView.swift */; };
@@ -89,7 +89,7 @@
 		2C81EC552B06587800C6842D /* WeatherIconEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIconEnum.swift; sourceTree = "<group>"; };
 		2C81EC592B06655200C6842D /* HourDetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourDetailCardView.swift; sourceTree = "<group>"; };
 		2C84DE692B0A815E009E9242 /* HourDetailLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourDetailLinkView.swift; sourceTree = "<group>"; };
-		2C9D6DF32B12225900DA47DE /* UserModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelTests.swift; sourceTree = "<group>"; };
+		2C9D6DF32B12225900DA47DE /* UserStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStoreTests.swift; sourceTree = "<group>"; };
 		2C9D6DF52B12334100DA47DE /* MockHourlyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHourlyWeather.swift; sourceTree = "<group>"; };
 		2C9D6DF72B1233EB00DA47DE /* HourlyWeatherModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherModelTests.swift; sourceTree = "<group>"; };
 		2C9F32D42B07198800CE4C4E /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
@@ -308,7 +308,7 @@
 				2CEB76DF2B0A784C004E3DF1 /* LocationModelTests.swift */,
 				2C7BF9512B139BCF0062E27A /* LocationStoreTests.swift */,
 				2C9D6DF52B12334100DA47DE /* MockHourlyWeather.swift */,
-				2C9D6DF32B12225900DA47DE /* UserModelTests.swift */,
+				2C9D6DF32B12225900DA47DE /* UserStoreTests.swift */,
 				2C9D6DF72B1233EB00DA47DE /* HourlyWeatherModelTests.swift */,
 				2C5FB8942B0D9C5A008AD64A /* MockUser.swift */,
 			);
@@ -529,7 +529,7 @@
 				2C5FB8952B0D9C5B008AD64A /* MockUser.swift in Sources */,
 				2C9D6DF62B12334100DA47DE /* MockHourlyWeather.swift in Sources */,
 				2CB304D62B13B83F00588E66 /* DateTimeHelpersTests.swift in Sources */,
-				2C9D6DF42B12225900DA47DE /* UserModelTests.swift in Sources */,
+				2C9D6DF42B12225900DA47DE /* UserStoreTests.swift in Sources */,
 				2C9D6DF82B1233EB00DA47DE /* HourlyWeatherModelTests.swift in Sources */,
 				2CB304D42B13B6F700588E66 /* WeatherIconEnumTests.swift in Sources */,
 				2CBEBC3D2B03BA99007B7391 /* AppInitializationTests.swift in Sources */,
@@ -699,6 +699,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Run Weather";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -732,6 +733,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Run Weather";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
