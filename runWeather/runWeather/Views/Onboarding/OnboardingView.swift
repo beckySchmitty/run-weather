@@ -8,15 +8,19 @@
 import SwiftUI
 
 struct OnboardingView: View {
-	@AppStorage("isOnboarding") var isOnboarding = true
+	@AppStorage("isOnboarding")
+	var isOnboarding = true
+	@Environment(\.horizontalSizeClass)
+	var horizontalSizeClass
+
 
 	var body: some View {
 		TabView {
 			ForEach(onboardingScreens.indices, id: \.self) { index in
-				OnboardingScreenView(screenData: onboardingScreens[index])
+				OnboardingScreenView(screenData: onboardingScreens[index], horizontalSizeClass: horizontalSizeClass)
 			}
 		}
 		.tabViewStyle(PageTabViewStyle())
-		.padding(.vertical, 20)
+		.padding(.vertical, horizontalSizeClass == .compact ? 10 : 20)
 	}
 }

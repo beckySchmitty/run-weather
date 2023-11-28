@@ -9,31 +9,49 @@ import SwiftUI
 
 struct ProfileHeaderView: View {
 	@ObservedObject var userStore: UserStore
-
 	@EnvironmentObject var locationStore: LocationStore
+	@Environment(\.verticalSizeClass) var verticalSizeClass
+
 	var body: some View {
-		HStack {
-			if userStore.isTestDataEnabled {
-				Image("profile_tKelce")
-					.resizable()
-					.aspectRatio(contentMode: .fill)
-					.frame(width: 100, height: 100)
-					.clipShape(Circle())
-					.overlay(Circle().stroke(Color("mainBlueText"), lineWidth: 4))
-			} else {
-				Circle()
-					.strokeBorder(Color("mainBlueText"), lineWidth: 4)
-					.frame(width: 100, height: 100)
+		VStack {
+			ZStack {
+				RoundedRectangle(cornerRadius: 25, style: .continuous)
+					.foregroundColor(Color("profileBlue"))
+					.edgesIgnoringSafeArea(.top)
+				VStack {
+					HStack {
+						Image(systemName: "person.fill")
+							.resizable()
+							.scaledToFit()
+							.frame(width: verticalSizeClass == .regular ? 48 : 24, height: verticalSizeClass == .regular ? 48 : 24)
+							.padding(.leading, verticalSizeClass == .regular ? 16 : 8)
+							.foregroundColor(.white)
+						Text("User")
+							.font(.title)
+							.foregroundColor(.white)
+						Spacer()
+					}
+					.padding(.top, verticalSizeClass == .regular ? 20 : 10)
+					Spacer()
+					VStack(spacing: 8) {
+						Text("Location")
+							.font(.largeTitle)
+							.fontWeight(.bold)
+							.foregroundColor(.white)
+						Text("Please enter your Zip Code")
+							.foregroundColor(.white.opacity(0.7))
+//						TODO: add in real zip code view
+						TextField("Zipe Code", text: $userStore.user.zipCode)
+							.padding()
+							.background(Color.white)
+							.cornerRadius(5.0)
+							.padding(.horizontal)
+							.shadow(radius: 3)
+					}
+					Spacer()
+				}
 			}
-			Text(userStore.isTestDataEnabled ? "Travis Kelce" : "User")
-				.font(.title)
-				.foregroundColor(Color("mainBlueText"))
-			Text("Zip Code: \(userStore.zipCode)")
-				.font(.subheadline)
-				.foregroundColor(Color("mainBlueText"))
-			Text("Location Key: \(userStore.locationKey)")
-				.font(.subheadline)
-				.foregroundColor(Color("mainBlueText"))
+			.frame(height: verticalSizeClass == .regular ? 300 : 150)
 		}
 	}
 }

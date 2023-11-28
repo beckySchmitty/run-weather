@@ -14,7 +14,6 @@ struct ProfilePreferencesView: View {
 	let precipitationLevels = ["0 %", "< 20%", "< 40%", "< 60%", "< 80%"]
 
 	var body: some View {
-		Spacer()
 		ScrollView {
 			Text("Preferences")
 				.font(.title)

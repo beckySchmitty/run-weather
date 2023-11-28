@@ -10,30 +10,32 @@ import SwiftUI
 struct OnboardingScreenView: View {
 	var screenData: OnboardingDataModel
 	@AppStorage("isOnboarding") var isOnboarding = true
+	var horizontalSizeClass: UserInterfaceSizeClass?
 
 	var body: some View {
 		VStack(spacing: 20) {
 			Image(screenData.image)
 				.resizable()
 				.scaledToFit()
-				.frame(height: 200)
-				.foregroundColor(.white)
+				.frame(height: horizontalSizeClass == .compact ? 140 : 200)
 			Text(screenData.title)
 				.font(.title)
 				.fontWeight(.bold)
-				.foregroundColor(.white)
+				.foregroundColor(Color("OnboardingText"))
+				.padding(.top, horizontalSizeClass == .compact ? 10 : 20)
 			Text(screenData.description)
-				.foregroundColor(.white)
+				.foregroundColor(Color("OnboardingText"))
 				.multilineTextAlignment(.center)
 				.padding(.horizontal)
 			if screenData == onboardingScreens.last {
-				Button("Get Started") {
+				Button("Explore") {
 					isOnboarding = false
 				}
 				.buttonStyle(PrimaryButtonStyle())
 			}
 		}
 		.frame(maxWidth: .infinity, maxHeight: .infinity)
+//		swiftlint:disable:next line_length
 		.background(LinearGradient(gradient: Gradient(colors: screenData.gradientColors), startPoint: .top, endPoint: .bottom))
 		.cornerRadius(10)
 		.padding()
@@ -44,8 +46,8 @@ struct PrimaryButtonStyle: ButtonStyle {
 	func makeBody(configuration: Self.Configuration) -> some View {
 		configuration.label
 			.padding()
-			.background(Color.gray)
-			.foregroundColor(.white)
+			.background(Color("OnboardingText"))
+			.foregroundColor(Color("OnboardingBlue"))
 			.clipShape(Capsule())
 			.padding()
 	}

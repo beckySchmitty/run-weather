@@ -25,6 +25,5 @@ struct WeatherListView: View {
 				}
 			}
 		}
-		.background(Color("backgroundBlue"))
 	}
 }
