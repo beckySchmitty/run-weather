@@ -41,16 +41,16 @@ struct ProfileView: View {
 // Extension for Async Functions
 extension ProfileView {
 	//	set user and weather data
-	private func asyncSubmit() async {
+	private func asyncSubmit() async throws {
 		//			location key must be saved to call loadWeatherData so do not use async let
 		guard await verifyZipAndGetLocation(zipCode: inputZipCode) else {
 			return
 		}
-		await loadWeatherDataForUser()
+		try await loadWeatherDataForUser()
 	}
 
-	private func loadWeatherDataForUser() async {
-		await hourlyWeatherStore.loadWeatherData(locationKey: userStore.locationKey)
+	private func loadWeatherDataForUser() async throws {
+		try await hourlyWeatherStore.loadWeatherData(locationKey: userStore.locationKey)
 		if hourlyWeatherStore.hasError, let errorMessage = hourlyWeatherStore.errorMessage {
 			alertMessage = errorMessage
 			showAlert = true
@@ -62,8 +62,7 @@ extension ProfileView {
 extension ProfileView {
 	private func verifyZipAndGetLocation(zipCode: String) async -> Bool {
 		if verifyAndSetZipCode() {
-			await getLocationKey()
-			return true
+			return await getLocationKey()
 		} else {
 			return false
 		}
@@ -76,62 +75,34 @@ extension ProfileView {
 			inputZipCode = ""
 			return true
 		} else {
-			alertMessage = "Invalid Zip Code. Please try again."
-			showAlert = true
+			Task { @MainActor in
+				self.alertMessage = "Invalid Zip Code. Please try again."
+				self.showAlert = true
+			}
 			inputZipCode = ""
 			return false
 		}
 	}
 
-	private func getLocationKey() async {
+	private func getLocationKey() async -> Bool {
 		do {
 			let locationKey = try await locationStore.fetchLocationKey(for: userStore.zipCode)
 			userStore.locationKey = locationKey
-		} catch let error as LocationError {
-			switch error {
-			case .invalidURL:
-				alertMessage = "There was an error processing your request. Please try again or contact support."
-			case .serverError(let statusCode):
-				alertMessage = "Please try again later. The server responded with status code: \(statusCode)."
-			case .decodingError(let underlyingError):
-				//		swiftlint:disable:next line_length
-				alertMessage = "There was a problem decoding the data: \(underlyingError.localizedDescription). Please contact support."
-			case .other:
-				alertMessage = "other"
-			}
-			showAlert = true
+			return true
 		} catch {
-			alertMessage = "An unknown error occurred: \(error.localizedDescription)"
-			showAlert = true
+			//			TODO: revisit 
+			await setAlert(with: error)
+			return false
 		}
 	}
 
 	@MainActor
-	private func setAlert(with message: String) {
-		self.alertMessage = message
+	private func setAlert(with error: Error) {
+		if let locationError = error as? LocationError {
+			self.alertMessage = locationError.localizedDescription
+		} else {
+			self.alertMessage = "An unknown error occurred: \(error.localizedDescription)"
+		}
 		self.showAlert = true
 	}
 }
-
-
-// TODO: remove if I keep other style
-
-//	var body: some View {
-//		VStack {
-//			Spacer()
-//			ProfileHeaderViewNew(userStore: userStore)
-//			ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
-//			ScrollView {
-//				VStack {
-//					ProfilePreferencesView(userStore: userStore)
-//				}
-//			}
-//			Spacer()
-//			TestDataToggleView(userStore: userStore, isTestDataEnabled: $userStore.isTestDataEnabled)
-//		}
-//		.background(Color("backgroundBlue"))
-//		.alert(isPresented: $showAlert) {
-//			Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-//		}
-//		.frame(maxHeight: .infinity)
-//	}

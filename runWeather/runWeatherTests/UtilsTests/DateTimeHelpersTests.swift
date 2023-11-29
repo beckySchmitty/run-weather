@@ -13,7 +13,7 @@ class DateTimeHelpersTests: XCTestCase {
 		let dateString = "2024-03-10T07:00:00Z"
 		let formattedDate = convertToMonthDayYear(dateString)
 
-		XCTAssertEqual(formattedDate, "March, 10 - 2024", "The date should be formatted to 'Month, day - year'")
+		XCTAssertEqual(formattedDate, "March 10, 2024", "The date should be formatted to 'Month day, year'")
 	}
 
 	func testConvertToHourWithTimeZone() {

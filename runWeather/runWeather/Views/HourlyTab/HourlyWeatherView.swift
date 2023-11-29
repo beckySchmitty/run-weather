@@ -4,6 +4,7 @@
 //
 //  Created by Becky Schmitthenner on 11/14/23.
 //
+//
 
 import SwiftUI
 
@@ -18,19 +19,18 @@ struct HourlyWeatherView: View {
 			if userStore.isTestDataEnabled == false && userStore.locationKey.isEmpty {
 				NoWeatherDataView(userStore: userStore)
 			} else {
-				FilteredWeatherView(userStore: userStore, isFilteredByUserPref: $isFilteredByUserPref)
+				WeatherListView(userStore: userStore, isFilteredByUserPref: $isFilteredByUserPref)
 					.navigationTitle("Hourly Weather")
 					.toolbar {
 						ToolbarItem(placement: .navigationBarLeading) {
 							Button(action: {
 								isAnimating = true
 								withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: false)) {
-									// Explicitly trigger the animation
 									self.isAnimating = true
 								}
 
 								Task {
-									await hourlyWeatherStore.loadWeatherData(locationKey: userStore.locationKey)
+									try await hourlyWeatherStore.loadWeatherData(locationKey: userStore.locationKey)
 									withAnimation {
 										self.isAnimating = false
 									}
@@ -55,8 +55,7 @@ struct HourlyWeatherView: View {
 							}
 							.padding(.trailing, 10)
 						}
-					}
-			}
+					}						}
 		}
 		.alert(hourlyWeatherStore.errorMessage ?? "Error", isPresented: $hourlyWeatherStore.hasError) {
 			Button("OK", role: .cancel) { }

@@ -15,10 +15,9 @@ struct TestDataToggleView: View {
 	var body: some View {
 		Toggle("Enable Test Data", isOn: $isTestDataEnabled)
 			.padding()
-		//			.accentColor(Color("toggleColor")) // Color for the "on" state
 			.toggleStyle(SwitchToggleStyle(tint: Color("toggleColor")))
 			.onChange(of: isTestDataEnabled) { _, newValue in
-				print("###### Toggle changed: \(newValue ? "ON" : "OFF")")
+				print("Toggle changed: \(newValue ? "ON" : "OFF")")
 				if newValue {
 					Task {
 						await TestDataLoader.setTestData(userStore: userStore, store: hourlyWeatherStore)

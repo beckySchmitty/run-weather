@@ -14,33 +14,12 @@ struct OnboardingDataModel: Equatable {
 	var gradientColors: [Color]
 }
 
-// let onboardingScreens: [OnboardingDataModel] = [
-//	OnboardingDataModel(
-//		image: "onboarding1",
-//		title: "Run Without Rain",
-//		description: "Plan what time of day to run",
-//		gradientColors: [Color("OnboardingScreen1Light"), Color("OnboardingScreen1Dark")]
-//	),
-//	OnboardingDataModel(
-//		image: "onboarding2",
-//		title: "Enter your Location",
-//		description: "Location TODO",
-//		gradientColors: [Color("OnboardingScreen2Light"), Color("OnboardingScreen2Dark")]
-//	),
-//	OnboardingDataModel(
-//		image: "onboarding3",
-//		title: "Third Screen",
-//		description: "TODO",
-//		gradientColors: [Color("OnboardingScreen2Light"), Color("OnboardingScreen2Dark")]
-//	)
-// ]
-
 let onboardingScreens: [OnboardingDataModel] = [
 	OnboardingDataModel(
 		image: "onboarding1",
 		title: "Welcome to Run Weather!",
 		description: "Plan your run around the most ideal weather.",
-		gradientColors: [Color("tbd"), Color("OnboardingBlue")]
+		gradientColors: [Color("OnboardingBlueLightShade"), Color("OnboardingBlue")]
 	),
 	OnboardingDataModel(
 		image: "onboarding2",
@@ -50,8 +29,8 @@ let onboardingScreens: [OnboardingDataModel] = [
 	),
 	OnboardingDataModel(
 		image: "onboarding3",
-		title: "Filter by minimum temperature and max precipitation level",
-		description: "Hourly Tab > Top Right Corner > Tap 'Sparles' Icon",
+		title: "Filter the weather by temperature and precipitation preferences",
+		description: "Simlpy tap the 'Sparles' icon",
 		gradientColors: [Color("OnboardingBlueLightShade"), Color("OnboardingBlue")]
 	)
 ]

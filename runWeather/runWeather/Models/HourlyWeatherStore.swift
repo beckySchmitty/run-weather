@@ -12,20 +12,28 @@ class HourlyWeatherStore: ObservableObject {
 	@Published var errorMessage: String?
 	@Published var hasError = false
 
-	func loadWeatherData(locationKey: String) async {
+	func loadWeatherData(locationKey: String) async throws {
 		do {
 			self.hourlyWeather = try await fetchHourlyWeather(locationKey: locationKey)
+		} catch let error as URLError where error.code == .notConnectedToInternet {
+			errorMessage = "Network connection lost."
+			hasError = true
 		} catch let error as URLError where error.code == .badURL {
 			errorMessage = WeatherError.badURL.localizedDescription
+			hasError = true
 		} catch let error as URLError where error.code == .badServerResponse {
-			//			swiftlint:disable:next line_length
+			// swiftlint:disable:next line_length
 			errorMessage = WeatherError.serverError(statusCode: (error as? HTTPURLResponse)?.statusCode ?? 500).localizedDescription
+			hasError = true
 		} catch let error as DecodingError {
 			errorMessage = WeatherError.decodingError(underlyingError: error).localizedDescription
+			hasError = true
 		} catch {
 			errorMessage = WeatherError.other(error).localizedDescription
+			hasError = true
 		}
 	}
+
 
 	func loadTestData() async {
 		await TestDataLoader.loadWeatherTestData(into: self)

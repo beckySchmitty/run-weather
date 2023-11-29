@@ -11,6 +11,8 @@ enum LocationError: Error {
 	case invalidURL
 	case serverError(statusCode: Int)
 	case decodingError(underlyingError: Error)
+	case networkUnavailable
+	case locationNotFound
 	case other(Error)
 
 	var localizedDescription: String {
@@ -19,8 +21,12 @@ enum LocationError: Error {
 			return "The URL provided was invalid."
 		case .serverError(let statusCode):
 			return "The server responded with an error. Status code: \(statusCode)."
+		case .locationNotFound:
+			return "Location Not Found. Try again with a nearby zip code."
 		case .decodingError(let underlyingError):
 			return "There was a problem decoding the data: \(underlyingError.localizedDescription)"
+		case .networkUnavailable:
+			return "Network connection is unavailable."
 		case .other(let error):
 			return "An unknown error occurred: \(error.localizedDescription)"
 		}
@@ -31,6 +37,7 @@ enum WeatherError: Error {
 	case badURL
 	case serverError(statusCode: Int)
 	case decodingError(underlyingError: Error)
+	case networkUnavailable
 	case other(Error)
 
 	var localizedDescription: String {
@@ -41,6 +48,8 @@ enum WeatherError: Error {
 			return "The server responded with an error. Status code: \(statusCode)."
 		case .decodingError(let underlyingError):
 			return "There was a problem decoding the weather data: \(underlyingError.localizedDescription)"
+		case .networkUnavailable:  // Add this line
+			return "Network connection is unavailable."
 		case .other(let error):
 			return "An unknown error occurred: \(error.localizedDescription)"
 		}
