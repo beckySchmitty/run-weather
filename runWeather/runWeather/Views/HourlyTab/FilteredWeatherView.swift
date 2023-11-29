@@ -41,5 +41,6 @@ struct FilteredWeatherView: View {
 
 	var body: some View {
 		WeatherListView(filteredWeather: filteredWeather, userStore: userStore)
+			.background(Color("backgroundBlue"))
 	}
 }

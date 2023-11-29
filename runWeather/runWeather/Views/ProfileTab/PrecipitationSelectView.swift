@@ -13,7 +13,7 @@ struct PrecipitationSelectView: View {
 
 	var body: some View {
 		HStack {
-			Text("Precipitation Level")
+			Text("Precipitation")
 				.font(.headline)
 				.padding()
 

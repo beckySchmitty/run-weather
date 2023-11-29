@@ -9,15 +9,16 @@ import SwiftUI
 
 @main
 struct RunWeatherApp: App {
-		@AppStorage("isOnboarding") var isOnboarding = true
+	@AppStorage("isOnboarding")
+	var isOnboarding = true
 
-		var body: some Scene {
-				WindowGroup {
-						if isOnboarding {
-								OnboardingView()
-						} else {
-								ContentView()
-						}
-				}
+	var body: some Scene {
+		WindowGroup {
+			if isOnboarding {
+				OnboardingView()
+			} else {
+				ContentView()
+			}
 		}
+	}
 }

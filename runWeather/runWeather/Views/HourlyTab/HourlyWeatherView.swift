@@ -58,7 +58,6 @@ struct HourlyWeatherView: View {
 					}
 			}
 		}
-		.background(Color("backgroundBlue"))
 		.alert(hourlyWeatherStore.errorMessage ?? "Error", isPresented: $hourlyWeatherStore.hasError) {
 			Button("OK", role: .cancel) { }
 		} message: {
