@@ -9,7 +9,8 @@ import SwiftUI
 
 struct OnboardingScreenView: View {
 	var screenData: OnboardingDataModel
-	@AppStorage("isOnboarding") var isOnboarding = true
+	@AppStorage("isOnboarding")
+	var isOnboarding = true
 	var horizontalSizeClass: UserInterfaceSizeClass?
 
 	var body: some View {
@@ -35,7 +36,7 @@ struct OnboardingScreenView: View {
 			}
 		}
 		.frame(maxWidth: .infinity, maxHeight: .infinity)
-//		swiftlint:disable:next line_length
+		//		swiftlint:disable:next line_length
 		.background(LinearGradient(gradient: Gradient(colors: screenData.gradientColors), startPoint: .top, endPoint: .bottom))
 		.cornerRadius(10)
 		.padding()

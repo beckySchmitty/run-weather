@@ -8,7 +8,7 @@ import SwiftUI
 
 struct ZipCodeView: View {
 	@Binding var inputZipCode: String
-	var onSubmit: () async -> Void
+	var onSubmit: () async throws -> Void
 
 	var body: some View {
 		HStack {
@@ -20,7 +20,7 @@ struct ZipCodeView: View {
 				.foregroundColor(.black)
 				.onSubmit {
 					Task {
-						await onSubmit()
+						try await onSubmit()
 					}
 				}
 			Spacer()

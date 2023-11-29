@@ -25,14 +25,14 @@ class UserStoreTests: XCTestCase {
 		super.tearDown()
 	}
 
-	func testSavingNewPreferences() {
+	func testSavingNewPreferences() throws {
 			// Arrange
 			userStore = UserStore()
 			let newPreferences = Preferences(selectedTemperature: "70°F", selectedPrecipitation: "< 50%")
 
 			// Act
 			userStore.user.preferences = newPreferences
-			userStore.savePreferences()
+			try userStore.savePreferences()
 
 			// Assert
 			let savedPreferences = userStore.loadPreferences()
@@ -40,13 +40,13 @@ class UserStoreTests: XCTestCase {
 			XCTAssertEqual(savedPreferences.selectedPrecipitation, "< 50%")
 	}
 
-	func testLoadingPreferences() {
+	func testLoadingPreferences() throws {
 			// Arrange
 			userStore = UserStore()
 
 			let newPreferences = Preferences(selectedTemperature: "10°F", selectedPrecipitation: "< 90%")
 			userStore.user.preferences = newPreferences
-			userStore.savePreferences()
+			try userStore.savePreferences()
 
 			// Act
 			let loadedPreferences = userStore.loadPreferences()

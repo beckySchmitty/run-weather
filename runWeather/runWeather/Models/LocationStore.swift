@@ -29,31 +29,46 @@ class LocationStore: ObservableObject {
 	init(session: NetworkSession = URLSession.shared) {
 		self.session = session
 	}
-
+	// Function to fetch the location key from the AccuWeather API
 	func fetchLocationKey(for zipCode: String) async throws -> String {
+		// Construct the URL for the API request
 		let urlString = "\(baseURL)search?apikey=\(apiKey)&q=\(zipCode)"
 		guard let url = URL(string: urlString) else {
 			throw LocationError.invalidURL
 		}
+
+		// Perform the network request
 		let (data, response) = try await session.sessionData(from: url)
 
-		guard let httpResponse = response as? HTTPURLResponse else {
-			throw LocationError.other(URLError(.badServerResponse))
+
+		// Check for non-200 HTTP responses
+		guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+			throw LocationError.serverError(statusCode: (response as? HTTPURLResponse)?.statusCode ?? 500)
 		}
 
-		guard httpResponse.statusCode == 200 else {
-			throw LocationError.serverError(statusCode: httpResponse.statusCode)
-		}
-
+		// Decode the JSON response
+		let decoder = JSONDecoder()
 		do {
-			let locations = try JSONDecoder().decode([LocationModel].self, from: data)
-			guard let key = locations.first?.key else {
-				//				swiftlint:disable:next line_length
-				throw LocationError.decodingError(underlyingError: DecodingError.dataCorrupted(.init(codingPath: [], debugDescription: "Key not found in response")))
+			let locations = try decoder.decode([LocationModel].self, from: data)
+			guard let locationKey = locations.first?.key else {
+				throw LocationError.locationNotFound
 			}
-			return key
-		} catch {
-			throw LocationError.decodingError(underlyingError: error)
+			return locationKey
+		} catch let error as DecodingError {
+			throw LocationError.decodingError(underlyingError: mapDecodingError(error))
+		}
+	}
+
+	// Helper function to map a DecodingError to a more descriptive NSError
+	private func mapDecodingError(_ error: DecodingError) -> NSError {
+		switch error {
+		case let .keyNotFound(key, context):
+			let errorMsg = "Key '\(key.stringValue)' not found in JSON: \(context.debugDescription)"
+			return NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: errorMsg])
+			// Add cases for other types of DecodingError if needed
+		default:
+			let errorMsg = "Decoding error: \(error.localizedDescription)"
+			return NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: errorMsg])
 		}
 	}
 }

@@ -33,7 +33,6 @@ struct HourDetailView: View {
 
 					HourDetailCardView(title: "Hour", value: "\(convertToHourWithTimeZone(weather.dateTime) ?? "N/A")")
 						.accessibilityIdentifier("hourDetailCardHour")
-					// swiftlint:disable:next line_length
 					HourDetailCardView(title: "Date", value: "\(convertToMonthDayYear(weather.dateTime) ?? "N/A")")
 						.accessibilityIdentifier("hourDetailCardDate")
 

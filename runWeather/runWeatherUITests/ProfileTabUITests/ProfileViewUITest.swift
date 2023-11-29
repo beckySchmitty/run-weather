@@ -45,6 +45,6 @@ final class ProfileViewUITest: XCTestCase {
 
 	func testPreferencesListed() throws {
 		XCTAssertTrue(app.staticTexts["Temperature"].exists, "Temperature preference does not exist")
-		XCTAssertTrue(app.staticTexts["Precipitation Level"].exists, "Precipitation level preference does not exist")
+		XCTAssertTrue(app.staticTexts["Precipitation"].exists, "Precipitation level preference does not exist")
 	}
 }
