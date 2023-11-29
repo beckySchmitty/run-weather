@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ProfilePreferencesView: View {
 	@ObservedObject var userStore: UserStore
-	@State private var showErrorSheet = false
+	@State private var showAlert = false
+	@State private var alertMessage = ""
 	let temperatures = Array(stride(from: 10, through: 100, by: 1)).map { "\($0)°F" }
 	let precipitationLevels = ["0 %", "< 20%", "< 40%", "< 60%", "< 80%"]
 
@@ -17,23 +18,24 @@ struct ProfilePreferencesView: View {
 		ScrollView {
 			Text("Preferences")
 				.font(.title)
-			Text("Customize preferred conditions for your outdoor lifestyle")
-			TemperatureSelectView(selectedTemperature: $userStore.user.preferences.selectedTemperature)
-			PrecipitationSelectView(selectedPrecipitation: $userStore.user.preferences.selectedPrecipitation)
-			Button("Save Preferences") {
-				userStore.savePreferences()
-				showErrorSheet = userStore.currentError is PreferencesError
+			Text("No one likes running in the rain or cold.")
+			VStack(spacing: 6) {
+				TemperatureSelectView(selectedTemperature: $userStore.user.preferences.selectedTemperature)
+				PrecipitationSelectView(selectedPrecipitation: $userStore.user.preferences.selectedPrecipitation)
 			}
-			.padding()
-			.buttonStyle(.bordered)
-			.sheet(isPresented: $showErrorSheet) {
-				if let error = userStore.currentError as? PreferencesError {
-					ErrorSheetView(errorMessage: error.localizedDescription, isPresented: $showErrorSheet)
-						.presentationDetents([.medium]) // Use this to set the half-sheet size
-				} else {
-					// This else block could be removed if only showing preferences errors
-					ErrorSheetView(errorMessage: "An unknown error occurred", isPresented: $showErrorSheet)
+			Button("Save Preferences") {
+				do {
+					try userStore.savePreferences()
+				} catch {
+					print("error caught")
+					alertMessage = error.localizedDescription
+					showAlert = true
 				}
+			}
+			.padding(6)
+			.buttonStyle(.bordered)
+			.alert(isPresented: $showAlert) {
+				Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
 			}
 		}
 	}

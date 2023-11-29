@@ -46,12 +46,12 @@ let onboardingScreens: [OnboardingDataModel] = [
 		image: "onboarding2",
 		title: "Enter your location",
 		description: "And we'll do the rest!",
-		gradientColors: [Color("tbd"), Color("OnboardingBlue")]
+		gradientColors: [Color("OnboardingBlueLightShade"), Color("OnboardingBlue")]
 	),
 	OnboardingDataModel(
 		image: "onboarding3",
-		title: "Filter by temperature & precipitation level",
-		description: "Hourly Tab > Top Right Corner > Click 'Sparles' Icon",
-		gradientColors: [Color("tbd"), Color("OnboardingBlue")]
+		title: "Filter by minimum temperature and max precipitation level",
+		description: "Hourly Tab > Top Right Corner > Tap 'Sparles' Icon",
+		gradientColors: [Color("OnboardingBlueLightShade"), Color("OnboardingBlue")]
 	)
 ]

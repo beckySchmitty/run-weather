@@ -26,5 +26,6 @@ struct ZipCodeView: View {
 			Spacer()
 		}
 		.frame(height: 50)
+		.padding()
 	}
 }

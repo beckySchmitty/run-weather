@@ -26,7 +26,7 @@ struct HourDetailView: View {
 						.foregroundColor(Color("weatherIcon"))
 						.accessibilityIdentifier("weatherImage")
 
-					Text("\(Int(weather.temperature.rounded()))°")
+					Text("\(Int(weather.temperature.rounded()))°F")
 						.font(.system(size: 80, weight: .thin))
 						.foregroundColor(.white)
 						.accessibilityIdentifier("temperatureDisplay")
@@ -34,7 +34,7 @@ struct HourDetailView: View {
 					HourDetailCardView(title: "Hour", value: "\(convertToHourWithTimeZone(weather.dateTime) ?? "N/A")")
 						.accessibilityIdentifier("hourDetailCardHour")
 					// swiftlint:disable:next line_length
-					HourDetailCardView(title: "Date", value: "\(convertToMonthDayYear(weather.dateTime) ?? "N/A"), \(convertToHourWithTimeZone(weather.dateTime) ?? "N/A")")
+					HourDetailCardView(title: "Date", value: "\(convertToMonthDayYear(weather.dateTime) ?? "N/A")")
 						.accessibilityIdentifier("hourDetailCardDate")
 
 					HourDetailCardView(title: "Temperature", value: "\(Int(weather.temperature.rounded())) \(weather.temperatureUnit)")
@@ -49,7 +49,7 @@ struct HourDetailView: View {
 				}
 				.padding()
 				.frame(maxWidth: .infinity, alignment: .leading)
-				.background(Color.purple)
+				.background(Color("hourDetail"))
 				.cornerRadius(20)
 				.padding(.horizontal)
 				Spacer()

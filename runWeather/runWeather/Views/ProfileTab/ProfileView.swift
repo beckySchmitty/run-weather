@@ -16,31 +16,12 @@ struct ProfileView: View {
 	@State private var showAlert = false
 	@State private var alertMessage = ""
 
-//	var body: some View {
-//		VStack {
-//			Spacer()
-//			ProfileHeaderViewNew(userStore: userStore)
-//			ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
-//			ScrollView {
-//				VStack {
-//					ProfilePreferencesView(userStore: userStore)
-//				}
-//			}
-//			Spacer()
-//			TestDataToggleView(userStore: userStore, isTestDataEnabled: $userStore.isTestDataEnabled)
-//		}
-//		.background(Color("backgroundBlue"))
-//		.alert(isPresented: $showAlert) {
-//			Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-//		}
-//		.frame(maxHeight: .infinity)
-//	}
-
 	var body: some View {
 		VStack {
 			Spacer()
 			ProfileHeaderView(userStore: userStore)
-//			ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
+			Spacer()
+			ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
 			ScrollView {
 				VStack {
 					ProfilePreferencesView(userStore: userStore)
@@ -131,3 +112,26 @@ extension ProfileView {
 		self.showAlert = true
 	}
 }
+
+
+// TODO: remove if I keep other style
+
+//	var body: some View {
+//		VStack {
+//			Spacer()
+//			ProfileHeaderViewNew(userStore: userStore)
+//			ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
+//			ScrollView {
+//				VStack {
+//					ProfilePreferencesView(userStore: userStore)
+//				}
+//			}
+//			Spacer()
+//			TestDataToggleView(userStore: userStore, isTestDataEnabled: $userStore.isTestDataEnabled)
+//		}
+//		.background(Color("backgroundBlue"))
+//		.alert(isPresented: $showAlert) {
+//			Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+//		}
+//		.frame(maxHeight: .infinity)
+//	}

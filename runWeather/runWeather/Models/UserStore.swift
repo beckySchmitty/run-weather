@@ -41,15 +41,9 @@ class UserStore: ObservableObject {
 		return Preferences()
 	}
 
-	func savePreferences() {
-		//		// Force an error for testing
-		//		do {
-		//				throw TestError.forcedError
-		//		} catch {
-		//				currentError = error
-		//				print("Test Error: \(error)")
-		//				return
-		//		}
+	func savePreferences() throws {
+//				 Force an error for testing
+						throw TestError.forcedError
 		guard let fileUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("UserModelPreferences.json") else { return }
 
 		do {

@@ -245,7 +245,6 @@
 				2C4B44D72B051D21001F409E /* TestDataLoader.swift */,
 				2CBEBC662B03BF3D007B7391 /* UserStore.swift */,
 				2CC8CDF82B153EF000ADE3EA /* UserModel.swift */,
-				2C73BAA22B08012800518D83 /* ErrorTypes.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -267,6 +266,7 @@
 				2CBEBC622B03BF0E007B7391 /* apiKey.swift */,
 				2C81EC552B06587800C6842D /* WeatherIconEnum.swift */,
 				2C4B44DB2B055D0B001F409E /* DateTimeHelpers.swift */,
+				2C73BAA22B08012800518D83 /* ErrorTypes.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";

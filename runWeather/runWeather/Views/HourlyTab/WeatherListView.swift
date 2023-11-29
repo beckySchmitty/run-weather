@@ -16,7 +16,7 @@ struct WeatherListView: View {
 		VStack {
 			if filteredWeather.isEmpty {
 				//				swiftlint:disable:next line_length
-				Text("No weather matches your current preferences; please update your preferences or wait for the weather to change")
+				Text("No weather matches your current preferences. Please update your preferences or wait for the weather to change.")
 					.frame(maxWidth: .infinity, maxHeight: .infinity)
 			} else {
 				List(filteredWeather, id: \.epochDateTime) { weather in
