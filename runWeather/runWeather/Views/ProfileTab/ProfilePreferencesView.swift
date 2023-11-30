@@ -16,13 +16,14 @@ struct ProfilePreferencesView: View {
 
 	var body: some View {
 		ScrollView {
-			VStack {
+			Spacer()
+			VStack(alignment: .leading) {
 				Text("Preferences")
 					.font(.title)
-				Text("No one likes running in the rain or cold. Set your minimum temperature and maximum precipitation level.")
+				Text("Set minimum temperature and maximum precipitation level.")
 				TemperatureSelectView(selectedTemperature: $userStore.user.preferences.selectedTemperature)
-				PrecipitationSelectView(selectedPrecipitation: $userStore.user.preferences.selectedPrecipitation)
 			}
+			PrecipitationSelectView(selectedPrecipitation: $userStore.user.preferences.selectedPrecipitation)
 			Button("Save Preferences") {
 				userStore.savePreferences()
 			}
@@ -31,5 +32,6 @@ struct ProfilePreferencesView: View {
 				Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
 			}
 		}
+		.padding()
 	}
 }

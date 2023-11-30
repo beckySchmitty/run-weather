@@ -11,7 +11,6 @@ import XCTest
 @MainActor
 class UserStoreTests: XCTestCase {
 	// swiftlint:disable line_length
-	// swiftlint:disable indentation_width
 
 	//	swiftlint:disable:next implicitly_unwrapped_optional
 	var userStore: UserStore!
@@ -58,4 +57,3 @@ class UserStoreTests: XCTestCase {
 	}
 }
 // swiftlint:enable line_length
-// swiftlint:enable indentation_width

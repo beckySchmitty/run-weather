@@ -3,7 +3,7 @@
 //  runWeather
 //
 //  Created by Becky Schmitthenner on 11/18/23.
-//
+
 import SwiftUI
 
 struct ZipCodeView: View {
@@ -11,9 +11,9 @@ struct ZipCodeView: View {
 	var onSubmit: () async throws -> Void
 
 	var body: some View {
-		HStack {
-			Spacer()
+		VStack {
 			TextField("Zip Code", text: $inputZipCode)
+				.bold()
 				.padding()
 				.background(Color("backgroundBlueOpposite"))
 				.cornerRadius(10)
@@ -24,7 +24,6 @@ struct ZipCodeView: View {
 						try await onSubmit()
 					}
 				}
-			Spacer()
 		}
 		.frame(height: 50)
 		.padding()
