@@ -41,8 +41,7 @@ class UserStore: ObservableObject {
 		return Preferences()
 	}
 
-	func savePreferences() throws {
-		//						throw TestError.forcedError
+	func savePreferences() {
 		guard let fileUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("UserModelPreferences.json") else { return }
 
 		do {
@@ -51,7 +50,6 @@ class UserStore: ObservableObject {
 				// If the file does not exist, create it
 				fileManager.createFile(atPath: fileUrl.path, contents: nil, attributes: nil)
 			}
-
 			let jsonData = try JSONEncoder().encode(user.preferences)
 			try jsonData.write(to: fileUrl, options: .atomicWrite)
 			currentError = nil

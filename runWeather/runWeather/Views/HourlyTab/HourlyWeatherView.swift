@@ -22,26 +22,28 @@ struct HourlyWeatherView: View {
 				WeatherListView(userStore: userStore, isFilteredByUserPref: $isFilteredByUserPref)
 					.navigationTitle("Hourly Weather")
 					.toolbar {
-						ToolbarItem(placement: .navigationBarLeading) {
-							Button(action: {
-								isAnimating = true
-								withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: false)) {
-									self.isAnimating = true
-								}
-
-								Task {
-									try await hourlyWeatherStore.loadWeatherData(locationKey: userStore.locationKey)
-									withAnimation {
-										self.isAnimating = false
+						if !userStore.isTestDataEnabled {
+							ToolbarItem(placement: .navigationBarLeading) {
+								Button(action: {
+									isAnimating = true
+									withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: false)) {
+										self.isAnimating = true
 									}
-								}
-							}, label: {
-								Image(systemName: "arrow.clockwise")
-									.imageScale(.medium)
-									.scaleEffect(isAnimating ? 3 : 1)
-									.rotationEffect(.degrees(isAnimating ? 360 : 0))
-							})
-							.buttonStyle(.plain)
+
+									Task {
+										await hourlyWeatherStore.loadWeatherData(locationKey: userStore.locationKey)
+										withAnimation {
+											self.isAnimating = false
+										}
+									}
+								}, label: {
+									Image(systemName: "arrow.clockwise")
+										.imageScale(.medium)
+										.scaleEffect(isAnimating ? 3 : 1)
+										.rotationEffect(.degrees(isAnimating ? 360 : 0))
+								})
+								.buttonStyle(.plain)
+							}
 						}
 						ToolbarItem(placement: .navigationBarTrailing) {
 							HStack {

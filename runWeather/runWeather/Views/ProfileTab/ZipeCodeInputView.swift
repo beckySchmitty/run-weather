@@ -15,9 +15,10 @@ struct ZipCodeView: View {
 			Spacer()
 			TextField("Zip Code", text: $inputZipCode)
 				.padding()
-				.background(Color.white)
+				.background(Color("backgroundBlueOpposite"))
 				.cornerRadius(10)
-				.foregroundColor(.black)
+				.foregroundColor(Color("backgroundBlue"))
+				.accentColor(Color("backgroundBlue"))
 				.onSubmit {
 					Task {
 						try await onSubmit()

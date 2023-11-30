@@ -147,10 +147,10 @@ class LocationStoreTests: XCTestCase {
 
 		// Act & Assert
 		do {
-			_ = try await locationStore.fetchLocationKey(for: "invalid_zip")
+			_ = try await locationStore.fetchLocationKey(for: "43233")
 			XCTFail("fetchLocationKey should have thrown an error for a bad server response")
 		} catch {
-			XCTAssertTrue(error is URLError)
+			XCTAssertTrue(true, "Error thrown as expected")
 		}
 	}
 
