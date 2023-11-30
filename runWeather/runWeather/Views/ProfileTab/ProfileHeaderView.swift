@@ -12,7 +12,7 @@ struct ProfileHeaderView: View {
 	@EnvironmentObject var locationStore: LocationStore
 
 	var body: some View {
-		HStack {
+		VStack {
 			if userStore.isTestDataEnabled {
 				Image("testDataUser")
 					.resizable()
@@ -39,5 +39,6 @@ struct ProfileHeaderView: View {
 				.font(.subheadline)
 				.foregroundColor(Color("mainBlueText"))
 		}
+		.padding()
 	}
 }

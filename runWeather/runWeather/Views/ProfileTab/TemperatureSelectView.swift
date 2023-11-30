@@ -15,7 +15,7 @@ struct TemperatureSelectView: View {
 		HStack {
 			Text("Temperature")
 				.font(.headline)
-				.padding()
+//				.padding()
 			Picker("Select Temperature", selection: $selectedTemperature) {
 				ForEach(temperatures, id: \.self) { temperature in
 					Text(temperature).tag(temperature)
@@ -24,6 +24,6 @@ struct TemperatureSelectView: View {
 			.pickerStyle(MenuPickerStyle())
 			.frame(maxWidth: .infinity, alignment: .center)
 		}
-		.padding()
+//		.padding()
 	}
 }

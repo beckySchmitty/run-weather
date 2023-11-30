@@ -15,28 +15,33 @@ struct ProfileView: View {
 	@State private var inputZipCode: String = ""
 	@State private var showAlert = false
 	@State private var alertMessage = ""
+	@Environment(\.horizontalSizeClass)
+	var horizontalSizeClass
+
 
 	var body: some View {
-		VStack {
-			Spacer()
-			ProfileHeaderView(userStore: userStore)
-			Spacer()
-			ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
-			ScrollView {
-				VStack {
+		GeometryReader { geometry in
+			HStack {
+				ScrollView {
+					HStack {
+						ProfileHeaderView(userStore: userStore)
+						ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
+					}
+					.frame(width: geometry.size.width)
 					ProfilePreferencesView(userStore: userStore)
+					Spacer() // This will push the toggle to the bottom if there's additional space.
+					TestDataToggleView(userStore: userStore, isTestDataEnabled: $userStore.isTestDataEnabled)
 				}
 			}
-			Spacer()
-			TestDataToggleView(userStore: userStore, isTestDataEnabled: $userStore.isTestDataEnabled)
+			.frame(height: geometry.size.height)
 		}
 		.background(Color("backgroundBlue"))
 		.alert(isPresented: $showAlert) {
 			Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
 		}
-		.frame(maxHeight: .infinity)
 	}
 }
+
 
 // Extension for Async Functions
 extension ProfileView {
@@ -113,3 +118,72 @@ extension ProfileView {
 		self.showAlert = true
 	}
 }
+
+
+//		VStack {
+//			Spacer()
+//			ProfileHeaderView(userStore: userStore)
+//			Spacer()
+//			ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
+//			ScrollView {
+//				VStack {
+//					ProfilePreferencesView(userStore: userStore)
+//				}
+//			}
+//			Spacer()
+//			TestDataToggleView(userStore: userStore, isTestDataEnabled: $userStore.isTestDataEnabled)
+//		}
+
+
+
+//ZStack {
+//	if horizontalSizeClass == .compact {
+//		VStack {
+//			Spacer()
+//			ProfileHeaderView(userStore: userStore)
+//			Spacer()
+//			ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
+//			ScrollView {
+//				VStack {
+//					ProfilePreferencesView(userStore: userStore)
+//				}
+//			}
+//			Spacer()
+//			TestDataToggleView(userStore: userStore, isTestDataEnabled: $userStore.isTestDataEnabled)				 }
+//	} else {
+//		HStack {
+//			ProfileHeaderView(userStore: userStore)
+//			ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
+//			ScrollView {
+//				VStack {
+//					ProfilePreferencesView(userStore: userStore)
+//				}
+//			}
+//			TestDataToggleView(userStore: userStore, isTestDataEnabled: $userStore.isTestDataEnabled)
+//		}
+//	}
+//}
+
+
+//worked
+//GeometryReader { geometry in
+//		VStack {
+//				ScrollView {
+//						VStack {
+//								ProfileHeaderView(userStore: userStore)
+//								ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
+//								ProfilePreferencesView(userStore: userStore)
+//						}
+//						.frame(width: geometry.size.width)
+//				}
+//				Spacer() // This will push the toggle to the bottom if there's additional space.
+//				TestDataToggleView(userStore: userStore, isTestDataEnabled: $userStore.isTestDataEnabled)
+//						.padding(.bottom, 8) // Adds padding at the bottom.
+//		}
+//		.frame(height: geometry.size.height)
+//}
+//.background(Color("backgroundBlue"))
+//.alert(isPresented: $showAlert) {
+//		Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+//}
+//}
