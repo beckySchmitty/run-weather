@@ -26,34 +26,35 @@ class UserStoreTests: XCTestCase {
 	}
 
 	func testSavingNewPreferences() throws {
-			// Arrange
-			userStore = UserStore()
-			let newPreferences = Preferences(selectedTemperature: "70°F", selectedPrecipitation: "< 50%")
+		// Arrange
+		userStore = UserStore()
+		let newPreferences = Preferences(selectedTemperature: "70°F", selectedPrecipitation: "< 50%")
 
-			// Act
-			userStore.user.preferences = newPreferences
-			try userStore.savePreferences()
+		// Act
+		userStore.user.preferences = newPreferences
+		//		TODO
+		try userStore.savePreferences()
 
-			// Assert
-			let savedPreferences = userStore.loadPreferences()
-			XCTAssertEqual(savedPreferences.selectedTemperature, "70°F")
-			XCTAssertEqual(savedPreferences.selectedPrecipitation, "< 50%")
+		// Assert
+		let savedPreferences = userStore.loadPreferences()
+		XCTAssertEqual(savedPreferences.selectedTemperature, "70°F")
+		XCTAssertEqual(savedPreferences.selectedPrecipitation, "< 50%")
 	}
 
 	func testLoadingPreferences() throws {
-			// Arrange
-			userStore = UserStore()
+		// Arrange
+		userStore = UserStore()
 
-			let newPreferences = Preferences(selectedTemperature: "10°F", selectedPrecipitation: "< 90%")
-			userStore.user.preferences = newPreferences
-			try userStore.savePreferences()
+		let newPreferences = Preferences(selectedTemperature: "10°F", selectedPrecipitation: "< 90%")
+		userStore.user.preferences = newPreferences
+		try userStore.savePreferences()
 
-			// Act
-			let loadedPreferences = userStore.loadPreferences()
+		// Act
+		let loadedPreferences = userStore.loadPreferences()
 
-			// Assert
-			XCTAssertEqual(loadedPreferences.selectedTemperature, "10°F", "Loaded temperature preference should match the saved value.")
-			XCTAssertEqual(loadedPreferences.selectedPrecipitation, "< 90%", "Loaded precipitation preference should match the saved value.")
+		// Assert
+		XCTAssertEqual(loadedPreferences.selectedTemperature, "10°F", "Loaded temperature preference should match the saved value.")
+		XCTAssertEqual(loadedPreferences.selectedPrecipitation, "< 90%", "Loaded precipitation preference should match the saved value.")
 	}
 }
 // swiftlint:enable line_length

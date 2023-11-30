@@ -12,28 +12,24 @@ class HourlyWeatherStore: ObservableObject {
 	@Published var errorMessage: String?
 	@Published var hasError = false
 
-	func loadWeatherData(locationKey: String) async throws {
+	func loadWeatherData(locationKey: String) async {
 		do {
 			self.hourlyWeather = try await fetchHourlyWeather(locationKey: locationKey)
-		} catch let error as URLError where error.code == .notConnectedToInternet {
-			errorMessage = "Network connection lost."
-			hasError = true
-		} catch let error as URLError where error.code == .badURL {
-			errorMessage = WeatherError.badURL.localizedDescription
-			hasError = true
-		} catch let error as URLError where error.code == .badServerResponse {
-			// swiftlint:disable:next line_length
-			errorMessage = WeatherError.serverError(statusCode: (error as? HTTPURLResponse)?.statusCode ?? 500).localizedDescription
-			hasError = true
-		} catch let error as DecodingError {
-			errorMessage = WeatherError.decodingError(underlyingError: error).localizedDescription
-			hasError = true
+			self.hasError = false
+			self.errorMessage = nil
+		} catch let error as URLError {
+			switch error.code {
+			case .notConnectedToInternet, .networkConnectionLost, .cannotFindHost, .cannotConnectToHost:
+				self.errorMessage = "Network connection is unavailable. Please check your internet settings."
+			default:
+				self.errorMessage = "An unknown network error occurred."
+			}
+			self.hasError = true
 		} catch {
-			errorMessage = WeatherError.other(error).localizedDescription
-			hasError = true
+			self.errorMessage = "An unexpected error occurred."
+			self.hasError = true
 		}
 	}
-
 
 	func loadTestData() async {
 		await TestDataLoader.loadWeatherTestData(into: self)

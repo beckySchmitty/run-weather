@@ -40,20 +40,28 @@ struct ProfileView: View {
 
 // Extension for Async Functions
 extension ProfileView {
-	//	set user and weather data
-	private func asyncSubmit() async throws {
-		//			location key must be saved to call loadWeatherData so do not use async let
+	private func asyncSubmit() async {
 		guard await verifyZipAndGetLocation(zipCode: inputZipCode) else {
 			return
 		}
-		try await loadWeatherDataForUser()
+		do {
+			try await loadWeatherDataForUser()
+		} catch let error as URLError where error.code == .notConnectedToInternet {
+			self.alertMessage = "Network connection is unavailable. Please check your internet settings."
+			self.showAlert = true
+		} catch {
+			self.alertMessage = "An unexpected error occurred: \(error.localizedDescription)"
+			self.showAlert = true
+		}
 	}
 
+
 	private func loadWeatherDataForUser() async throws {
+		//		TODO
 		try await hourlyWeatherStore.loadWeatherData(locationKey: userStore.locationKey)
 		if hourlyWeatherStore.hasError, let errorMessage = hourlyWeatherStore.errorMessage {
-			alertMessage = errorMessage
-			showAlert = true
+			self.alertMessage = errorMessage
+			self.showAlert = true
 		}
 	}
 }
@@ -90,8 +98,7 @@ extension ProfileView {
 			userStore.locationKey = locationKey
 			return true
 		} catch {
-			//			TODO: revisit 
-			await setAlert(with: error)
+			setAlert(with: error)
 			return false
 		}
 	}

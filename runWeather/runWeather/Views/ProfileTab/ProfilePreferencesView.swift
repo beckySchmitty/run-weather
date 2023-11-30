@@ -18,19 +18,13 @@ struct ProfilePreferencesView: View {
 		ScrollView {
 			Text("Preferences")
 				.font(.title)
-			Text("No one likes running in the rain or cold.")
+			Text("No one likes running in the rain or cold. Set your minimum temperature and maximum precipitation level.")
 			VStack(spacing: 6) {
 				TemperatureSelectView(selectedTemperature: $userStore.user.preferences.selectedTemperature)
 				PrecipitationSelectView(selectedPrecipitation: $userStore.user.preferences.selectedPrecipitation)
 			}
 			Button("Save Preferences") {
-				do {
-					try userStore.savePreferences()
-				} catch {
-					print("error caught")
-					alertMessage = error.localizedDescription
-					showAlert = true
-				}
+				userStore.savePreferences()
 			}
 			.padding(6)
 			.buttonStyle(.bordered)

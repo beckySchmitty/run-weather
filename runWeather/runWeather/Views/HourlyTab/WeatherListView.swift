@@ -12,7 +12,7 @@ struct WeatherListView: View {
 	@ObservedObject var userStore: UserStore
 	@Binding var isFilteredByUserPref: Bool
 
-	// swiftlint:disble line_length
+	// swiftlint:disable line_length
 	var body: some View {
 		VStack {
 			if filteredWeather.isEmpty {

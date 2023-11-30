@@ -29,35 +29,37 @@ class LocationStore: ObservableObject {
 	init(session: NetworkSession = URLSession.shared) {
 		self.session = session
 	}
-	// Function to fetch the location key from the AccuWeather API
+
 	func fetchLocationKey(for zipCode: String) async throws -> String {
-		// Construct the URL for the API request
 		let urlString = "\(baseURL)search?apikey=\(apiKey)&q=\(zipCode)"
 		guard let url = URL(string: urlString) else {
 			throw LocationError.invalidURL
 		}
-
-		// Perform the network request
-		let (data, response) = try await session.sessionData(from: url)
-
-
-		// Check for non-200 HTTP responses
-		guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-			throw LocationError.serverError(statusCode: (response as? HTTPURLResponse)?.statusCode ?? 500)
-		}
-
-		// Decode the JSON response
-		let decoder = JSONDecoder()
 		do {
-			let locations = try decoder.decode([LocationModel].self, from: data)
+			//			let (data, response) = try await URLSession.shared.data(from: url)
+			let (data, response) = try await session.sessionData(from: url)
+
+			guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+				throw LocationError.serverError(statusCode: (response as? HTTPURLResponse)?.statusCode ?? 500)
+			}
+
+			let locations = try JSONDecoder().decode([LocationModel].self, from: data)
 			guard let locationKey = locations.first?.key else {
 				throw LocationError.locationNotFound
 			}
 			return locationKey
+		} catch let error as URLError where error.code == .notConnectedToInternet {
+			// Handling specific network-related errors
+			throw LocationError.networkUnavailable
 		} catch let error as DecodingError {
-			throw LocationError.decodingError(underlyingError: mapDecodingError(error))
+			// Handle decoding errors
+			throw LocationError.decodingError(underlyingError: error)
+		} catch {
+			// Handle all other errors
+			throw LocationError.other(error)
 		}
 	}
+
 
 	// Helper function to map a DecodingError to a more descriptive NSError
 	private func mapDecodingError(_ error: DecodingError) -> NSError {

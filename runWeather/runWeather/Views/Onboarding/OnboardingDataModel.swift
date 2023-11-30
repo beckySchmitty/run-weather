@@ -29,8 +29,8 @@ let onboardingScreens: [OnboardingDataModel] = [
 	),
 	OnboardingDataModel(
 		image: "onboarding3",
-		title: "Filter the weather by temperature and precipitation preferences",
-		description: "Simlpy tap the 'Sparles' icon",
+		title: "Filter out the cold and rain",
+		description: "Tap the 'Sparkles' icon to filter by your preferences",
 		gradientColors: [Color("OnboardingBlueLightShade"), Color("OnboardingBlue")]
 	)
 ]
