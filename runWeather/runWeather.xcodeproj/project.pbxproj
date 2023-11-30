@@ -48,7 +48,6 @@
 		2CBEBC7B2B03C08D007B7391 /* HourlyWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC7A2B03C08D007B7391 /* HourlyWeatherView.swift */; };
 		2CBEBC8E2B03E439007B7391 /* NoWeatherDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC8D2B03E439007B7391 /* NoWeatherDataView.swift */; };
 		2CBEBC922B03E473007B7391 /* HourDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEBC912B03E473007B7391 /* HourDetailView.swift */; };
-		2CC42B9B2B04768C00BE4E68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CC42B9A2B04768C00BE4E68 /* LaunchScreen.storyboard */; };
 		2CC8CDF92B153EF000ADE3EA /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC8CDF82B153EF000ADE3EA /* UserModel.swift */; };
 		2CEB76C42B0933E9004E3DF1 /* ZipeCodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB76C32B0933E9004E3DF1 /* ZipeCodeInputView.swift */; };
 		2CEB76C82B094730004E3DF1 /* ProfilePreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEB76C72B094730004E3DF1 /* ProfilePreferencesView.swift */; };
@@ -80,6 +79,7 @@
 		2C4B44D72B051D21001F409E /* TestDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataLoader.swift; sourceTree = "<group>"; };
 		2C4B44DB2B055D0B001F409E /* DateTimeHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeHelpers.swift; sourceTree = "<group>"; };
 		2C4B44DD2B055E3D001F409E /* HourlyWeatherRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherRow.swift; sourceTree = "<group>"; };
+		2C5F728A2B18D01A00A9E39B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2C5FB8942B0D9C5A008AD64A /* MockUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUser.swift; sourceTree = "<group>"; };
 		2C7194352B143026005CDA86 /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = "<group>"; };
 		2C7194362B1436C9005CDA86 /* NoWeatherDataViewUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoWeatherDataViewUITest.swift; sourceTree = "<group>"; };
@@ -119,7 +119,6 @@
 		2CBEBC7A2B03C08D007B7391 /* HourlyWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherView.swift; sourceTree = "<group>"; };
 		2CBEBC8D2B03E439007B7391 /* NoWeatherDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoWeatherDataView.swift; sourceTree = "<group>"; };
 		2CBEBC912B03E473007B7391 /* HourDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourDetailView.swift; sourceTree = "<group>"; };
-		2CC42B9A2B04768C00BE4E68 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2CC8CDF82B153EF000ADE3EA /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		2CEB76C32B0933E9004E3DF1 /* ZipeCodeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipeCodeInputView.swift; sourceTree = "<group>"; };
 		2CEB76C72B094730004E3DF1 /* ProfilePreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePreferencesView.swift; sourceTree = "<group>"; };
@@ -166,7 +165,6 @@
 			isa = PBXGroup;
 			children = (
 				2C7194352B143026005CDA86 /* TestPlan.xctestplan */,
-				2CC42B9A2B04768C00BE4E68 /* LaunchScreen.storyboard */,
 				2CBEBC552B03BC0D007B7391 /* ACCUWEATHER-info.plist */,
 				2CBEBC2A2B03BA98007B7391 /* runWeather */,
 				2CBEBC3B2B03BA99007B7391 /* runWeatherTests */,
@@ -188,6 +186,7 @@
 		2CBEBC2A2B03BA98007B7391 /* runWeather */ = {
 			isa = PBXGroup;
 			children = (
+				2C5F728A2B18D01A00A9E39B /* Info.plist */,
 				2CBEBC592B03BE31007B7391 /* Utils */,
 				2CBEBC582B03BE26007B7391 /* Views */,
 				2CBEBC572B03BE1F007B7391 /* Models */,
@@ -445,7 +444,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CBEBC562B03BC0D007B7391 /* ACCUWEATHER-info.plist in Resources */,
-				2CC42B9B2B04768C00BE4E68 /* LaunchScreen.storyboard in Resources */,
 				2CBEBC332B03BA99007B7391 /* Preview Assets.xcassets in Resources */,
 				2CBEBC302B03BA99007B7391 /* Assets.xcassets in Resources */,
 			);
@@ -703,11 +701,11 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = runWeather/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Run Weather";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -737,11 +735,11 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = runWeather/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Run Weather";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

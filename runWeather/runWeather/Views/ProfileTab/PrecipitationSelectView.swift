@@ -15,8 +15,6 @@ struct PrecipitationSelectView: View {
 		HStack {
 			Text("Precipitation")
 				.font(.headline)
-				.padding()
-
 			Picker("Precipitation Level", selection: $selectedPrecipitation) {
 				ForEach(precipitationLevels, id: \.self) { level in
 					Text(level).tag(level)

@@ -15,28 +15,53 @@ struct ProfileView: View {
 	@State private var inputZipCode: String = ""
 	@State private var showAlert = false
 	@State private var alertMessage = ""
+	@Environment(\.horizontalSizeClass)
+	var horizontalSizeClass
+	@Environment(\.verticalSizeClass)
+	var verticalSizeClass
+
 
 	var body: some View {
-		VStack {
-			Spacer()
-			ProfileHeaderView(userStore: userStore)
-			Spacer()
-			ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
-			ScrollView {
+		ZStack {
+			if horizontalSizeClass == .compact && verticalSizeClass == .regular {
 				VStack {
-					ProfilePreferencesView(userStore: userStore)
+					//					Portrait
+					Spacer()
+					ProfileHeaderView(userStore: userStore)
+					Spacer()
+					ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
+					ScrollView {
+						VStack {
+							ProfilePreferencesView(userStore: userStore)
+						}
+					}
+					Spacer()
+					TestDataToggleView(userStore: userStore, isTestDataEnabled: $userStore.isTestDataEnabled)
+				}
+			} else {
+				HStack {
+					//											Landscape
+					VStack {
+						ProfileHeaderView(userStore: userStore)
+						ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
+						TestDataToggleView(userStore: userStore, isTestDataEnabled: $userStore.isTestDataEnabled)
+					}
+					ScrollView {
+						VStack(alignment: .leading) {
+							Spacer()
+							ProfilePreferencesView(userStore: userStore)
+						}
+					}
 				}
 			}
-			Spacer()
-			TestDataToggleView(userStore: userStore, isTestDataEnabled: $userStore.isTestDataEnabled)
 		}
 		.background(Color("backgroundBlue"))
 		.alert(isPresented: $showAlert) {
 			Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
 		}
-		.frame(maxHeight: .infinity)
 	}
 }
+
 
 // Extension for Async Functions
 extension ProfileView {

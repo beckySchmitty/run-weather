@@ -10,24 +10,31 @@ import SwiftUI
 struct ProfileHeaderView: View {
 	@ObservedObject var userStore: UserStore
 	@EnvironmentObject var locationStore: LocationStore
+	@Environment(\.horizontalSizeClass)
+	var horizontalSizeClass
+	@Environment(\.verticalSizeClass)
+	var verticalSizeClass
 
+	//	swiftlint:disable line_length
 	var body: some View {
-		HStack {
+		VStack {
 			if userStore.isTestDataEnabled {
 				Image("testDataUser")
 					.resizable()
 					.aspectRatio(contentMode: .fill)
-					.frame(width: 100, height: 100)
+					.frame(width: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 60, height: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 80)
 					.clipShape(Circle())
 					.overlay(Circle().stroke(Color("mainBlueText"), lineWidth: 4))
+					.padding()
 			} else {
 				Image(systemName: "person.fill")
 					.resizable()
 					.foregroundColor(Color("mainBlueText"))
 					.aspectRatio(contentMode: .fill)
-					.frame(width: 100, height: 100)
+					.frame(width: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 60, height: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 80)
 					.clipShape(Circle())
 					.overlay(Circle().stroke(Color("mainBlueText"), lineWidth: 4))
+					.padding()
 			}
 			Text(userStore.isTestDataEnabled ? "Travis Kelce" : "User")
 				.font(.title)
@@ -39,5 +46,7 @@ struct ProfileHeaderView: View {
 				.font(.subheadline)
 				.foregroundColor(Color("mainBlueText"))
 		}
+		.padding()
 	}
 }
+//	swiftlint:enable line_length
