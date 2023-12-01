@@ -12,7 +12,7 @@ struct TemperatureSelectView: View {
 	let temperatures = Array(stride(from: 10, through: 100, by: 1)).map { "\($0)°F" }
 
 	var body: some View {
-		HStack {
+		VStack {
 			Text("Temperature")
 				.font(.headline)
 			Picker("Select Temperature", selection: $selectedTemperature) {

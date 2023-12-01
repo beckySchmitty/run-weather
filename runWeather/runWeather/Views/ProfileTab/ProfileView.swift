@@ -36,7 +36,7 @@ struct ProfileView: View {
 						}
 					}
 					Spacer()
-					TestDataToggleView(userStore: userStore, isTestDataEnabled: $userStore.isTestDataEnabled)
+					TestDataToggleView(userStore: userStore)
 				}
 			} else {
 				HStack {
@@ -44,7 +44,7 @@ struct ProfileView: View {
 					VStack {
 						ProfileHeaderView(userStore: userStore)
 						ZipCodeView(inputZipCode: $inputZipCode, onSubmit: asyncSubmit)
-						TestDataToggleView(userStore: userStore, isTestDataEnabled: $userStore.isTestDataEnabled)
+						TestDataToggleView(userStore: userStore)
 					}
 					ScrollView {
 						VStack(alignment: .leading) {
@@ -70,7 +70,11 @@ extension ProfileView {
 			return
 		}
 		do {
+//			set Hourly Weather
 			try await loadWeatherDataForUser()
+//			Clear test user data in case the user left the test data toggled ON
+			userStore.autoDisableTestData = true
+			TestDataLoader.disableUserTestData(userStore: userStore)
 		} catch let error as URLError where error.code == .notConnectedToInternet {
 			self.alertMessage = "Network connection is unavailable. Please check your internet settings."
 			self.showAlert = true
@@ -117,15 +121,29 @@ extension ProfileView {
 	}
 
 	private func getLocationKey() async -> Bool {
-		do {
-			let locationKey = try await locationStore.fetchLocationKey(for: userStore.zipCode)
-			userStore.locationKey = locationKey
-			return true
-		} catch {
-			setAlert(with: error)
-			return false
-		}
+			do {
+					let locationKey = try await locationStore.fetchLocationKey(for: userStore.zipCode)
+					userStore.locationKey = locationKey
+					return true
+			} catch let error as LocationError {
+					switch error {
+					case .locationNotFound:
+//						clear user zip code if error
+							userStore.zipCode = ""
+							setAlert(with: error)
+					default:
+						//						clear user zip code if error
+							setAlert(with: error)
+					}
+					return false
+			} catch {
+				// catch-all block that handles any other errors
+		setAlert(with: error)
+		return false
+}
 	}
+
+
 
 	@MainActor
 	private func setAlert(with error: Error) {

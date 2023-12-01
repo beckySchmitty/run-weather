@@ -40,10 +40,20 @@ enum TestDataLoader {
 			print("Error decoding test data: \(error)")
 		}
 	}
+
+//	clears all test data
 	static func emptyTestData(userStore: UserStore, store: HourlyWeatherStore) {
 		emptyUserDetails(userStore: userStore)
 		store.hourlyWeather = []
 	}
+
+// clears test data only related to the user
+	static func disableUserTestData(userStore: UserStore) {
+		userStore.isTestDataEnabled = false
+		print("***** test data enabled =  \(userStore.isTestDataEnabled)")
+	}
+
+
 	static func setTestData(userStore: UserStore, store: HourlyWeatherStore) async {
 		setTestUserDetails(userStore: userStore)
 		await loadWeatherTestData(into: store)

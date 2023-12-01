@@ -15,6 +15,7 @@ class UserStore: ObservableObject {
 	@Published var locationKey: String
 	@Published var localizedName: String
 	@Published var isTestDataEnabled: Bool
+	@Published var autoDisableTestData: Bool
 	@Published var currentError: Error?
 
 	init(user: UserModel = UserModel()) {
@@ -23,6 +24,7 @@ class UserStore: ObservableObject {
 		self.locationKey = user.locationKey
 		self.localizedName = user.localizedName
 		self.isTestDataEnabled = user.isTestDataEnabled
+		self.autoDisableTestData = user.autoDisableTestData
 		self.user.preferences = loadPreferences()
 	}
 

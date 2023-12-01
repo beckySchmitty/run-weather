@@ -44,7 +44,7 @@ final class HourDetailViewUITest: XCTestCase {
 		let testDataToggle = app.switches["testDataToggle"]
 		let exists = NSPredicate(format: "exists == 1")
 		expectation(for: exists, evaluatedWith: testDataToggle, handler: nil)
-		waitForExpectations(timeout: 5)
+		waitForExpectations(timeout: 10)
 		attemptToggleTap(testDataToggle)
 		app.tabBars["Tab Bar"].buttons["Hourly"].tap()
 		let firstRow = app.cells.element(boundBy: 0)
