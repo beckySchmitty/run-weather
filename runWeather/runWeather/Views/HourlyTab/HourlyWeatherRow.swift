@@ -15,7 +15,7 @@ struct HourlyWeatherRow: View {
 			HStack {
 				Image(systemName: WeatherIcon.iconForWeather(weather.weatherIcon).systemName)
 					.foregroundColor(WeatherIcon.iconForWeather(weather.weatherIcon).color())
-				Text("\(String.formatAsInteger(weather.temperature)) \(weather.temperatureUnit)")
+				Text("\(String.formatAsInteger(weather.temperature)) °\(weather.temperatureUnit)")
 				VStack(alignment: .leading) {
 					Text(weather.iconPhrase)
 					Text(weather.formattedDateTime)

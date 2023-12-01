@@ -82,8 +82,7 @@ extension ProfileView {
 
 
 	private func loadWeatherDataForUser() async throws {
-		//		TODO
-		try await hourlyWeatherStore.loadWeatherData(locationKey: userStore.locationKey)
+		await hourlyWeatherStore.loadWeatherData(locationKey: userStore.locationKey)
 		if hourlyWeatherStore.hasError, let errorMessage = hourlyWeatherStore.errorMessage {
 			self.alertMessage = errorMessage
 			self.showAlert = true

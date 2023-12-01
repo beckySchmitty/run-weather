@@ -8,8 +8,10 @@
 import XCTest
 @testable import runWeather
 // swiftlint:disable force_unwrapping
+//	swiftlint:disable implicitly_unwrapped_optional
+// swiftlint:disable function_body_length
+// swiftlint:disable indentation_width
 
-// Define a mock session conforming to the NetworkSession protocol
 class MockNetworkSession: NetworkSession {
 	var mockData: (Data, URLResponse)?
 	var error: Error?
@@ -25,12 +27,10 @@ class MockNetworkSession: NetworkSession {
 	}
 }
 
-// XCTestCase for LocationStore
+@MainActor
 class LocationStoreTests: XCTestCase {
-	//	swiftlint: disable implicitly_unwrapped_optional
 	var locationStore: LocationStore!
 	var mockSession: MockNetworkSession!
-	//	swiftlint: enable implicitly_unwrapped_optional
 
 	override func setUpWithError() throws {
 		try super.setUpWithError()
@@ -43,8 +43,6 @@ class LocationStoreTests: XCTestCase {
 		mockSession = nil
 		try super.tearDownWithError()
 	}
-	// swiftlint:disable function_body_length
-	// swiftlint:disable indentation_width
 
 	func testFetchLocationKeySuccess() async throws {
 		// Arrange
@@ -137,8 +135,6 @@ class LocationStoreTests: XCTestCase {
 		// Assert
 		XCTAssertEqual(key, expectedKey)
 	}
-	// swiftlint:enable function_body_length
-	// swiftlint:enable indentation_width
 
 
 	func testFetchLocationKeyFailure() async throws {
@@ -156,8 +152,7 @@ class LocationStoreTests: XCTestCase {
 
 	func testFetchLocationKeyWithServerError() async throws {
 		// Arrange
-		let statusCode = 500 // Internal Server Error
-//		swiftlint:disable:next indentation_width
+		let statusCode = 500
 		//		swiftlint:disable:next line_length
 		let mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: statusCode, httpVersion: nil, headerFields: nil)!
 		mockSession.mockData = (Data(), mockResponse)
@@ -167,11 +162,12 @@ class LocationStoreTests: XCTestCase {
 			_ = try await locationStore.fetchLocationKey(for: "43081")
 			print("fetchLocationKey did not throw an error when it was expected to for status code \(statusCode)")
 		} catch {
-			// Now the test will pass and print any error that is thrown
 			print("fetchLocationKey threw an error as expected: \(error)")
 		}
 	}
 }
 
-// force unwrap OK for testing
 // swiftlint:enable force_unwrapping
+//	swiftlint:enable implicitly_unwrapped_optional
+// swiftlint:enable function_body_length
+// swiftlint:enable indentation_width

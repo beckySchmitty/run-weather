@@ -20,6 +20,7 @@ extension URLSession: NetworkSession {
 // API Docs: https://developer.accuweather.com/accuweather-locations-api/apis
 let baseURL = "https://dataservice.accuweather.com/locations/v1/postalcodes/us/"
 
+@MainActor
 class LocationStore: ObservableObject {
 	@Published var errorMessage: String?
 	@Published var hasError = false
