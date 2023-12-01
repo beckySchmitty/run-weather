@@ -8,23 +8,35 @@
 import XCTest
 
 final class HourDetailViewUITest: XCTestCase {
-	//	swiftlint:disable:next implicitly_unwrapped_optional
+	//    swiftlint:disable:next implicitly_unwrapped_optional
 	var app: XCUIApplication!
 
 	func attemptToggleTap(_ testDataToggle: XCUIElement) {
-		do {
-			try testDataToggle.switches.firstMatch.tap()
-		} catch {
-			// Fallback tap method
-			if testDataToggle.isHittable {
+		let maxAttempts = 2
+		var currentAttempt = 0
+
+		func tapElement() -> Bool {
+			if testDataToggle.switches.firstMatch.waitForExistence(timeout: 2) {
+				testDataToggle.switches.firstMatch.tap()
+				return true
+			} else if testDataToggle.waitForExistence(timeout: 2) && testDataToggle.isHittable {
 				testDataToggle.tap()
+				return true
 			}
+			return false
 		}
+
+		while currentAttempt < maxAttempts {
+			if tapElement() {
+				return // Success, exit the function
+			}
+			currentAttempt += 1
+		}
+		XCTFail("Failed to tap the toggle after \(maxAttempts) attempts.")
 	}
 
-
 	override func setUpWithError() throws {
-		//			toggle on test data, then navigate to hour detail view
+		//            toggle on test data, then navigate to hour detail view
 		app = .init()
 		app.launch()
 		app.tabBars["Tab Bar"].buttons["Profile"].tap()
@@ -40,10 +52,6 @@ final class HourDetailViewUITest: XCTestCase {
 		firstRow.tap()
 
 		continueAfterFailure = false
-	}
-
-	override func tearDownWithError() throws {
-		// Put teardown code here.
 	}
 
 	func testWeatherIconPhrasePresence() {

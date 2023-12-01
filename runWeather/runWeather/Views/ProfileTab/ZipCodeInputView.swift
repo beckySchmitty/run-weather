@@ -12,11 +12,13 @@ struct ZipCodeView: View {
 
 	var body: some View {
 		VStack {
+			Text("Enter Zip Code (US only)")
+				.font(.subheadline)
 			TextField("Zip Code", text: $inputZipCode)
 				.bold()
 				.padding()
 				.background(Color("backgroundBlueOpposite"))
-				.cornerRadius(10)
+				.cornerRadius(Constants.General.cornerRadiusClassic)
 				.foregroundColor(Color("backgroundBlue"))
 				.accentColor(Color("backgroundBlue"))
 				.onSubmit {

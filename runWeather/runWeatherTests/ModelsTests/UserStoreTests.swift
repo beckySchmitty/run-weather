@@ -11,7 +11,6 @@ import XCTest
 @MainActor
 class UserStoreTests: XCTestCase {
 	// swiftlint:disable line_length
-
 	//	swiftlint:disable:next implicitly_unwrapped_optional
 	var userStore: UserStore!
 
@@ -31,8 +30,7 @@ class UserStoreTests: XCTestCase {
 
 		// Act
 		userStore.user.preferences = newPreferences
-		//		TODO
-		try userStore.savePreferences()
+		userStore.savePreferences()
 
 		// Assert
 		let savedPreferences = userStore.loadPreferences()

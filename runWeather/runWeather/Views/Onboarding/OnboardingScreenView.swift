@@ -38,7 +38,7 @@ struct OnboardingScreenView: View {
 		.frame(maxWidth: .infinity, maxHeight: .infinity)
 		//		swiftlint:disable:next line_length
 		.background(LinearGradient(gradient: Gradient(colors: screenData.gradientColors), startPoint: .top, endPoint: .bottom))
-		.cornerRadius(10)
+		.cornerRadius(Constants.General.cornerRadiusClassic)
 		.padding()
 	}
 }

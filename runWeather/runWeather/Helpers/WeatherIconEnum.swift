@@ -123,28 +123,28 @@ enum WeatherIcon: Int {
 		case .intermittentClouds, .mostlyCloudy, .cloudy, .dreary, .mostlyCloudyNight:
 			return .gray
 		case .fog:
-			return .gray.opacity(0.5)
+			return .gray.opacity(Constants.General.opacityClassic)
 		case .showers, .mostlyCloudyShowers, .partlySunnyShowers:
 			return .blue
 		case .tStorms, .mostlyCloudyTStorms, .partlySunnyTStorms:
 			return .purple
 		case .rain:
-			return .blue.opacity(0.7)
+			return .blue.opacity(Constants.General.opacityClassic)
 		case .flurries, .snow, .mostlyCloudyFlurries, .partlySunnyFlurries, .mostlyCloudySnow:
 			return .gray
 		case .ice, .sleet, .freezingRain, .rainAndSnow:
-			return .blue.opacity(0.5)
+			return .blue.opacity(Constants.General.opacityClassic)
 		case .hot:
 			return .red
 		case .cold:
 			return .blue
 		case .windy:
-			return .gray.opacity(0.3)
+			return .gray.opacity(Constants.General.opacityClassic)
 		case .clear, .mostlyClear, .partlyCloudy:
-			return .gray.opacity(0.7)
+			return .gray.opacity(Constants.General.opacityClassic)
 			//				swiftlint:disable:next line_length
 		case .intermittentCloudsNight, .hazyMoonlight, .partlyCloudyShowersNight, .mostlyCloudyShowersNight, .partlyCloudyTStormsNight, .mostlyCloudyTStormsNight, .mostlyCloudyFlurriesNight, .mostlyCloudySnowNight:
-			return .gray.opacity(0.5)
+			return .gray.opacity(Constants.General.opacityClassic)
 		}
 	}
 }

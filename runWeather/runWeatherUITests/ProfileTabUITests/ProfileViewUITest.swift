@@ -20,7 +20,7 @@ final class ProfileViewUITest: XCTestCase {
 	}
 
 	func testProfileHeaderExists() throws {
-		XCTAssertTrue(app.staticTexts["User"].exists, "Profile header user name does not exist.")
+		XCTAssertTrue(app.staticTexts["New User"].exists, "Profile header user name does not exist.")
 	}
 
 	func testZipCodeFieldIsEditable() throws {
