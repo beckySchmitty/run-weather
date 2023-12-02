@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 enum Constants {
 	enum General {
 		public static let cornerRadiusClassic = CGFloat(10)

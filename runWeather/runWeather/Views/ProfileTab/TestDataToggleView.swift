@@ -12,7 +12,7 @@ struct TestDataToggleView: View {
 	@EnvironmentObject var hourlyWeatherStore: HourlyWeatherStore
 
 	var body: some View {
-		//			using "prototype" as it is a better user facing term
+		//			using "prototype" as it is a more realistic user facing term
 		Toggle("Enable Prototype", isOn: $userStore.isTestDataEnabled)
 			.padding()
 			.toggleStyle(SwitchToggleStyle(tint: Color("toggleColor")))
@@ -27,7 +27,7 @@ struct TestDataToggleView: View {
 					/*
 					 disable user specific test data
 					 this covers the case where a user left the toggle ON 
-					 but made a successful call to a new ZIP code
+					 but made a successful API call getting weather for a real ZIP code
 					 */										if userStore.autoDisableTestData {
 						 TestDataLoader.disableUserTestData(userStore: userStore)
 					 } else {

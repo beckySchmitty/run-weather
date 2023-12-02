@@ -11,7 +11,6 @@ struct OnboardingScreenView: View {
 	var screenData: OnboardingDataModel
 	@AppStorage("isOnboarding")
 	var isOnboarding = true
-	//	var horizontalSizeClass: UserInterfaceSizeClass?
 	@Environment(\.horizontalSizeClass)
 	var horizontalSizeClass
 	@Environment(\.verticalSizeClass)

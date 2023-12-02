@@ -10,13 +10,13 @@ RunWeather is your essential iOS weather guide for runners, designed to help you
 
 RunWeather is built entirely using Apple’s latest programming language Swift, known for its performance and safety features. We leverage the power of SwiftUI, Apple’s modern UI toolkit, to create a seamless and responsive user interface that provides a native experience on iOS devices. This combination allows for a robust app architecture and efficient performance, ensuring a smooth and reliable user experience.
 
-Programming Language: Swift
-UI Toolkit: SwiftUI
-Networking: URLSession for API calls
-Data Persistence: UserDefaults, Files, and Keychain
-Concurrency: Swift Modern Concurrency with async/await
-Architecture: MVVM (Model-View-ViewModel)
-The app stands out by not relying on any third-party libraries, showcasing the capabilities of Swift and SwiftUI to handle complex tasks natively.
+* Programming Language: Swift
+* UI Toolkit: SwiftUI
+* Networking: URLSession for API calls
+* Data Persistence: UserDefaults, Files, and Keychain
+* Concurrency: Swift Modern Concurrency with async/await
+* Architecture: MVVM (Model-View-ViewModel)
+* The app stands out by not relying on any third-party libraries, showcasing the capabilities of Swift and SwiftUI to handle complex tasks natively.
 
 ## Dependencies
 
