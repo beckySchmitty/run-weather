@@ -14,7 +14,7 @@ struct ZipCodeView: View {
 		VStack {
 			Text("Enter ZIP Code (US only)")
 				.font(.subheadline)
-			TextField("", text: $inputZipCode)
+			TextField("Zip Code", text: $inputZipCode)
 				.bold()
 				.padding()
 				.background(Color("backgroundBlueOpposite"))

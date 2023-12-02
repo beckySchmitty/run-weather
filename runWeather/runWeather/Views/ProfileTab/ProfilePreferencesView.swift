@@ -27,19 +27,20 @@ struct ProfilePreferencesView: View {
 				HStack {
 					TemperatureSelectView(selectedTemperature: $userStore.user.preferences.selectedTemperature)
 					PrecipitationSelectView(selectedPrecipitation: $userStore.user.preferences.selectedPrecipitation)
-					Spacer()
-					Button("Save") {
-						userStore.savePreferences()
-					}
-					.buttonStyle(.bordered)
 				}
+				Spacer()
+				Button("Save") {
+					userStore.savePreferences()
+				}
+				.buttonStyle(.bordered)
+				.frame(maxWidth: .infinity, alignment: .center) // This line centers the button
+				Spacer()
+
 				.alert(isPresented: $showAlert) {
 					Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
 				}
-				Spacer()
 			}
 			.padding()
-
 		}
 	}
 }

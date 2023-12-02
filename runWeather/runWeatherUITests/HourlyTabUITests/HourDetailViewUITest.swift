@@ -1,10 +1,10 @@
+////
+////  HourDetailViewUITest.swift
+////  runWeatherUITests
+////
+////  Created by Becky Schmitthenner on 11/26/23.
+////
 //
-//  HourDetailViewUITest.swift
-//  runWeatherUITests
-//
-//  Created by Becky Schmitthenner on 11/26/23.
-//
-
 import XCTest
 
 final class HourDetailViewUITest: XCTestCase {
@@ -48,7 +48,7 @@ final class HourDetailViewUITest: XCTestCase {
 		attemptToggleTap(testDataToggle)
 		app.tabBars["Tab Bar"].buttons["Hourly"].tap()
 		let firstRow = app.cells.element(boundBy: 0)
-		XCTAssertTrue(firstRow.exists, "The first row does not exist.")
+		XCTAssertTrue(firstRow.waitForExistence(timeout: 4), "The first row does not exist.")
 		firstRow.tap()
 
 		continueAfterFailure = false
@@ -56,11 +56,11 @@ final class HourDetailViewUITest: XCTestCase {
 
 	func testWeatherIconPhrasePresence() {
 		let weatherIconPhrase = app.staticTexts["weatherIconPhrase"]
-		XCTAssertTrue(weatherIconPhrase.exists, "Weather icon phrase is not present.")
+		XCTAssertTrue(weatherIconPhrase.waitForExistence(timeout: 4), "Weather icon phrase is not present.")
 	}
 
 	func testTemperatureDisplayPresence() {
 		let temperatureDisplay = app.staticTexts["hourDetailCardTemperature"]
-		XCTAssertTrue(temperatureDisplay.exists, "Temperature display is not present.")
+		XCTAssertTrue(temperatureDisplay.waitForExistence(timeout: 4), "Temperature display is not present.")
 	}
 }

@@ -37,6 +37,7 @@ enum TestDataLoader {
 				store.hourlyWeather = weatherDataArray.map { HourlyWeather(from: $0) }
 			}
 		} catch {
+			//			this would be changed to a log statement if this was a production app
 			print("Error decoding test data: \(error)")
 		}
 	}
@@ -50,7 +51,6 @@ enum TestDataLoader {
 // clears test data only related to the user
 	static func disableUserTestData(userStore: UserStore) {
 		userStore.isTestDataEnabled = false
-		print("***** test data enabled =  \(userStore.isTestDataEnabled)")
 	}
 
 

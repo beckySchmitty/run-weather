@@ -30,7 +30,6 @@ class LocationStore: ObservableObject {
 	init(session: NetworkSession = URLSession.shared) {
 		self.session = session
 	}
-	
 	func fetchLocationKey(for zipCode: String) async throws -> String {
 		let urlString = "\(baseURL)search?apikey=\(apiKey)&q=\(zipCode)"
 		guard let url = URL(string: urlString) else {
@@ -42,16 +41,18 @@ class LocationStore: ObservableObject {
 			let locations = try JSONDecoder().decode([LocationModel].self, from: data)
 
 			guard let locationKey = locations.first?.key else {
-				// If the array is empty, throw locationNotFound error
+				// If the array is empty then the API does not have location data; throw locationNotFound error
 				throw LocationError.locationNotFound
 			}
 			return locationKey
+		} catch let error as URLError where error.code == .notConnectedToInternet {
+			// Throw networkUnavailable error when not connected to the Internet
+			throw LocationError.networkUnavailable
 		} catch {
+			// Handle other errors
 			throw error
-			}
+		}
 	}
-
-
 
 	// Helper function to map a DecodingError to a more descriptive NSError
 	private func mapDecodingError(_ error: DecodingError) -> NSError {

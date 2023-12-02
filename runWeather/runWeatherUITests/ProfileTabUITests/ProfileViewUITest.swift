@@ -27,6 +27,7 @@ final class ProfileViewUITest: XCTestCase {
 		let zipCodeTextField = app.textFields["Zip Code"]
 		XCTAssertTrue(zipCodeTextField.exists, "Zip code text field does not exist.")
 		zipCodeTextField.tap()
+		sleep(3)
 		zipCodeTextField.typeText("12345")
 		sleep(3)
 		XCTAssertEqual(zipCodeTextField.value as? String, "12345", "Zip code text field is not editable.")
@@ -34,11 +35,11 @@ final class ProfileViewUITest: XCTestCase {
 
 	func testToggleTestData() throws {
 		let testDataToggle = app.switches["testDataToggle"]
-		XCTAssertTrue(testDataToggle.exists, "Test data toggle does not exist.")
+		XCTAssertTrue(testDataToggle.waitForExistence(timeout: 10), "Test data toggle does not exist.")
 	}
 
 	func testSavePreferencesButtonExistsAndClickable() throws {
-		let savePreferencesButton = app.buttons["Save Preferences"]
+		let savePreferencesButton = app.buttons["Save"]
 		XCTAssertTrue(savePreferencesButton.exists, "Save Preferences button does not exist.")
 		savePreferencesButton.tap()
 	}

@@ -38,7 +38,7 @@ class UserStore: ObservableObject {
 				return preferences
 			}
 		} catch {
-			print("Error loading preferences: \(error)")
+			//			would add a log statement here for production app saying failed to load preferences
 		}
 		return Preferences()
 	}
@@ -55,10 +55,8 @@ class UserStore: ObservableObject {
 			let jsonData = try JSONEncoder().encode(user.preferences)
 			try jsonData.write(to: fileUrl, options: .atomicWrite)
 			currentError = nil
-			print("Saving preferences: \(user.preferences)")
 		} catch {
 			currentError = error
-			print("Error saving preferences: \(error)")
 		}
 	}
 }

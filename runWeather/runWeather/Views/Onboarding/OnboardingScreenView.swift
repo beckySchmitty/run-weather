@@ -11,14 +11,13 @@ struct OnboardingScreenView: View {
 	var screenData: OnboardingDataModel
 	@AppStorage("isOnboarding")
 	var isOnboarding = true
-//	var horizontalSizeClass: UserInterfaceSizeClass?
+	//	var horizontalSizeClass: UserInterfaceSizeClass?
 	@Environment(\.horizontalSizeClass)
 	var horizontalSizeClass
 	@Environment(\.verticalSizeClass)
 	var verticalSizeClass
 
 	var body: some View {
-		
 		ZStack {
 			//			portrait
 			if horizontalSizeClass == .compact && verticalSizeClass == .regular {
@@ -35,6 +34,7 @@ struct OnboardingScreenView: View {
 							.padding([.vertical], 20)
 							.padding([.horizontal], 4)
 						Text(screenData.description)
+							.font(.headline)
 							.foregroundColor(Color("OnboardingText"))
 							.multilineTextAlignment(.center)
 							.padding(.horizontal)
@@ -50,7 +50,6 @@ struct OnboardingScreenView: View {
 					.background(LinearGradient(gradient: Gradient(colors: screenData.gradientColors), startPoint: .top, endPoint: .bottom))
 					.cornerRadius(Constants.General.cornerRadiusClassic)
 					.padding()
-					
 				}
 				//				landscape
 			} else {
@@ -66,6 +65,7 @@ struct OnboardingScreenView: View {
 							.foregroundColor(Color("OnboardingText"))
 							.padding(.top, 20)
 						Text(screenData.description)
+							.font(.headline)
 							.foregroundColor(Color("OnboardingText"))
 							.multilineTextAlignment(.center)
 							.padding(.horizontal)
@@ -86,14 +86,15 @@ struct OnboardingScreenView: View {
 		}
 	}
 
-		struct PrimaryButtonStyle: ButtonStyle {
-			func makeBody(configuration: Self.Configuration) -> some View {
-				configuration.label
-					.padding()
-					.background(Color("OnboardingText"))
-					.foregroundColor(Color("OnboardingBlue"))
-					.clipShape(Capsule())
-					.padding()
-			}
+
+	struct PrimaryButtonStyle: ButtonStyle {
+		func makeBody(configuration: Self.Configuration) -> some View {
+			configuration.label
+				.padding()
+				.background(Color("OnboardingText"))
+				.foregroundColor(Color("OnboardingBlue"))
+				.clipShape(Capsule())
+				.padding()
 		}
 	}
+}

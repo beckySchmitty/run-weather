@@ -14,7 +14,7 @@ struct ProfileHeaderView: View {
 	var horizontalSizeClass
 	@Environment(\.verticalSizeClass)
 	var verticalSizeClass
-	
+
 	//	swiftlint:disable line_length
 	var body: some View {
 		HStack {
@@ -22,26 +22,26 @@ struct ProfileHeaderView: View {
 				Image("testDataUser")
 					.resizable()
 					.aspectRatio(contentMode: .fill)
-					.frame(width: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 80, height: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 80)
+					.frame(width: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 90, height: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 90)
 					.clipShape(Circle())
-					.overlay(Circle().stroke(Color("mainBlueText"), lineWidth: 4))
+					.overlay(Circle().stroke(Color("backgroundBlueOpposite"), lineWidth: 4))
 					.padding()
 			} else {
 				Image(systemName: "person.fill")
 					.resizable()
-					.foregroundColor(Color("mainBlueText"))
+					.foregroundColor(Color("backgroundBlueOpposite"))
 					.aspectRatio(contentMode: .fill)
-					.frame(width: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 80, height: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 80)
+					.frame(width: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 90, height: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 90)
 					.clipShape(Circle())
-					.overlay(Circle().stroke(Color("mainBlueText"), lineWidth: 4))
+					.overlay(Circle().stroke(Color("backgroundBlueOpposite"), lineWidth: 4))
 					.padding()
 			}
-			VStack{
+			VStack {
 				Text(userStore.isTestDataEnabled ? "Travis Kelce" : "New User")
 					.font(.title)
-					.foregroundColor(Color("mainBlueText"))
-				Text(userStore.zipCode.isEmpty ? "No ZIP Code" : userStore.zipCode)
-					.font(.caption)
+					.foregroundColor(Color("backgroundBlueOpposite"))
+				Text(userStore.zipCode.isEmpty ? " - " : userStore.zipCode)
+					.font(.headline)
 					.frame(width: 80, height: 30)
 					.background(Color("backgroundBlueOpposite"))
 					.foregroundColor(Color("backgroundBlue"))
