@@ -33,7 +33,7 @@ struct ProfilePreferencesView: View {
 					userStore.savePreferences()
 				}
 				.buttonStyle(.bordered)
-				.frame(maxWidth: .infinity, alignment: .center) // This line centers the button
+				.frame(maxWidth: .infinity, alignment: .center) 
 				Spacer()
 
 				.alert(isPresented: $showAlert) {

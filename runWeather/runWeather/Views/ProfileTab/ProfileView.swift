@@ -68,9 +68,9 @@ extension ProfileView {
 		//		swiftlint:disable indentation_width
 		/*
 		 asyncSubmit() is called once a user enters their ZIP Code. Here's the TLDR:
-		 First, verify it's a valid ZIP code.
+		 First, verify user input was a valid ZIP code.
 		 Then, call the third-party API to get the Location Key.
-		 Next, use Location Key to call the third-party API for the Hourly Weather
+		 Next, use Location Key to call the third-party API for the Hourly Weather.
 		 During all this, errors are handled and data is saved to UserStore, LocationStore, and HourlyWeatherStore.
 		 */
 		guard await verifyZipAndGetLocation(zipCode: inputZipCode) else {
