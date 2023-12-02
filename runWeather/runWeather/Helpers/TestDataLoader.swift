@@ -37,13 +37,23 @@ enum TestDataLoader {
 				store.hourlyWeather = weatherDataArray.map { HourlyWeather(from: $0) }
 			}
 		} catch {
+			//			this would be changed to a log statement if this was a production app
 			print("Error decoding test data: \(error)")
 		}
 	}
+
+//	clears all test data
 	static func emptyTestData(userStore: UserStore, store: HourlyWeatherStore) {
 		emptyUserDetails(userStore: userStore)
 		store.hourlyWeather = []
 	}
+
+// clears test data only related to the user
+	static func disableUserTestData(userStore: UserStore) {
+		userStore.isTestDataEnabled = false
+	}
+
+
 	static func setTestData(userStore: UserStore, store: HourlyWeatherStore) async {
 		setTestUserDetails(userStore: userStore)
 		await loadWeatherTestData(into: store)

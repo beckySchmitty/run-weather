@@ -1,11 +1,32 @@
 
 # RunWeather - iOS Capstone 
 
-The main purpose of this app is to meet the requirements of the [Kodeco Bootcamp Capstone](https://www.kodeco.com/home). 
+The main purpose of this app is to meet the requirements of my [Kodeco Bootcamp Capstone](https://www.kodeco.com/home). 
+
 # Introduction
 RunWeather is your essential iOS weather guide for runners, designed to help you find the ideal time to hit the pavement. Effortlessly check hourly forecasts, customize preferences for temperature and rain, and get clear visuals of upcoming weather conditions. Quick setup with ZIP code entry and intuitive controls means less time planning and more time running. RunWeather is all about making sure you have sunshine on your path and the wind at your back.
 
-# Requirements
+## Technology Stack
+
+RunWeather is built entirely using Apple’s latest programming language Swift, known for its performance and safety features. We leverage the power of SwiftUI, Apple’s modern UI toolkit, to create a seamless and responsive user interface that provides a native experience on iOS devices. This combination allows for a robust app architecture and efficient performance, ensuring a smooth and reliable user experience.
+
+Programming Language: Swift
+UI Toolkit: SwiftUI
+Networking: URLSession for API calls
+Data Persistence: UserDefaults, Files, and Keychain
+Concurrency: Swift Modern Concurrency with async/await
+Architecture: MVVM (Model-View-ViewModel)
+The app stands out by not relying on any third-party libraries, showcasing the capabilities of Swift and SwiftUI to handle complex tasks natively.
+
+## Dependencies
+
+To successfully run the application on your machine, you need to sign up for a free account as an AccuWeather Developer and get the API key. Create a new plist file called `ACCUWEATHER-info.plist` with 1 key and assign that value to `ACCUWEATHER_API_KEY`.
+
+
+For more information and to obtain your free tier API key, visit the [AccuWeather APIs](https://developer.accuweather.com/apis).
+
+
+## Requirements
 Graded pass/fail. 
 
 - [x]  We suggest using Xcode 14.3 or 14.3.1 and iOS 16.x, rather than Xcode 15 and iOS 17. You can use the latest versions if you like, but remember that the videos and other content you’re learning from may not reflect the newer versions.

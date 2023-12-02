@@ -44,7 +44,7 @@ class UserStoreTests: XCTestCase {
 
 		let newPreferences = Preferences(selectedTemperature: "10°F", selectedPrecipitation: "< 90%")
 		userStore.user.preferences = newPreferences
-		try userStore.savePreferences()
+		userStore.savePreferences()
 
 		// Act
 		let loadedPreferences = userStore.loadPreferences()

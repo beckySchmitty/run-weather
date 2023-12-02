@@ -144,25 +144,9 @@ class LocationStoreTests: XCTestCase {
 		// Act & Assert
 		do {
 			_ = try await locationStore.fetchLocationKey(for: "43233")
-			XCTFail("fetchLocationKey should have thrown an error for a bad server response")
+			XCTFail("fetchLocationKey should have thrown an error")
 		} catch {
 			XCTAssertTrue(true, "Error thrown as expected")
-		}
-	}
-
-	func testFetchLocationKeyWithServerError() async throws {
-		// Arrange
-		let statusCode = 500
-		//		swiftlint:disable:next line_length
-		let mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: statusCode, httpVersion: nil, headerFields: nil)!
-		mockSession.mockData = (Data(), mockResponse)
-
-		// Act & Assert
-		do {
-			_ = try await locationStore.fetchLocationKey(for: "43081")
-			print("fetchLocationKey did not throw an error when it was expected to for status code \(statusCode)")
-		} catch {
-			print("fetchLocationKey threw an error as expected: \(error)")
 		}
 	}
 }

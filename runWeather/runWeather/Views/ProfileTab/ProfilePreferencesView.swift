@@ -24,19 +24,23 @@ struct ProfilePreferencesView: View {
 						.font(.subheadline)
 				}
 				.padding()
-				TemperatureSelectView(selectedTemperature: $userStore.user.preferences.selectedTemperature)
-				PrecipitationSelectView(selectedPrecipitation: $userStore.user.preferences.selectedPrecipitation)
+				HStack {
+					TemperatureSelectView(selectedTemperature: $userStore.user.preferences.selectedTemperature)
+					PrecipitationSelectView(selectedPrecipitation: $userStore.user.preferences.selectedPrecipitation)
+				}
+				Spacer()
+				Button("Save") {
+					userStore.savePreferences()
+				}
+				.buttonStyle(.bordered)
+				.frame(maxWidth: .infinity, alignment: .center) // This line centers the button
+				Spacer()
+
+				.alert(isPresented: $showAlert) {
+					Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+				}
 			}
-			Spacer()
-			Button("Save Preferences") {
-				userStore.savePreferences()
-			}
-			.buttonStyle(.bordered)
-			.alert(isPresented: $showAlert) {
-				Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-			}
-			Spacer()
+			.padding()
 		}
-		.padding()
 	}
 }

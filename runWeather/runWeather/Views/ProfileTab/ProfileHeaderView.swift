@@ -17,34 +17,37 @@ struct ProfileHeaderView: View {
 
 	//	swiftlint:disable line_length
 	var body: some View {
-		VStack {
+		HStack {
 			if userStore.isTestDataEnabled {
 				Image("testDataUser")
 					.resizable()
 					.aspectRatio(contentMode: .fill)
-					.frame(width: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 60, height: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 80)
+					.frame(width: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 90, height: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 90)
 					.clipShape(Circle())
-					.overlay(Circle().stroke(Color("mainBlueText"), lineWidth: 4))
+					.overlay(Circle().stroke(Color("backgroundBlueOpposite"), lineWidth: 4))
 					.padding()
 			} else {
 				Image(systemName: "person.fill")
 					.resizable()
-					.foregroundColor(Color("mainBlueText"))
+					.foregroundColor(Color("backgroundBlueOpposite"))
 					.aspectRatio(contentMode: .fill)
-					.frame(width: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 80, height: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 80)
+					.frame(width: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 90, height: horizontalSizeClass == .compact && verticalSizeClass == .regular ? 100 : 90)
 					.clipShape(Circle())
-					.overlay(Circle().stroke(Color("mainBlueText"), lineWidth: 4))
+					.overlay(Circle().stroke(Color("backgroundBlueOpposite"), lineWidth: 4))
 					.padding()
 			}
-			Text(userStore.isTestDataEnabled ? "Travis Kelce" : "New User")
-				.font(.title)
-				.foregroundColor(Color("mainBlueText"))
-			Text("Zip Code: \(userStore.zipCode)")
-				.font(.subheadline)
-				.foregroundColor(Color("mainBlueText"))
-			Text("Location Key: \(userStore.locationKey)")
-				.font(.subheadline)
-				.foregroundColor(Color("mainBlueText"))
+			VStack {
+				Text(userStore.isTestDataEnabled ? "Travis Kelce" : "New User")
+					.font(.title)
+					.foregroundColor(Color("backgroundBlueOpposite"))
+				Text(userStore.zipCode.isEmpty ? " - " : userStore.zipCode)
+					.font(.headline)
+					.frame(width: 80, height: 30)
+					.background(Color("backgroundBlueOpposite"))
+					.foregroundColor(Color("backgroundBlue"))
+					.accentColor(Color("backgroundBlue"))
+					.cornerRadius(Constants.General.cornerRadiusClassic)
+			}
 		}
 		.padding()
 	}

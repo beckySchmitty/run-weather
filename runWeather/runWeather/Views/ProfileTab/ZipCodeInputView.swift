@@ -12,7 +12,7 @@ struct ZipCodeView: View {
 
 	var body: some View {
 		VStack {
-			Text("Enter Zip Code (US only)")
+			Text("Enter ZIP Code (US only)")
 				.font(.subheadline)
 			TextField("Zip Code", text: $inputZipCode)
 				.bold()

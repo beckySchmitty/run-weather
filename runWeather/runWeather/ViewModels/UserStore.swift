@@ -15,6 +15,7 @@ class UserStore: ObservableObject {
 	@Published var locationKey: String
 	@Published var localizedName: String
 	@Published var isTestDataEnabled: Bool
+	@Published var autoDisableTestData: Bool
 	@Published var currentError: Error?
 
 	init(user: UserModel = UserModel()) {
@@ -23,6 +24,7 @@ class UserStore: ObservableObject {
 		self.locationKey = user.locationKey
 		self.localizedName = user.localizedName
 		self.isTestDataEnabled = user.isTestDataEnabled
+		self.autoDisableTestData = user.autoDisableTestData
 		self.user.preferences = loadPreferences()
 	}
 
@@ -36,7 +38,7 @@ class UserStore: ObservableObject {
 				return preferences
 			}
 		} catch {
-			print("Error loading preferences: \(error)")
+			//			would add a log statement here for production app saying failed to load preferences
 		}
 		return Preferences()
 	}
@@ -53,10 +55,8 @@ class UserStore: ObservableObject {
 			let jsonData = try JSONEncoder().encode(user.preferences)
 			try jsonData.write(to: fileUrl, options: .atomicWrite)
 			currentError = nil
-			print("Saving preferences: \(user.preferences)")
 		} catch {
 			currentError = error
-			print("Error saving preferences: \(error)")
 		}
 	}
 }

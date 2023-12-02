@@ -12,5 +12,6 @@ struct UserModel {
 	var locationKey: String = ""
 	var localizedName: String = ""
 	var isTestDataEnabled = false
+	var autoDisableTestData = false
 	var preferences = Preferences()
 }
