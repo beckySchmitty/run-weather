@@ -33,12 +33,12 @@ struct ProfilePreferencesView: View {
 					userStore.savePreferences()
 				}
 				.buttonStyle(.bordered)
-				.frame(maxWidth: .infinity, alignment: .center) 
+				.frame(maxWidth: .infinity, alignment: .center)
 				Spacer()
 
-				.alert(isPresented: $showAlert) {
-					Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-				}
+					.alert(isPresented: $showAlert) {
+						Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+					}
 			}
 			.padding()
 		}
